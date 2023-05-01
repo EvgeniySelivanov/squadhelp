@@ -102,6 +102,13 @@ const OptionalSelects = props => {
         </>
       );
     }
+    default:{
+      return(
+        <>
+        <h3>Error,call admin this application</h3>
+        </>
+      )
+    }
   }
 };
 

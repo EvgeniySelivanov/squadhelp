@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Field, ErrorMessage } from 'formik';
+// import { Field, ErrorMessage } from 'formik';
 
 const SelectInput = ({
   header,
@@ -33,10 +33,11 @@ const SelectInput = ({
   };
 
   useLayoutEffect(() => {
+
     if (!initialValue && optionsArray) {
       setFieldValue(field.name, valueArray ? valueArray[0] : optionsArray[0]);
     }
-  }, []);
+  },);
 
   return (
     <div className={classes.inputContainer}>
@@ -48,31 +49,4 @@ const SelectInput = ({
   );
 };
 
-const SelectInputWrapper = ({
-  header,
-  classes,
-  optionsArray,
-  valueArray,
-  ...rest
-}) => (
-  <Field {...rest}>
-    {fieldProps => (
-      <>
-        <SelectInput
-          {...fieldProps}
-          header={header}
-          classes={classes}
-          optionsArray={optionsArray}
-          valueArray={valueArray}
-        />
-        <ErrorMessage
-          name={fieldProps.field.name}
-          component='span'
-          className={classes.warning}
-        />
-      </>
-    )}
-  </Field>
-);
-
-export default SelectInputWrapper;
+export default SelectInput;

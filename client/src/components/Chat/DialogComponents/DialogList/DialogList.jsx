@@ -49,7 +49,7 @@ const DialogList = (props) => {
       goToExpandedDialog,
       chatMode,
       removeChat,
-      interlocutor,
+     
     } = props;
     preview.forEach((chatPreview, index) => {
       const dialogNode = (
