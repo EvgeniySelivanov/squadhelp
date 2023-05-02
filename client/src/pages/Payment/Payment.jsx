@@ -4,8 +4,9 @@ import isEmpty from 'lodash/isEmpty';
 import { pay, clearPaymentStore } from '../../store/slices/paymentSlice';
 import PayForm from '../../components/PayForm/PayForm';
 import styles from './Payment.module.sass';
-import CONSTANTS from '../../constants';
+
 import Error from '../../components/Error/Error';
+import Logo from '../../components/Logo';
 
 const Payment = (props) => {
   const pay = (values) => {
@@ -46,10 +47,7 @@ const Payment = (props) => {
   return (
     <div>
       <div className={styles.header}>
-        <img
-          src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
-          alt="blue-logo"
-        />
+        <Logo />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.paymentContainer}>
