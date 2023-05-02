@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { nanoid } from 'nanoid';
 import {
   getContests,
   clearContestsList,
@@ -49,7 +50,7 @@ class CustomerDashboard extends React.Component {
       array.push(
         <ContestBox
           data={contests[i]}
-          key={contests[i].id}
+          key={nanoid()}
           goToExtended={this.goToExtended}
         />
       );

@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
+import { nanoid } from 'nanoid';
+
 import isEqual from 'lodash/isEqual';
 import {
   getContests,
@@ -35,7 +37,7 @@ class CreatorDashboard extends React.Component {
       (el, i) =>
         !i ||
         array.push(
-          <option key={i - 1} value={el}>
+          <option key={nanoid()} value={el}>
             {el}
           </option>
         )
@@ -63,7 +65,7 @@ class CreatorDashboard extends React.Component {
     const { industry } = this.props.dataForContest.data;
     
     array.push(
-      <option key={0} value={null}>
+      <option key={nanoid()} value={null}>
         Choose industry
       </option>
     );
@@ -71,7 +73,7 @@ class CreatorDashboard extends React.Component {
     
       industry.forEach((industry, i) =>
       array.push(
-        <option key={i + 1} value={industry}>
+        <option key={nanoid()} value={industry}>
           {industry}
         </option>
       )
@@ -182,7 +184,7 @@ class CreatorDashboard extends React.Component {
       array.push(
         <ContestBox
           data={contests[i]}
-          key={contests[i].id}
+          key={nanoid()}
           goToExtended={this.goToExtended}
         />
       );
