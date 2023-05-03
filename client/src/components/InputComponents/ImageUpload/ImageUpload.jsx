@@ -8,11 +8,13 @@ const ImageUpload = props => {
   const onChange = e => {
     const node = window.document.getElementById('imagePreview');
     const file = e.target.files[0];
-    const imageType = /image.*/;
-    if (!file.type.match(imageType)) {
+    const imageType = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|JPG|JPEG|PNG)$/)
+    if (!imageType.test(file.type)) {
+      console.log('only images!!!');
       e.target.value = '';
     } else {
-      field.onChange(file);
+      console.log('it work!');
+      field.onChange(file.name);
       const reader = new FileReader();
       reader.onload = () => {
         node.src = reader.result;

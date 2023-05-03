@@ -48,7 +48,7 @@ class ContestForm extends React.Component {
         this.props.getData({ characteristic1: 'brandStyle' });
         break;
       }
-      default :{
+      default: {
         console.log('Erorr!, fix component ContestForm');
       }
     }
@@ -142,8 +142,8 @@ class ContestForm extends React.Component {
                 />
               </div>
               <OptionalSelects {...this.props} />
+
               <FieldFileInput
-                name="file"
                 classes={{
                   fileUploadContainer: styles.fileUploadContainer,
                   labelClass: styles.label,
@@ -151,8 +151,10 @@ class ContestForm extends React.Component {
                   fileInput: styles.fileInput,
                   warning: styles.warning,
                 }}
+                name="file"
                 type="file"
               />
+
               {this.props.isEditContest ? (
                 <button type="submit" className={styles.changeData}>
                   Set Data
