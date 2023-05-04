@@ -19,6 +19,7 @@ const ImageUpload = ({ name, label, classes, ...rest }) => (
           e.target.value = '';
         }
         else {
+          formikProps.field.onChange(file.type);
           formikProps.form.setFieldValue('file',file);
           const reader = new FileReader();
           reader.onload = () => { imagePreview.src = reader.result };
@@ -42,7 +43,9 @@ const ImageUpload = ({ name, label, classes, ...rest }) => (
           </div>
           <img
             id='imagePreview'
-            className={classNames({ [imgStyle]: !field.value })}
+            // className={classNames({ [imgStyle]: !field.value })}
+            className={imgStyle}
+
             alt='user'
           />
         </div>

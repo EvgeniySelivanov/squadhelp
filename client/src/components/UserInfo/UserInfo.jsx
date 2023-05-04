@@ -10,7 +10,7 @@ const UserInfo = (props) => {
   const updateUserData = (values) => {
     console.log(values.file.name);
     const formData = new FormData();
-    formData.append('file', values.file.name);
+    formData.append('file', values.file);
     formData.append('firstName', values.firstName);
     formData.append('lastName', values.lastName);
     formData.append('displayName', values.displayName);
