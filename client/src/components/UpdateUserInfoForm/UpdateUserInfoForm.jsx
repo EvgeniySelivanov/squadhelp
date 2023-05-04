@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import { Form, Formik} from 'formik';
 import { connect } from 'react-redux';
 import { clearUserError } from '../../store/slices/userSlice';
 import styles from './UpdateUserInfoForm.module.sass';
@@ -9,13 +9,15 @@ import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
 
 const UpdateUserInfoForm = props => {
-  const { onSubmit, submitting, error, clearUserError,initialValues } = props;
+  const { onSubmit, submitting, error, clearUserError, initialValues } = props;
+
   return (
     <Formik
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={Schems.UpdateUserSchema}
     >
+
       <Form className={styles.updateContainer}>
         {error && (
           <Error
@@ -66,8 +68,11 @@ const UpdateUserInfoForm = props => {
             }}
           />
         </div>
+
         <ImageUpload
-          name='file'
+        name='file'
+        type='file'
+        label='upload'
           classes={{
             uploadContainer: styles.imageUploadContainer,
             inputContainer: styles.uploadInputContainer,
