@@ -16,7 +16,7 @@ router.post(
   userController.registration,
 );
 
-router.get(
+router.post(
   '/login',
   validators.validateLogin,
   userController.login,
