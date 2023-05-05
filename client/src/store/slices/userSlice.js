@@ -34,9 +34,11 @@ export const getUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   `${USER_SLICE_NAME}/updateUser`,
   async (payload, { rejectWithValue, dispatch }) => {
+    console.log('slice data >>>>> ' ,payload);
     try {
       const { data } = await restController.updateUser(payload);
       dispatch(changeEditModeOnUserProfile(false));
+      
       return data;
     } catch (err) {
       return rejectWithValue({
@@ -70,6 +72,7 @@ const extraReducers = builder => {
   builder.addCase(getUser.rejected, rejectedReducer);
 
   builder.addCase(updateUser.fulfilled, (state, { payload }) => {
+    console.log('extrareducer>>> ',payload);
     state.data = { ...state.data, ...payload };
     state.error = null;
   });

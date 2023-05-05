@@ -1,15 +1,15 @@
 import React from 'react';
-// import classNames from 'classnames';
-import {Field } from 'formik';
+import { connect } from 'react-redux';
+import { Field } from 'formik';
+import CONSTANTS from '../../../constants';
 
-
-const ImageUpload = ({ name, label, classes, ...rest }) => (
+const ImageUpload = ({ name, label, classes, data, ...rest }) => (
   <Field name={name}>
     {(formikProps) => {
-      console.log(formikProps);
       const { field } = formikProps;
       const { uploadContainer, inputContainer, imgStyle } = classes;
-    
+      const { avatar } = data;
+      console.log(avatar);
       const handlerChange = e => {
         const imagePreview = window.document.getElementById('imagePreview');
         const file = e.target.files[0];
@@ -20,11 +20,11 @@ const ImageUpload = ({ name, label, classes, ...rest }) => (
         }
         else {
           formikProps.field.onChange(file.type);
-          formikProps.form.setFieldValue('file',file);
+          formikProps.form.setFieldValue('file', file);
           const reader = new FileReader();
           reader.onload = () => { imagePreview.src = reader.result };
           reader.readAsDataURL(file);
-        }
+                  }
       };
       return (
         <div className={uploadContainer}>
@@ -42,6 +42,11 @@ const ImageUpload = ({ name, label, classes, ...rest }) => (
             <label htmlFor='fileInput'>Chose file</label>
           </div>
           <img
+          src={
+            avatar === 'anon.png'
+              ? CONSTANTS.ANONYM_IMAGE_PATH
+              : `${CONSTANTS.publicURL}${avatar}`
+          }
             id='imagePreview'
             // className={classNames({ [imgStyle]: !field.value })}
             className={imgStyle}
@@ -53,5 +58,8 @@ const ImageUpload = ({ name, label, classes, ...rest }) => (
     }}
   </Field>
 );
-
-export default ImageUpload;
+const mapStateToProps = (state) => {
+  const { data } = state.userStore;
+  return { data };
+};
+export default connect(mapStateToProps)(ImageUpload);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import UpdateUserInfoForm from '../UpdateUserInfoForm/UpdateUserInfoForm';
 import { updateUser } from '../../store/slices/userSlice';
 import { changeEditModeOnUserProfile } from '../../store/slices/userProfileSlice';
@@ -7,19 +8,20 @@ import CONSTANTS from '../../constants';
 import styles from './UserInfo.module.sass';
 
 const UserInfo = (props) => {
+  // console.log(props);
   const updateUserData = (values) => {
-    console.log(values.file.name);
+   
     const formData = new FormData();
     formData.append('file', values.file);
     formData.append('firstName', values.firstName);
     formData.append('lastName', values.lastName);
     formData.append('displayName', values.displayName);
-    props.updateUser(formData);
+    
+   return props.updateUser(formData);
   };
 
   const { isEdit, changeEditMode, data } = props;
-  const { avatar, firstName, lastName, displayName, email, role, balance } =
-    data;
+  const { avatar, firstName, lastName, displayName, email, role, balance } =data;
   return (
     <div className={styles.mainContainer}>
       {isEdit ? (
@@ -76,6 +78,7 @@ const UserInfo = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  // console.log('state>>>> ',state);
   const { data } = state.userStore;
   const { isEdit } = state.userProfile;
   return { data, isEdit };
@@ -83,6 +86,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   updateUser: (data) => dispatch(updateUser(data)),
+  // updateUser: bindActionCreators(updateUser, dispatch),
+
   changeEditMode: (data) => dispatch(changeEditModeOnUserProfile(data)),
 });
 

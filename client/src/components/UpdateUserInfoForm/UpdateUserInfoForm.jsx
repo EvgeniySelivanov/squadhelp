@@ -89,12 +89,14 @@ const UpdateUserInfoForm = props => {
 
 const mapStateToProps = state => {
   const { data, error } = state.userStore;
+  console.log(state.userStore);
   return {
     error,
     initialValues: {
       firstName: data.firstName,
       lastName: data.lastName,
       displayName: data.displayName,
+      // avatar:'222'
     },
   };
 };

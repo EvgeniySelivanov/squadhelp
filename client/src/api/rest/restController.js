@@ -6,15 +6,21 @@ export const getUser = () => http.get('getUser');
 export const updateContest = data => http.patch('updateContest', data);
 export const setNewOffer = data => http.post('setNewOffer', data);
 export const setOfferStatus = data => http.patch('setOfferStatus', data);
-export const downloadContestFile = data =>
-  http.post(`downloadFile/${data.fileName}`);
+export const downloadContestFile = data =>http.post(`downloadFile/${data.fileName}`);
 export const payMent = data => http.patch('pay', data.formData);
 export const changeMark = data => http.patch('changeMark', data);
 export const getPreviewChat = () => http.get('getPreview');
 export const getDialog = data => http.get('getChat', data);
 export const dataForContest = data => http.patch('dataForContest', data);
 export const cashOut = data => http.patch('cashout', data);
-export const updateUser = data => http.patch('updateUser', data);
+
+
+export const updateUser = (data) => {
+  console.log('data in api ',data);
+return  http.patch('updateUser', data,{headers:{'Content-Type':'multipart/form-data'}});
+}
+
+
 export const newMessage = data => http.post('newMessage', data);
 export const changeChatFavorite = data => http.patch('favorite', data);
 export const changeChatBlock = data => http.patch('blackList', data);
