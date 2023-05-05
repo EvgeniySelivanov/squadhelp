@@ -1,31 +1,24 @@
-const express = require('express');
+const { Router } = require('express');
+const userRouter = require('./userRouter');
+
 const basicMiddlewares = require('../middlewares/basicMiddlewares');
 const hashPass = require('../middlewares/hashPassMiddle');
-const userController = require('../controllers/userController');
+
 const contestController = require('../controllers/contestController');
 const checkToken = require('../middlewares/checkToken');
 const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
-const router = express.Router();
 
-router.post(
-  '/registration',
-  validators.validateRegistrationData,
-  hashPass,
-  userController.registration,
-);
+const router = Router();
+router.use('/', userRouter);
 
-router.post(
-  '/login',
-  validators.validateLogin,
-  userController.login,
-);
 
-router.get(
-  '/getUser',
-  checkToken.checkAuth,
-);
+
+
+
+
+
 
 router.patch(
   '/updateContest',
@@ -52,21 +45,8 @@ router.post(
   contestController.downloadFile,
 );
 
-router.patch(
-  '/pay',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCustomer,
-  upload.uploadContestFiles,
-  basicMiddlewares.parseBody,
-  validators.validateContestCreation,
-  userController.payment,
-);
-router.patch(
-  '/changeMark',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCustomer,
-  userController.changeMark,
-);
+
+
 
 router.get(
   '/getPreview',
@@ -83,18 +63,8 @@ router.patch(
   checkToken.checkToken,
   contestController.dataForContest,
 );
-router.patch(
-  '/cashout',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCreative,
-  userController.cashout,
-);
-router.patch(
-  '/updateUser',
-  checkToken.checkToken,
-  upload.uploadAvatar,
-  userController.updateUser,
-);
+
+
 router.post(
   '/newMessage',
   checkToken.checkToken,
