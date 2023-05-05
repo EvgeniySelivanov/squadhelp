@@ -1,21 +1,14 @@
-const express = require('express');
-const basicMiddlewares = require('../middlewares/basicMiddlewares');
-const hashPass = require('../middlewares/hashPassMiddle');
-const userController = require('../controllers/userController');
-const contestController = require('../controllers/contestController');
-const checkToken = require('../middlewares/checkToken');
-const validators = require('../middlewares/validators');
-const chatController = require('../controllers/chatController');
-const upload = require('../utils/fileUpload');
-const router = express.Router();
+const { Router } = require('express');
+const userRouter = require('./userRouter');
+const contestRouter = require('./contestRouter');
+const chatRouter = require('./contestRouter');
 
-router.post(
-  '/registration',
-  validators.validateRegistrationData,
-  hashPass,
-  userController.registration,
-);
+const router = Router();
+router.use('/', userRouter);
+router.use('/', contestRouter);
+router.use('/', chatRouter);
 
+<<<<<<< HEAD
 router.post(
   '/login',
   validators.validateLogin,
@@ -158,5 +151,7 @@ router.get(
   basicMiddlewares.canGetContest,
   contestController.getContestById,
 );
+=======
+>>>>>>> task-3
 
 module.exports = router;
