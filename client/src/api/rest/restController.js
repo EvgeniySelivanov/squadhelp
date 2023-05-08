@@ -1,4 +1,6 @@
 import http from '../interceptor';
+import qs from 'query-string';
+
 
 export const registerRequest = data => http.post('registration', data);
 export const loginRequest = data => http.post('login', data);
@@ -24,11 +26,14 @@ export const createCatalog = data => http.post('createCatalog', data);
 export const deleteCatalog = data => http.delete('deleteCatalog', data);
 export const removeChatFromCatalog = data =>
   http.patch('removeChatFromCatalog', data);
+  
 export const changeCatalogName = data => http.patch('updateNameCatalog', data);
+
+
+
 export const getCustomersContests = data =>
   http.get(
-    'getCustomersContests',
-    { limit: data.limit, offset: data.offset },
+    `getCustomersContests?${qs.stringify({ limit: data.limit, offset: data.offset })}`,   
     {
       headers: {
         status: data.contestStatus,
@@ -44,16 +49,19 @@ export const getActiveContests = ({
   industry,
   awardSort,
   ownEntries,
-}) =>
-  http.get('getAllContests', {
-    offset,
-    limit,
-    typeIndex,
-    contestId,
-    industry,
-    awardSort,
-    ownEntries,
-  });
+}) =>{
+  const options= {
+  offset,
+  limit,
+  typeIndex,
+  contestId,
+  industry,
+  awardSort,
+  ownEntries,
+}
+  http.get(`getAllContests?${qs.stringify(options)}`)
+}
+;
 
 export const getContestById = data =>
   http.get('getContestById', {
