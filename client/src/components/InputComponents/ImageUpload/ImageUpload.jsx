@@ -48,9 +48,7 @@ const ImageUpload = ({ name, label, classes, data, ...rest }) => (
               : `${CONSTANTS.publicURL}${avatar}`
           }
             id='imagePreview'
-            // className={classNames({ [imgStyle]: !field.value })}
             className={imgStyle}
-
             alt='user'
           />
         </div>

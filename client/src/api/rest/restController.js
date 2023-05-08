@@ -32,7 +32,7 @@ export const removeChatFromCatalog = data =>
   http.patch('removeChatFromCatalog', data);
 export const changeCatalogName = data => http.patch('updateNameCatalog', data);
 export const getCustomersContests = data =>
-  http.get(
+  http.post(
     'getCustomersContests',
     { limit: data.limit, offset: data.offset },
     {
@@ -51,7 +51,7 @@ export const getActiveContests = ({
   awardSort,
   ownEntries,
 }) =>
-  http.get('getAllContests', {
+  http.post('getAllContests', {
     offset,
     limit,
     typeIndex,
