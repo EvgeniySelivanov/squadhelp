@@ -39,12 +39,12 @@ contestRouter.patch(
   contestController.dataForContest,
 );
 
-contestRouter.post(
+contestRouter.get(
   '/getCustomersContests',
   checkToken.checkToken,
   contestController.getCustomersContests,
 );
-contestRouter.post(
+contestRouter.get(
   '/getAllContests',
   checkToken.checkToken,
   basicMiddlewares.onlyForCreative,
