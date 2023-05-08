@@ -12,7 +12,11 @@ export const downloadContestFile = data =>http.post(`downloadFile/${data.fileNam
 export const payMent = data => http.patch('pay', data.formData);
 export const changeMark = data => http.patch('changeMark', data);
 export const getPreviewChat = () => http.get('getPreview');
-export const getDialog = data => http.get('getChat', data);
+console.log('conter run');
+
+export const getDialog = data => http.get(`getChat?${qs.stringify({interlocutorId:data.interlocutorId})}`);
+
+  
 export const dataForContest = data => http.patch('dataForContest', data);
 export const cashOut = data => http.patch('cashout', data);
 

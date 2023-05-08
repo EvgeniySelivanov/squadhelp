@@ -10,10 +10,12 @@ import styles from './ChatHeader.module.sass';
 import CONSTANTS from '../../../../constants';
 
 const ChatHeader = (props) => {
+  const { interlocutor: { avatar, firstName }, backToDialogList, chatData, userId } = props;
   const changeFavorite = (data, event) => {
     props.changeChatFavorite(data);
     event.stopPropagation();
   };
+
 
   const changeBlackList = (data, event) => {
     props.changeChatBlock(data);
@@ -28,10 +30,8 @@ const ChatHeader = (props) => {
   const isBlocked = (chatData, userId) => {
     const { participants, blackList } = chatData;
     return blackList[participants.indexOf(userId)];
-  };
+  }
 
-  const { avatar, firstName } = props.interlocutor;
-  const { backToDialogList, chatData, userId } = props;
   return (
     <div className={styles.chatHeader}>
       <div

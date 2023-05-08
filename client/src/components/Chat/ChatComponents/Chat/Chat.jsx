@@ -22,11 +22,11 @@ class Chat extends React.Component {
   componentDidMount() {
     chatController.subscribeChat(this.props.userStore.data.id);
     this.props.getPreviewChat();
-  }
+  };
 
   componentWillUnmount() {
     chatController.unsubscribeChat(this.props.userStore.data.id);
-  }
+  };
 
   renderDialogList = () => {
     const { setChatPreviewMode } = this.props;

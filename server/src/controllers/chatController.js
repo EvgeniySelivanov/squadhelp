@@ -29,7 +29,7 @@ module.exports.addMessage = async (req, res, next) => {
     await message.save();
     message._doc.participants = participants;
     const interlocutorId = participants.filter(
-      (participant) => participant !== req.tokenData.userId)[ 0 ];
+      (participant) => participant !== req.tokenData.userId)[0];
     const preview = {
       _id: newConversation._id,
       sender: req.tokenData.userId,
@@ -69,7 +69,9 @@ module.exports.addMessage = async (req, res, next) => {
 };
 
 module.exports.getChat = async (req, res, next) => {
-  const participants = [req.tokenData.userId, req.body.interlocutorId];
+  const { query: { interlocutorId } } = req;
+  const id = Number(interlocutorId);
+  const participants = [req.tokenData.userId, id];
   participants.sort(
     (participant1, participant2) => participant1 - participant2);
   try {
@@ -96,8 +98,8 @@ module.exports.getChat = async (req, res, next) => {
       },
     ]);
 
-    const interlocutor = await userQueries.findUser(
-      { id: req.body.interlocutorId });
+    const interlocutor = await userQueries.findUser({ id });
+    // console.log('>>>>>>>>>>>>> interlocutor', interlocutor);
     res.send({
       messages,
       interlocutor: {
@@ -185,10 +187,10 @@ module.exports.blackList = async (req, res, next) => {
   try {
     const chat = await Conversation.findOneAndUpdate(
       { participants: req.body.participants },
-      { $set: { [ predicate ]: req.body.blackListFlag } }, { new: true });
+      { $set: { [predicate]: req.body.blackListFlag } }, { new: true });
     res.send(chat);
     const interlocutorId = req.body.participants.filter(
-      (participant) => participant !== req.tokenData.userId)[ 0 ];
+      (participant) => participant !== req.tokenData.userId)[0];
     controller.getChatController().emitChangeBlockStatus(interlocutorId, chat);
   } catch (err) {
     res.send(err);
@@ -201,7 +203,7 @@ module.exports.favoriteChat = async (req, res, next) => {
   try {
     const chat = await Conversation.findOneAndUpdate(
       { participants: req.body.participants },
-      { $set: { [ predicate ]: req.body.favoriteFlag } }, { new: true });
+      { $set: { [predicate]: req.body.favoriteFlag } }, { new: true });
     res.send(chat);
   } catch (err) {
     res.send(err);
@@ -209,7 +211,6 @@ module.exports.favoriteChat = async (req, res, next) => {
 };
 
 module.exports.createCatalog = async (req, res, next) => {
-  console.log(req.body);
   const catalog = new Catalog({
     userId: req.tokenData.userId,
     catalogName: req.body.catalogName,

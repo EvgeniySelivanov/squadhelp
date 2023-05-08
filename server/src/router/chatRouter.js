@@ -60,7 +60,5 @@ chatRouter.patch(
   chatController.updateNameCatalog,
 );
 
-
-
 module.exports = chatRouter;
 
