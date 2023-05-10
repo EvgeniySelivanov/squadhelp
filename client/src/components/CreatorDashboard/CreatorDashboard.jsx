@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
 import { nanoid } from 'nanoid';
-
 import isEqual from 'lodash/isEqual';
 import {
   getContests,
@@ -30,6 +29,16 @@ const types = [
 ];
 
 class CreatorDashboard extends React.Component {
+
+  componentDidMount() {
+        this.props.getDataForContest();
+       if (
+      this.parseUrlForParams(this.props.location.search) &&
+      !this.props.contests.length
+    )
+    this.getContests(this.props.creatorFilter);
+  }
+
   renderSelectType = () => {
     const array = [];
     const { creatorFilter } = this.props;
@@ -57,29 +66,23 @@ class CreatorDashboard extends React.Component {
       </select>
     );
   };
-
+  
   renderIndustryType = () => {
     const array = [];
     const { creatorFilter } = this.props;
-    
     const { industry } = this.props.dataForContest.data;
-    
     array.push(
       <option key={nanoid()} value={null}>
         Choose industry
       </option>
     );
-
-    
-      industry.forEach((industry, i) =>
+    industry.forEach((industry) =>
       array.push(
         <option key={nanoid()} value={industry}>
           {industry}
         </option>
       )
     );
-
-
     return (
       <select
         onChange={({ target }) =>
@@ -100,15 +103,6 @@ class CreatorDashboard extends React.Component {
     if (nextProps.location.search !== this.props.location.search) {
       this.parseUrlForParams(nextProps.location.search);
     }
-  }
-
-  componentDidMount() {
-    this.props.getDataForContest();
-    if (
-      this.parseUrlForParams(this.props.location.search) &&
-      !this.props.contests.length
-    )
-      this.getContests(this.props.creatorFilter);
   }
 
   getContests = (filter) => {
@@ -198,7 +192,7 @@ class CreatorDashboard extends React.Component {
 
   tryLoadAgain = () => {
     this.props.clearContestsList();
-    this.props.getContests({
+    this.getContests({
       limit: 8,
       offset: 0,
       ...this.getPredicateOfRequest(),
@@ -268,7 +262,7 @@ class CreatorDashboard extends React.Component {
               </select>
             </div>
           </div>
-        </div>
+        </div>     
         {error ? (
           <div className={styles.messageContainer}>
             <TryAgain getData={this.tryLoadAgain} />
@@ -295,10 +289,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getContests: (data) =>
-    dispatch(getContests({ requestData: data, role: CONSTANTS.CREATOR })),
+  dispatch(getContests({ requestData: data, role: CONSTANTS.CREATOR })),
   clearContestsList: () => dispatch(clearContestsList()),
   newFilter: (filter) => dispatch(setNewCreatorFilter(filter)),
-  getDataForContest: () => dispatch(getDataForContest()),
+  getDataForContest: () => dispatch(getDataForContest({
+    characteristic1: 'nameStyle',
+    characteristic2: 'typeOfName',
+  })),
 });
 
 export default withRouter(

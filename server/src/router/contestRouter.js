@@ -33,7 +33,7 @@ contestRouter.post(
   checkToken.checkToken,
   contestController.downloadFile,
 );
-contestRouter.patch(
+contestRouter.get(
   '/dataForContest',
   checkToken.checkToken,
   contestController.dataForContest,

@@ -1,4 +1,4 @@
-const bd = require('../models');
+const db = require('../models');
 const CONSTANTS = require('../constants');
 
 module.exports.createWhereForAllContests = (
@@ -21,7 +21,7 @@ module.exports.createWhereForAllContests = (
   }
   Object.assign(object.where, {
     status: {
-      [ bd.Sequelize.Op.or ]: [
+      [db.Sequelize.Op.or]: [
         CONSTANTS.CONTEST_STATUS_FINISHED,
         CONSTANTS.CONTEST_STATUS_ACTIVE,
       ],
@@ -31,8 +31,8 @@ module.exports.createWhereForAllContests = (
   return object;
 };
 
-function getPredicateTypes (index) {
-  return { [ bd.Sequelize.Op.or ]: [types[ index ].split(',')] };
+function getPredicateTypes(index) {
+  return { [db.Sequelize.Op.or]: [types[index].split(',')] };
 }
 
 const types = [
