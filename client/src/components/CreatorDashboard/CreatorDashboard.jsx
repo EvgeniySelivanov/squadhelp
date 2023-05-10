@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
 import { nanoid } from 'nanoid';
-
 import isEqual from 'lodash/isEqual';
 import {
   getContests,
@@ -61,17 +60,17 @@ class CreatorDashboard extends React.Component {
   renderIndustryType = () => {
     const array = [];
     const { creatorFilter } = this.props;
-    
+
     const { industry } = this.props.dataForContest.data;
-    
+
     array.push(
       <option key={nanoid()} value={null}>
         Choose industry
       </option>
     );
 
-    
-      industry.forEach((industry, i) =>
+
+    industry.forEach((industry, i) =>
       array.push(
         <option key={nanoid()} value={industry}>
           {industry}
@@ -108,7 +107,7 @@ class CreatorDashboard extends React.Component {
       this.parseUrlForParams(this.props.location.search) &&
       !this.props.contests.length
     )
-      this.getContests(this.props.creatorFilter);
+    this.getContests(this.props.creatorFilter);
   }
 
   getContests = (filter) => {
@@ -195,10 +194,12 @@ class CreatorDashboard extends React.Component {
   goToExtended = (contestId) => {
     this.props.history.push(`/contest/${contestId}`);
   };
-
+  componentWillUnmount () {
+    this.props.clearContestsList();
+  }
   tryLoadAgain = () => {
     this.props.clearContestsList();
-    this.props.getContests({
+    this.getContests({
       limit: 8,
       offset: 0,
       ...this.getPredicateOfRequest(),
@@ -268,7 +269,7 @@ class CreatorDashboard extends React.Component {
               </select>
             </div>
           </div>
-        </div>
+        </div>     
         {error ? (
           <div className={styles.messageContainer}>
             <TryAgain getData={this.tryLoadAgain} />
@@ -295,7 +296,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getContests: (data) =>
-    dispatch(getContests({ requestData: data, role: CONSTANTS.CREATOR })),
+    dispatch(
+      getContests({ requestData: data, role: CONSTANTS.CREATOR })),
   clearContestsList: () => dispatch(clearContestsList()),
   newFilter: (filter) => dispatch(setNewCreatorFilter(filter)),
   getDataForContest: () => dispatch(getDataForContest()),
