@@ -6,7 +6,7 @@ const DATA_FOR_CONTEST_SLICE_NAME = 'dataForContest';
 
 const initialState = {
   isFetching: true,
-  data: null,
+  data: [],
   error: null,
 };
 

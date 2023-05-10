@@ -27,9 +27,7 @@ const types = [
   'logo,tagline',
   'name,logo',
 ];
-
 class CreatorDashboard extends React.Component {
-
   componentDidMount() {
         this.props.getDataForContest();
        if (
@@ -189,7 +187,9 @@ class CreatorDashboard extends React.Component {
   goToExtended = (contestId) => {
     this.props.history.push(`/contest/${contestId}`);
   };
-
+  componentWillUnmount () {
+    this.props.clearContestsList();
+  }
   tryLoadAgain = () => {
     this.props.clearContestsList();
     this.getContests({
