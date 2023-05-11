@@ -29,6 +29,7 @@ const UserProfile = (props) => {
     error,
     clearPaymentStore,
   } = props;
+  console.log(role);
   return (
     <div>
       <Header />
@@ -75,7 +76,7 @@ const UserProfile = (props) => {
                     clearError={clearPaymentStore}
                   />
                 )}
-                <PayForm sendRequest={pay} />
+                <PayForm sendRequest={pay} role={role}/>
               </div>
             )}
           </div>

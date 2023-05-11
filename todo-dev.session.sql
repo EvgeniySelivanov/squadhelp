@@ -1,0 +1,3 @@
+
+
+DELETE FROM Banks WHERE cardNumber="5111111111111111";

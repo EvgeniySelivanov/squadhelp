@@ -1,6 +1,21 @@
 import * as yup from 'yup';
 import valid from 'card-validator';
-const validationSchems= {
+
+valid.creditCardType.addCard({
+  niceType: "NewCard",
+  type: "new-card",
+  patterns: [1234],
+  gaps: [4, 8, 12],
+  lengths: [16],
+  code: {
+    name: "CVV",
+    size: 3,
+  },
+});
+
+console.log(valid.creditCardType);
+
+const validationSchems = {
   LoginSchem: yup.object().shape({
     email: yup
       .string()
@@ -148,11 +163,15 @@ const validationSchems= {
       .required('required'),
   }),
   CashoutSchema: yup.object().shape({
-    sum: yup
+    name: yup
+      .string()
+      .min(1,'required atleast one symbol')
+      .required('required'),
+      sum: yup
       .number()
       .min(5, 'min sum is 5$')
       .required('required'),
-    number: yup
+      number: yup
       .string()
       .test(
         'test-cardNumber',
@@ -160,15 +179,7 @@ const validationSchems= {
         value => valid.number(value).isValid
       )
       .required('required'),
-    name: yup
-      .string()
-      .min(1)
-      .required('required'),
-    cvc: yup
-      .string()
-      .test('test-cvc', 'cvc is invalid', value => valid.cvv(value).isValid)
-      .required('required'),
-    expiry: yup
+      expiry: yup
       .string()
       .test(
         'test-expiry',
@@ -176,6 +187,11 @@ const validationSchems= {
         value => valid.expirationDate(value).isValid
       )
       .required('required'),
+      cvc: yup
+      .string()
+      .test('test-cvc', 'cvc is invalid', value => valid.cvv(value).isValid)
+      .required('required'),
+   
   }),
   UpdateUserSchema: yup.object().shape({
     firstName: yup

@@ -19,7 +19,6 @@ userRouter.post(
   validators.validateLogin,
   userController.login,
 );
-
 userRouter.get(
   '/getUser',
   checkToken.checkAuth,
@@ -51,4 +50,5 @@ userRouter.patch(
   upload.uploadAvatar,
   userController.updateUser,
 );
+
 module.exports = userRouter;

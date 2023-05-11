@@ -6,18 +6,30 @@ import { connect } from 'react-redux';
 import styles from './PayForm.module.sass';
 import { changeFocusOnCard } from '../../store/slices/paymentSlice';
 import PayInput from '../InputComponents/PayInput/PayInput';
+import CONSTANTS from '../../constants';
 import Schems from '../../utils/validators/validationSchems';
 
 const PayForm = (props) => {
+  const { role } = props;
+  let schemaVal = {};
+
+  if(role===CONSTANTS.CUSTOMER){
+    schemaVal=Schems.PaymentSchema;
+  }else{
+    if(role===CONSTANTS.CREATOR){
+      schemaVal=Schems.CashoutSchema;
+    }else{console.log('Who are you');}
+  }
+  console.log(schemaVal);
   const changeFocusOnCard = (name) => {
     props.changeFocusOnCard(name);
   };
-
   const pay = (values) => {
     props.sendRequest(values);
   };
-
   const { focusOnElement, isPayForOrder } = props;
+
+
   return (
     <div className={styles.payFormContainer}>
       <span className={styles.headerInfo}>Payment Information</span>
@@ -28,9 +40,10 @@ const PayForm = (props) => {
           number: '',
           cvc: '',
           expiry: '',
+          sum:''
         }}
         onSubmit={pay}
-        validationSchema={Schems.PaymentSchema}
+        validationSchema={schemaVal}
       >
         {({ values }) => {
           const { name, number, expiry, cvc } = values;
@@ -43,7 +56,7 @@ const PayForm = (props) => {
                   name={name || ''}
                   expiry={expiry || ''}
                   cvc={cvc || ''}
-                  focused={focusOnElement}
+                  focused={focusOnElement || ''}
                 />
               </div>
               <Form id="myForm" className={styles.formContainer}>
@@ -82,7 +95,7 @@ const PayForm = (props) => {
                   <span>Card Number</span>
                   <PayInput
                     isInputMask
-                    mask="9999 9999 9999 9999 999"
+                    mask="9999 9999 9999 9999"
                     name="number"
                     classes={{
                       container: styles.inputContainer,
@@ -117,7 +130,7 @@ const PayForm = (props) => {
                     <span>* Security Code</span>
                     <PayInput
                       isInputMask
-                      mask="9999"
+                      mask="999"
                       name="cvc"
                       classes={{
                         container: styles.inputContainer,
@@ -136,6 +149,7 @@ const PayForm = (props) => {
           );
         }}
       </Formik>
+
       {isPayForOrder && (
         <div className={styles.totalSum}>
           <span>Total: $100.00</span>
@@ -154,9 +168,12 @@ const PayForm = (props) => {
     </div>
   );
 };
-
+const mapStateToProps = (state) => {
+  const { role } = state.userStore.data;
+  return { role };
+};
 const mapDispatchToProps = (dispatch) => ({
   changeFocusOnCard: (data) => dispatch(changeFocusOnCard(data)),
 });
 
-export default connect(null, mapDispatchToProps)(PayForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PayForm);
