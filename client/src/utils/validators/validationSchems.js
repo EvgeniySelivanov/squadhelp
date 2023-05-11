@@ -1,19 +1,6 @@
 import * as yup from 'yup';
 import valid from 'card-validator';
 
-valid.creditCardType.addCard({
-  niceType: "NewCard",
-  type: "new-card",
-  patterns: [1234],
-  gaps: [4, 8, 12],
-  lengths: [16],
-  code: {
-    name: "CVV",
-    size: 3,
-  },
-});
-
-console.log(valid.creditCardType);
 
 const validationSchems = {
   LoginSchem: yup.object().shape({
@@ -146,9 +133,12 @@ const validationSchems = {
       )
       .required('required'),
     name: yup
-      .string()
-      .min(1, 'required atleast one symbol')
-      .required('required'),
+    .string('Must be string')
+    .trim()
+    .min(3, 'Must be more 4 letters')
+    .max(15, 'Must be less 15 letters')
+    .matches(/^[A-Z][a-z]{4,15}$/, 'Upper case and latine please')
+    .required('Required!'),
     cvc: yup
       .string()
       .test('test-cvc', 'cvc is invalid', value => valid.cvv(value).isValid)
@@ -164,9 +154,12 @@ const validationSchems = {
   }),
   CashoutSchema: yup.object().shape({
     name: yup
-      .string()
-      .min(1,'required atleast one symbol')
-      .required('required'),
+    .string('Must be string')
+    .trim()
+    .min(3, 'Must be more 4 letters')
+    .max(15, 'Must be less 15 letters')
+    .matches(/^[A-Z][a-z]{4,15}$/, 'Must be only latine  letter')
+    .required('Required!'),
       sum: yup
       .number()
       .min(5, 'min sum is 5$')
