@@ -218,7 +218,7 @@ const validationSchems = {
       .string()
       .test(
         'test-message',
-        'required',
+        'Enter your message',
         value => value && value.trim().length >= 1
       )
       .required('required'),
