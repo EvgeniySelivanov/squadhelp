@@ -9,7 +9,7 @@ export const updateContest = data => http.patch('updateContest', data);
 export const setNewOffer = data =>http.post('setNewOffer', data,{ headers: { 'Content-Type': 'multipart/form-data' } });
 
 export const setOfferStatus = data => http.patch('setOfferStatus', data);
-export const downloadContestFile = data => http.post(`downloadFile/${data.fileName}`);
+export const downloadContestFile = data => http.get(`downloadFile/${data.fileName}`);
 
 export const changeMark = data => http.patch('changeMark', data);
 export const getPreviewChat = () => http.get('getPreview');
@@ -26,7 +26,6 @@ export const dataForContest = (data) => {
 
 export const payMent = data => http.patch('pay', data.formData);
 export const cashOut = data => {
-  console.log(data);
   return http.patch('cashout', data); }
 
 

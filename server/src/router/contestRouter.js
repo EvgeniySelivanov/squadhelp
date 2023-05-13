@@ -28,7 +28,7 @@ contestRouter.patch(
   basicMiddlewares.onlyForCustomerWhoCreateContest,
   contestController.setOfferStatus,
 );
-contestRouter.post(
+contestRouter.get(
   '/downloadFile/:fileName',
   checkToken.checkToken,
   contestController.downloadFile,
