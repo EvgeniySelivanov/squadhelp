@@ -25,6 +25,7 @@ import 'react-image-lightbox/style.css';
 import Error from '../../components/Error/Error';
 
 class ContestPage extends React.Component {
+  
   componentWillUnmount() {
     this.props.changeEditContest(false);
   }
@@ -116,6 +117,7 @@ class ContestPage extends React.Component {
 
   render() {
     const { role } = this.props.userStore.data;
+    
     const {
       contestByIdStore,
       changeShowImage,

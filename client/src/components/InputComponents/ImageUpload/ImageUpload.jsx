@@ -9,7 +9,6 @@ const ImageUpload = ({ name, label, classes, data, ...rest }) => (
       const { field } = formikProps;
       const { uploadContainer, inputContainer, imgStyle } = classes;
       const { avatar } = data;
-      console.log(avatar);
       const handlerChange = e => {
         const imagePreview = window.document.getElementById('imagePreview');
         const file = e.target.files[0];
@@ -24,29 +23,29 @@ const ImageUpload = ({ name, label, classes, data, ...rest }) => (
           const reader = new FileReader();
           reader.onload = () => { imagePreview.src = reader.result };
           reader.readAsDataURL(file);
-                  }
+        }
       };
       return (
         <div className={uploadContainer}>
           <div className={inputContainer}>
             <span>Support only images (*.png, *.gif, *.jpeg)</span>
             <input
-              type='file'
+              type="file"
               {...field}
-              id='fileInput'
-              accept='.jpg, .png, .jpeg'
-              onChange={handlerChange}
+              id ="fileInput"
+              accept =".jpg, .png, .jpeg"
+              onChange ={handlerChange}
               {...rest}
               value={''}
             />
-            <label htmlFor='fileInput'>Chose file</label>
+            <label htmlFor="fileInput">Chose file</label>
           </div>
           <img
-          src={
-            avatar === 'anon.png'
-              ? CONSTANTS.ANONYM_IMAGE_PATH
-              : `${CONSTANTS.publicURL}${avatar}`
-          }
+            src={
+              avatar === 'anon.png'
+                ? CONSTANTS.ANONYM_IMAGE_PATH
+                : `${CONSTANTS.publicURL}${avatar}`
+            }
             id='imagePreview'
             className={imgStyle}
             alt='user'

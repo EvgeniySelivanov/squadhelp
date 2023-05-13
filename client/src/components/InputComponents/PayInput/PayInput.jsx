@@ -7,9 +7,7 @@ const PayInput = props => {
   const { label, changeFocus, classes, isInputMask, mask } = props;
 
   const [field, meta] = useField(props.name);
-  console.log(mask);
-
-  console.log(isInputMask);
+ 
   const { touched, error } = meta;
 
 

@@ -135,9 +135,8 @@ const validationSchems = {
     name: yup
     .string('Must be string')
     .trim()
-    .min(3, 'Must be more 4 letters')
+    .min(3, 'Must be more 3 letters')
     .max(15, 'Must be less 15 letters')
-    .matches(/^[A-Z][a-z]{4,15}$/, 'Upper case and latine please')
     .required('Required!'),
     cvc: yup
       .string()

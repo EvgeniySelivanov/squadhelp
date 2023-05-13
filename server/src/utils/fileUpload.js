@@ -16,7 +16,7 @@ if (!fs.existsSync(filePath)) {
 }
 
 const storageContestFiles = multer.diskStorage({
-  destination:  function (req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, filePath);
   },
   filename: function (req, file, cb) {
@@ -28,10 +28,9 @@ const storageContestFiles = multer.diskStorage({
 const uploadAvatars = multer({ storage: storageContestFiles }).single('file');
 const uploadContestFiles = multer({ storage: storageContestFiles }).array('files', 3);
 const updateContestFile = multer({ storage: storageContestFiles }).single('file');
-const uploadLogoFiles = multer({ storage: storageContestFiles }).single('offerData');
+const uploadLogoFiles = multer({ storage: storageContestFiles }).single('file');
 
 module.exports.uploadAvatar = (req, res, next) => {
-  console.log('request>>>>>>>>>>>>>>>>>>',req.body);
   uploadAvatars(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       next(new ServerError());

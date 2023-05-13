@@ -6,7 +6,8 @@ export const registerRequest = data => http.post('registration', data);
 export const loginRequest = data => http.post('login', data);
 export const getUser = () => http.get('getUser');
 export const updateContest = data => http.patch('updateContest', data);
-export const setNewOffer = data => http.post('setNewOffer', data);
+export const setNewOffer = data =>http.post('setNewOffer', data,{ headers: { 'Content-Type': 'multipart/form-data' } });
+
 export const setOfferStatus = data => http.patch('setOfferStatus', data);
 export const downloadContestFile = data => http.post(`downloadFile/${data.fileName}`);
 

@@ -16,16 +16,29 @@ const OfferForm = props => {
   const renderOfferInput = () => {
     if (props.contestType === CONSTANTS.LOGO_CONTEST) {
       return (
-        <ImageUpload
-          name='offerData'
-          classes={{
-            uploadContainer: styles.imageUploadContainer,
-            inputContainer: styles.uploadInputContainer,
-            imgStyle: styles.imgStyle,
-          }}
-        />
+       <>
+       <ImageUpload
+       name='offerDataImage'
+       classes={{
+         uploadContainer: styles.imageUploadContainer,
+         inputContainer: styles.uploadInputContainer,
+         imgStyle: styles.imgStyle,
+       }}
+     />
+      <FormInput
+        name='offerData'
+        classes={{
+          container: styles.inputContainer,
+          input: styles.input,
+          warning: styles.fieldWarning,
+          notValid: styles.notValid,
+        }}
+        type='text'
+        label='your comments'
+      />
+     </> 
       );
-    }
+    }else
     return (
       <FormInput
         name='offerData'
@@ -42,18 +55,20 @@ const OfferForm = props => {
   };
 
   const setOffer = (values, { resetForm }) => {
+    console.log(values);
     props.clearOfferError();
     const data = new FormData();
     const { contestId, contestType, customerId } = props;
     data.append('contestId', contestId);
     data.append('contestType', contestType);
     data.append('offerData', values.offerData);
+    data.append('file', values.file);
     data.append('customerId', customerId);
-    props.setNewOffer(data);
-    resetForm();
+    return props.setNewOffer(data);
+    
   };
 
-  const { valid, addOfferError, clearOfferError } = props;
+  const { addOfferError, clearOfferError } = props;
   const validationSchema =
     props.contestType === CONSTANTS.LOGO_CONTEST
       ? Schems.LogoOfferSchema
@@ -71,16 +86,17 @@ const OfferForm = props => {
         onSubmit={setOffer}
         initialValues={{
           offerData: '',
+          
         }}
         validationSchema={validationSchema}
       >
         <Form className={styles.form}>
           {renderOfferInput()}
-          {valid && (
+         
             <button type='submit' className={styles.btnOffer}>
               Send Offer
             </button>
-          )}
+        
         </Form>
       </Formik>
     </div>

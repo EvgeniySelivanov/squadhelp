@@ -96,7 +96,7 @@ const mapStateToProps = state => {
       firstName: data.firstName,
       lastName: data.lastName,
       displayName: data.displayName,
-      // avatar:'222'
+    
     },
   };
 };
