@@ -27,6 +27,7 @@ userRouter.patch(
   '/pay',
   checkToken.checkToken,
   basicMiddlewares.onlyForCustomer,
+  upload.uploadContestFiles,
   basicMiddlewares.parseBody,
   validators.validateContestCreation,
   userController.payment,

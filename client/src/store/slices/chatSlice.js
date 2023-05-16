@@ -62,7 +62,7 @@ export const getDialogMessages = decorateAsyncThunk({
 const getDialogMessagesExtraReducers = createExtraReducers({
   thunk: getDialogMessages,
   fulfilledReducer: (state, { payload }) => {
-   
+    console.log('get dialog', payload);
     state.messages = payload.messages;
     state.interlocutor = payload.interlocutor;
   },
@@ -89,13 +89,14 @@ const sendMessageExtraReducers = createExtraReducers({
     let isNew = true;
     messagesPreview.forEach(preview => {
       if (isEqual(preview.participants, payload.message.participants)) {
-        preview.text = payload.message.body;
-        preview.sender = payload.message.sender;
-        preview.createAt = payload.message.createdAt;
+        preview.text = payload.preview.text;
+        preview.sender = payload.preview.sender;
+        preview.createAt = payload.preview.createAt;
         isNew = false;
       }
     });
     if (isNew) {
+      console.log(payload.preview);
       messagesPreview.push(payload.preview);
     }
     const chatData = {
@@ -338,6 +339,7 @@ const reducers = {
     }
     state.messagesPreview = messagesPreview;
     state.messages = [...state.messages, payload.message];
+
   },
 
   backToDialogList: state => {

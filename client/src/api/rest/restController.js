@@ -12,7 +12,9 @@ export const setOfferStatus = data => http.patch('setOfferStatus', data);
 export const downloadContestFile = data => http.get(`downloadFile/${data.fileName}`);
 
 export const changeMark = data => http.patch('changeMark', data);
+
 export const getPreviewChat = () => http.get('getPreview');
+export const newMessage = data => http.post('newMessage', data);
 export const getDialog = data => http.get(`getChat?${qs.stringify({ interlocutorId: data.interlocutorId })}`);
 
 
@@ -32,7 +34,7 @@ export const cashOut = data => {
 export const updateUser = (data) => {
   return http.patch('updateUser', data, { headers: { 'Content-Type': 'multipart/form-data' } });
 }
-export const newMessage = data => http.post('newMessage', data);
+
 export const changeChatFavorite = data => http.patch('favorite', data);
 export const changeChatBlock = data => http.patch('blackList', data);
 export const getCatalogList = data => http.get('getCatalogs', data);

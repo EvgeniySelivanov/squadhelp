@@ -1,5 +1,4 @@
-const bd = require('../models');
-const NotFound = require('../errors/UserNotFoundError');
+const db = require('../models');
 const RightsError = require('../errors/RightsError');
 const ServerError = require('../errors/ServerError');
 const CONSTANTS = require('../constants');
@@ -20,15 +19,15 @@ module.exports.canGetContest = async (req, res, next) => {
   let result = null;
   try {
     if (req.tokenData.role === CONSTANTS.CUSTOMER) {
-      result = await bd.Contests.findOne({
+      result = await db.Contests.findOne({
         where: { id: req.headers.contestid, userId: req.tokenData.userId },
       });
     } else if (req.tokenData.role === CONSTANTS.CREATOR) {
-      result = await bd.Contests.findOne({
+      result = await db.Contests.findOne({
         where: {
           id: req.headers.contestid,
           status: {
-            [ bd.Sequelize.Op.or ]: [
+            [ db.Sequelize.Op.or ]: [
               CONSTANTS.CONTEST_STATUS_ACTIVE,
               CONSTANTS.CONTEST_STATUS_FINISHED,
             ],
@@ -64,7 +63,7 @@ module.exports.canSendOffer = async (req, res, next) => {
     return next(new RightsError());
   }
   try {
-    const result = await bd.Contests.findOne({
+    const result = await db.Contests.findOne({
       where: {
         id: req.body.contestId,
       },
@@ -84,7 +83,7 @@ module.exports.canSendOffer = async (req, res, next) => {
 
 module.exports.onlyForCustomerWhoCreateContest = async (req, res, next) => {
   try {
-    const result = await bd.Contests.findOne({
+    const result = await db.Contests.findOne({
       where: {
         userId: req.tokenData.userId,
         id: req.body.contestId,
@@ -102,11 +101,11 @@ module.exports.onlyForCustomerWhoCreateContest = async (req, res, next) => {
 
 module.exports.canUpdateContest = async (req, res, next) => {
   try {
-    const result = bd.Contests.findOne({
+    const result = db.Contests.findOne({
       where: {
         userId: req.tokenData.userId,
         id: req.body.contestId,
-        status: { [ bd.Sequelize.Op.not ]: CONSTANTS.CONTEST_STATUS_FINISHED },
+        status: { [ db.Sequelize.Op.not ]: CONSTANTS.CONTEST_STATUS_FINISHED },
       },
     });
     if (!result) {

@@ -8,15 +8,15 @@ import FormInput from '../../../FormInput/FormInput';
 import Schems from '../../../../utils/validators/validationSchems';
 
 const ChatInput = (props) => {
+  const { sendMessage, interlocutor } = props;
   const submitHandler = (values, { resetForm }) => {
-    props.sendMessage({
+    sendMessage({
       messageBody: values.message,
-      recipient: props.interlocutor.id,
-      interlocutor: props.interlocutor,
+      recipient: interlocutor.id,
+      interlocutor: interlocutor,
     });
     resetForm();
   };
-
   return (
     <div className={styles.inputContainer}>
       <Formik
@@ -35,7 +35,7 @@ const ChatInput = (props) => {
               notValid: styles.notValid,
             }}
           />
-          <button type="submit">
+          <button type="submit" >
             <img
               src={`${CONSTANTS.STATIC_IMAGES_PATH}send.png`}
               alt="send Message"
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  sendMessage: (data) => dispatch(sendMessage(data)),
+  sendMessage: (data) => dispatch(sendMessage(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);
