@@ -1,7 +1,6 @@
 import http from '../interceptor';
 import qs from 'query-string';
 
-import qs from 'query-string';
 
 
 export const registerRequest = data => http.post('registration', data);
