@@ -5,40 +5,39 @@ import Notification from '../../../components/Notification/Notification';
 
 class NotificationSocket extends WebSocket {
 
-
   anotherSubscribes = () => {
     this.onEntryCreated();
     this.onChangeMark();
     this.onChangeOfferStatus();
   };
 
-  onChangeMark = () => {
-    this.socket.on('changeMark', () => {
-      toast('Someone liked your offer');
-    });
-  };
+onChangeMark = () => {
+  this.socket.on('changeMark',async () => {
+  await  toast('Someone liked your offer');
+  });
+};
 
-  onChangeOfferStatus = () => {
-    this.socket.on('changeOfferStatus', message => {
-      toast(
-        <Notification message={message.message} contestId={message.contestId} />
-      );
-    });
-  };
+onChangeOfferStatus = () => {
+  this.socket.on('changeOfferStatus', message => {
+    toast(
+      <Notification message={message.message} contestId={message.contestId} />
+    );
+  });
+};
 
-  onEntryCreated = () => {
-    this.socket.on('onEntryCreated', () => {
-      toast('New Entry');
-    });
-  };
+onEntryCreated = () => {
+  this.socket.on('onEntryCreated', () => {
+    toast('New Entry');
+  });
+};
 
-  subscribe = id => {
-    this.socket.emit('subscribe', id);
-  };
+subscribe = id => {
+  this.socket.emit('subscribe', id);
+};
 
-  unsubsctibe = id => {
-    this.socket.emit('unsubscribe', id);
-  };
+unsubsctibe = id => {
+  this.socket.emit('unsubscribe', id);
+};
 }
 
 export default NotificationSocket;
