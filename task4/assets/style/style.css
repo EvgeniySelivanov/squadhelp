@@ -1,0 +1,355 @@
+body {
+  margin: 0;
+}
+li {
+  list-style-type: none;
+}
+hr {
+  width: 100%;
+  border-top: 1px solid #e7eaf3;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', Helvetica, Arial, sans-serif;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #0f2e60;
+  min-width: 300px;
+  width: 100%;
+  max-width: 1920px;
+  padding: 1rem;
+  min-height: 36px;
+  height: 70%;
+  max-height: 68px;
+}
+#regBtnNav {
+  display: none;
+}
+.linkWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+#regBtnNav .linkWrapper a {
+  margin: 5px;
+  text-decoration: none;
+  text-align: center;
+  padding: 8px 20px;
+  font-size: 16px;
+  border-radius: 2px;
+  width: 49%;
+  display: inline-block;
+  margin-left: 2px;
+}
+#regBtnNav .linkWrapper a:nth-child(1) {
+  background-color: #efefef;
+  color: #333;
+}
+#regBtnNav .linkWrapper a:nth-child(2) {
+  background-color: #377dff;
+  color: #fff !important;
+}
+
+#intro,
+#servicesSection {
+  padding: 32px 15px;
+  font-family: 'Poppins', Helvetica, Arial, sans-serif;
+}
+#servicesSection {
+  text-align: center;
+}
+#servicesSection .title {
+  font-size: 32px;
+  text-align: center;
+}
+#servicesSection .paragraphAftertitle {
+  text-align: center;
+}
+.spanBeforetitle {
+  color: #377dff;
+  background: rgba(55, 125, 255, 0.1);
+  border-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 300;
+  border-radius: 30px;
+  padding: 10px;
+  font-size: 10px;
+}
+.title {
+  color: #1e2022;
+  text-align: left;
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.paragraphAftertitle {
+  color: #77838f;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.videoBtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #377dff;
+  border-radius: 30px;
+  background-color: #377dff;
+  color: white;
+  min-width: 300;
+  width: 100%;
+  max-width: 350;
+  text-decoration: none;
+  height: 50px;
+}
+#playBtn {
+  margin-top: 1%;
+  margin-right: 5px;
+}
+.icons {
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 16px;
+}
+
+#navUl {
+  display: none;
+}
+.liNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 18px;
+  padding: 14px 11.5px;
+  font-weight: 600;
+  color: #4a4a4a;
+  background: transparent;
+  line-height: 20px;
+}
+.articleServicesSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cardBody {
+  text-align: center;
+  padding: 64px 16px;
+  border: 1px solid rgb(128, 128, 128, 0.2);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.cardBody img,
+#featuresSection img {
+  width: 72px;
+}
+.cardBody h3 {
+  font-size: 24px !important;
+}
+
+.cardBodyBtnLink {
+  display: block;
+
+  width: 90%;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #377dff;
+  border-color: #377dff;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+}
+
+#featuresSection {
+  padding: 64px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.featuresSectionTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#featuresSection div:nth-child(1) h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 500;
+}
+.featuresSection__li {
+  position: relative;
+  padding: 32px;
+}
+.featuresSection__li__div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 32px;
+  border: 1px solid #e7eaf3 !important;
+  border-radius: 3px;
+}
+.featuresSection__li::before {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: -15px;
+  width: 30px;
+  height: 0.5px;
+  border-top: 1px solid #e7eaf3;
+  margin: auto auto auto 0;
+  content: '';
+}
+.featuresSection__li::after,
+.firstLi::after,
+.lastLi::after {
+  position: absolute;
+  left: -15px;
+  right: 0;
+  width: 1px;
+  margin: auto auto auto 0;
+  content: '';
+}
+.featuresSection__li::after {
+  top: 190px;
+  bottom: 0;
+  height: 100%;
+  border-top: 220px solid #e7eaf3;
+}
+
+.firstLi::after {
+  top: 100%;
+  bottom: 0;
+  border-top: 107px solid #e7eaf3;
+  height: 50%;
+}
+.lastLi::after {
+  top: 0px;
+  bottom: 10px;
+  border-top: 120px solid #e7eaf3;
+  height: 50%;
+}
+.featuresSection__li__number {
+  color: #377dff;
+  font-size: 56px;
+  margin-right: 26px;
+}
+.featuresSection__li__text {
+  color: #77838f;
+  line-height: 1.7;
+  font-size: 16px;
+}
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.imageContainer img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#blockStartPoint {
+  padding: 0 15px;
+  margin: 0 0 48px;
+}
+#blockStartPoint nav {
+  border-radius: 5px;
+  padding: 16px 32px;
+  max-width: 100%;
+  background-color: #377dff !important;
+}
+#blockStartPoint nav li{
+  padding: 16px 0;
+  font-size: 14px;
+}
+#blockStartPoint nav li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* body{background-color: grey;} */
+p {color: rgb(175, 17, 17);}
+h1 {color: rgb(139, 9, 9);text-align: center;}
+
+
+
+button.course-accordion {
+    background-color: transparent;
+    color: rgb(7, 7, 7);
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+	  font-weight: 600;
+    transition: 0.4s;
+	  font-family: "Raleway";
+    line-height: 1.5em;
+    text-transform: none;
+    letter-spacing: 0px;
+    font-weight: 600;
+    font-style: normal;
+}
+
+/*When the button is active or mouse hovers*/
+button.course-accordion.active,
+button.course-accordion:hover {
+    background-color: rgba(77, 190, 11, 0.6);
+    color: rgb(7, 49, 187);
+
+}
+
+/*button not active*/
+button.course-accordion:after {
+  font-family: 'Font Awesome\ 5 Free';
+  font-weight: 900;
+    content: '\f061';
+    color: rgb(187, 7, 7);
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+/* minus button */
+button.course-accordion.active:after {
+    content: "\f063";
+	
+
+}
+
+div.course-panel {
+    padding: 0 18px;
+    background-color: transparent;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+	  width: 96%;
+	  font-family: "Raleway";
+    font-size: 15px;
+    line-height: 1.6em;
+    letter-spacing: .4px;
+    font-weight: 400;
+    font-style: normal;
+    color: rgba(0,0,0,.88);
+}
+
