@@ -21,8 +21,8 @@ header {
   margin: 0 auto;
   background-color: #0f2e60;
   min-width: 300px;
-  width: 100%;
-  max-width: 1920px;
+  width: 95%;
+  max-width: 100%;
   padding: 1rem;
   min-height: 36px;
   height: 70%;
@@ -113,6 +113,13 @@ header {
   max-width: 350;
   text-decoration: none;
   height: 50px;
+  transition: all 0.2s ease-in-out;
+}
+.videoBtn:hover,
+.cardBodyBtnLink:hover {
+  box-shadow: 0 4px 11px rgba(55, 125, 255, 0.35);
+  transform: translateY(-3px);
+  transition: all 0.2s ease-in-out;
 }
 #playBtn {
   margin-top: 1%;
@@ -146,7 +153,9 @@ header {
   justify-content: space-between;
 }
 .cardBody {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 64px 16px;
   border: 1px solid rgb(128, 128, 128, 0.2);
   border-radius: 10px;
@@ -162,7 +171,7 @@ header {
 
 .cardBodyBtnLink {
   display: block;
-
+  transition: all 0.2s ease-in-out;
   width: 90%;
   text-decoration: none;
   padding: 10px 20px;
@@ -276,80 +285,143 @@ header {
   max-width: 100%;
   background-color: #377dff !important;
 }
-#blockStartPoint nav li{
+#blockStartPoint nav li {
   padding: 16px 0;
   font-size: 14px;
 }
 #blockStartPoint nav li a {
   text-decoration: none;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.7);
 }
+#blockStartPoint nav li a:hover {
+  color: rgb(255, 255, 255);
+}
+#contest,
+#marketplace,
+#managed,
+#creatives {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 64px 15px;
+  max-width: 100%;
+}
+.titleInContest {
+  width: 100%;
+  margin: 0 0 8px;
+  color: #377dff;
+  text-align: start !important;
+}
+.titleInContest h3 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 28px!important;
 
-/* body{background-color: grey;} */
-p {color: rgb(175, 17, 17);}
-h1 {color: rgb(139, 9, 9);text-align: center;}
+}
+.card {
+  margin-top: 10px;
+}
+button.course-accordion,
+button.course-accordion2,
+button.course-accordion3,
+button.course-accordion4 {
 
-
-
-button.course-accordion {
-    background-color: transparent;
-    color: rgb(7, 7, 7);
-    cursor: pointer;
-    padding: 8px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 22px;
-	  font-weight: 600;
-    transition: 0.4s;
-	  font-family: "Raleway";
-    line-height: 1.5em;
-    text-transform: none;
-    letter-spacing: 0px;
-    font-weight: 600;
-    font-style: normal;
+  font-family: 'Poppins', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400!important;
+  background-color: transparent;
+  color: #1e2022;
+  padding: 16px;
+  min-width: 300px;
+  width: 100%;
+  max-width: 880px;
+  border: 1px solid #e7eaf3;
+  border-radius: 8px;
+  text-align: left;
+  font-weight: 400;
+  transition: 0.4s;
 }
 
 /*When the button is active or mouse hovers*/
 button.course-accordion.active,
-button.course-accordion:hover {
-    background-color: rgba(77, 190, 11, 0.6);
-    color: rgb(7, 49, 187);
-
+button.course-accordion:hover,
+button.course-accordion2.active,
+button.course-accordion3.active,
+button.course-accordion4.active,
+button.course-accordion2:hover,
+button.course-accordion3:hover,
+button.course-accordion4:hover {
+  user-select: none;
+  background-color: #e7eaf3;
+  color: #377dff;
+ 
 }
-
+button.course-accordion.active,
+button.course-accordion2.active,
+button.course-accordion3.active,
+button.course-accordion4.active
+{
+  border-radius: 8px 8px 0 0;
+}
 /*button not active*/
-button.course-accordion:after {
+button.course-accordion:after,
+button.course-accordion2:after,
+button.course-accordion3:after,
+button.course-accordion4:after {
+  margin-top: 4px;
   font-family: 'Font Awesome\ 5 Free';
   font-weight: 900;
-    content: '\f061';
-    color: rgb(187, 7, 7);
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
+  content: '\f061';
+  color: #377dff;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
 }
-
 /* minus button */
-button.course-accordion.active:after {
-    content: "\f063";
-	
-
+button.course-accordion.active:after,
+button.course-accordion2.active:after,
+button.course-accordion3.active:after,
+button.course-accordion4.active:after {
+  content: '\f063';
 }
 
-div.course-panel {
-    padding: 0 18px;
-    background-color: transparent;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-	  width: 96%;
-	  font-family: "Raleway";
-    font-size: 15px;
-    line-height: 1.6em;
-    letter-spacing: .4px;
-    font-weight: 400;
-    font-style: normal;
-    color: rgba(0,0,0,.88);
+div.course-panel,
+div.course-panel2,
+div.course-panel3,
+div.course-panel4 {
+  border: 1px solid #e7eaf3;
+  border-radius: 0 0 8px 8px;
+  padding: 0 16px;
+  background-color: transparent;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  min-width: 300px;
+  width: 100%;
+  max-width: 880px;
+  font-size: 15px;
+  box-sizing: border-box;
+  line-height: 1.6em;
+  letter-spacing: 0.4px;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.88);
 }
-
+div.course-panel li,
+div.course-panel2 li,
+div.course-panel3 li,
+div.course-panel4 li   {
+  list-style-type: disc !important;
+}
+div.course-panel li a,
+div.course-panel a,
+div.course-panel2 li a,
+div.course-panel2 a,
+div.course-panel3 li a,
+div.course-panel3 a ,
+div.course-panel4 li a,
+div.course-panel4 a {
+  font-weight: 400;
+  text-decoration: none;
+}

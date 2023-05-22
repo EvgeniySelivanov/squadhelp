@@ -1,44 +1,57 @@
 const menuBtn = document.getElementById('menu');
 const navMenu = document.getElementById('navUl');
 const regBtnNav = document.getElementById('regBtnNav');
-const accordion=document.querySelectorAll('accordion__header');
-
 const coursePanel = document.getElementsByClassName("course-panel");
 const courseAccordion = document.getElementsByClassName("course-accordion");
 const courseAccordionActive = document.getElementsByClassName("course-accordion active");
-//this is the button
-const acc = document.getElementsByClassName("course-accordion");
+const coursePanel2 = document.getElementsByClassName("course-panel2");
+const courseAccordion2= document.getElementsByClassName("course-accordion2");
+const courseAccordionActive2 = document.getElementsByClassName("course-accordion2 active");
+const coursePanel3 = document.getElementsByClassName("course-panel3");
+const courseAccordion3= document.getElementsByClassName("course-accordion3");
+const courseAccordionActive3 = document.getElementsByClassName("course-accordion3 active");
+const coursePanel4 = document.getElementsByClassName("course-panel4");
+const courseAccordion4= document.getElementsByClassName("course-accordion4");
+const courseAccordionActive4 = document.getElementsByClassName("course-accordion4 active");
 
-
-for (let i = 0; i < acc.length; i++) {
-  //when one of the buttons are clicked run this function
-  acc[i].onclick = function() {
-  //variables
- 
-  let panel = this.nextElementSibling;
-  /*if pannel is already open - minimize*/
-  if (panel.style.maxHeight){
-    //minifies current pannel if already open
-    panel.style.maxHeight = null;
-    //removes the 'active' class as toggle didnt work on browsers minus chrome
-    this.classList.remove("active");
-  } else { //pannel isnt open...
-    //goes through the buttons and removes the 'active' css (+ and -)
-    for (let j = 0; j < courseAccordionActive.length; j++) {
-      courseAccordionActive[j].classList.remove("active");
-    }
-    //Goes through and removes 'activ' from the css, also minifies any 'panels' that might be open
-    for (let k = 0; k < coursePanel.length; k++) {
+function accordion(coursePanel,courseAccordion,courseAccordionActive){
+  for (let i = 0; i < courseAccordion.length; i++) {
+    //when one of the buttons are clicked run this function
+    courseAccordion[i].onclick = function() {
+    let panel = this.nextElementSibling;
+    /*if pannel is already open - minimize*/
+    if (panel.style.maxHeight){
+      //minifies current pannel if already open
+      panel.style.maxHeight = null;
+      //removes the 'active' class as toggle didnt work on browsers minus chrome
       this.classList.remove("active");
-      coursePanel[k].style.maxHeight = null;
-    }
-    //opens the specified pannel
-    panel.style.maxHeight = panel.scrollHeight + "px";
-    //adds the 'active' addition to the css.
-    this.classList.add("active");
-  } 
-  }//closing to the acc onclick function
-}//closing to the for loop.
+    } else { //pannel isnt open...
+      //goes through the buttons and removes the 'active' css (+ and -)
+      for (let j = 0; j < courseAccordionActive.length; j++) {
+        courseAccordionActive[j].classList.remove("active");
+      }
+      //Goes through and removes 'activ' from the css, also minifies any 'panels' that might be open
+      for (let k = 0; k < coursePanel.length; k++) {
+        this.classList.remove("active");
+        coursePanel[k].style.maxHeight = null;
+      }
+      //opens the specified pannel
+      panel.style.maxHeight = panel.scrollHeight + "px";
+      //adds the 'active' addition to the css.
+      this.classList.add("active");
+     this.coursePanel.classList.add("active");
+    } 
+    }//closing to the acc onclick function
+  }//closing to the for loop.
+}
+
+accordion(coursePanel,courseAccordion,courseAccordionActive);
+accordion(coursePanel2,courseAccordion2,courseAccordionActive2);
+accordion(coursePanel3,courseAccordion3,courseAccordionActive3);
+accordion(coursePanel4,courseAccordion4,courseAccordionActive4);
+
+
+
 
 
 Fancybox.bind("[data-fancybox]", {
