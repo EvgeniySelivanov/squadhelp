@@ -1,4 +1,5 @@
 const menuBtn = document.getElementById('menu');
+const mybutton = document.getElementById("myBtn");
 const navMenu = document.getElementById('navUl');
 const regBtnNav = document.getElementById('regBtnNav');
 const coursePanel = document.getElementsByClassName("course-panel");
@@ -44,16 +45,24 @@ function accordion(coursePanel,courseAccordion,courseAccordionActive){
     }//closing to the acc onclick function
   }//closing to the for loop.
 }
-
 accordion(coursePanel,courseAccordion,courseAccordionActive);
 accordion(coursePanel2,courseAccordion2,courseAccordionActive2);
 accordion(coursePanel3,courseAccordion3,courseAccordionActive3);
 accordion(coursePanel4,courseAccordion4,courseAccordionActive4);
 
-
-
-
-
+/**Scroll Back To Top */
+window.onscroll = function() {scrollFunction()};
+function scrollFunction() {
+  if (document.body.scrollTop > 620 || document.documentElement.scrollTop > 620) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function topFunction() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+/** Fancybox*/
 Fancybox.bind("[data-fancybox]", {
   // Your custom options
 });
