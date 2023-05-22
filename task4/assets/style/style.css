@@ -1,44 +1,45 @@
 body {
   margin: 0;
 }
-#microMan{
+#microMan {
   position: fixed;
   bottom: 20px;
-  left:15px;
+  left: 15px;
   width: 30px;
   height: 30px;
-  background-color:#377dff;
-  border-radius: 50%; 
+  background-color: #377dff;
+  border-radius: 50%;
+  z-index: 99;
 }
-#microMan img{
+#microMan img {
   width: 22px;
   height: 22px;
 }
 #myBtn {
-  display: none; 
+  display: none;
   position: fixed;
   width: 40px;
   height: 40px;
-  bottom: 20px; 
-  right: 15px; 
-  z-index: 99; 
-  border: none; 
-  outline: none; 
-  background-color: #377dff; 
-  opacity: .5;
+  bottom: 20px;
+  right: 15px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: #377dff;
+  opacity: 0.5;
   color: white;
-  cursor: pointer; 
-  border-radius: 12px; 
-  font-size: 18px; 
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 18px;
   transition: 0.5s;
 }
-#myBtn::after{
+#myBtn::after {
   font-family: 'Font Awesome\ 5 Free';
   font-weight: 900;
   content: '\f062';
   color: #fff;
-  font-weight: bold; 
-;}
+  font-weight: bold;
+}
 
 #myBtn:hover {
   transition: 0.5s;
@@ -65,7 +66,7 @@ header {
   background-color: #0f2e60;
   min-width: 300px;
   width: 100%;
- box-sizing: border-box;
+  box-sizing: border-box;
   padding: 1rem;
   min-height: 36px;
   height: 70%;
@@ -100,11 +101,17 @@ header {
 }
 
 #intro,
-#servicesSection {
+#servicesSection,
+#statsSection,
+#pricingSection,
+#featuresSection  {
+  display: flex;
+  flex-direction: column;
   padding: 32px 15px;
   font-family: 'Poppins', Helvetica, Arial, sans-serif;
 }
-#servicesSection {
+#servicesSection,
+#ctaSection {
   text-align: center;
 }
 #servicesSection .title {
@@ -142,15 +149,11 @@ header {
   margin-top: 0;
   margin-bottom: 16px;
 }
-.videoBtn {
+.videoBtn,#questions button {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 1px solid #377dff;
-  border-radius: 30px;
-  background-color: #377dff;
-  color: white;
   min-width: 300;
   width: 100%;
   max-width: 350;
@@ -158,6 +161,13 @@ header {
   height: 50px;
   transition: all 0.2s ease-in-out;
 }
+.videoBtn{
+  border: 1px solid #377dff;
+  border-radius: 30px;
+  background-color: #377dff;
+  color: white;
+}
+
 .videoBtn:hover,
 .cardBodyBtnLink:hover {
   box-shadow: 0 4px 11px rgba(55, 125, 255, 0.35);
@@ -228,8 +238,6 @@ header {
 
 #featuresSection {
   padding: 64px 15px;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 .featuresSectionTitle {
@@ -306,7 +314,8 @@ header {
   line-height: 1.7;
   font-size: 16px;
 }
-.imageContainer ,#microMan{
+.imageContainer,
+#microMan {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -359,8 +368,7 @@ header {
 .titleInContest h3 {
   font-weight: 600;
   margin: 0;
-  font-size: 28px!important;
-
+  font-size: 28px !important;
 }
 .card {
   margin-top: 10px;
@@ -369,10 +377,9 @@ button.course-accordion,
 button.course-accordion2,
 button.course-accordion3,
 button.course-accordion4 {
-
   font-family: 'Poppins', Helvetica, Arial, sans-serif;
   font-size: 15px;
-  font-weight: 400!important;
+  font-weight: 400 !important;
   background-color: transparent;
   color: #1e2022;
   padding: 16px;
@@ -398,13 +405,11 @@ button.course-accordion4:hover {
   user-select: none;
   background-color: #e7eaf3;
   color: #377dff;
- 
 }
 button.course-accordion.active,
 button.course-accordion2.active,
 button.course-accordion3.active,
-button.course-accordion4.active
-{
+button.course-accordion4.active {
   border-radius: 8px 8px 0 0;
 }
 /*button not active*/
@@ -454,7 +459,7 @@ div.course-panel4 {
 div.course-panel li,
 div.course-panel2 li,
 div.course-panel3 li,
-div.course-panel4 li   {
+div.course-panel4 li {
   list-style-type: disc !important;
 }
 div.course-panel li a,
@@ -462,9 +467,174 @@ div.course-panel a,
 div.course-panel2 li a,
 div.course-panel2 a,
 div.course-panel3 li a,
-div.course-panel3 a ,
+div.course-panel3 a,
 div.course-panel4 li a,
 div.course-panel4 a {
   font-weight: 400;
   text-decoration: none;
+}
+#ctaSection {
+  position: relative;
+  z-index: 0;
+  background-image: linear-gradient(150deg, #2d1582 0%, #19a0ff 100%);
+  background-repeat: repeat-x;
+}
+#ctaSection h3 {
+  margin: 0 0 8px;
+  color: #00dffc;
+  font-size: 32px;
+  font-weight: 600;
+}
+#ctaSection p {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+}
+#ctaSectionLink {
+  min-width: 9.6875rem;
+  font-weight: 500;
+  padding: 12px 16px;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  transition: 1s;
+}
+#ctaSectionLink:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 11px rgba(248, 248, 250, 0.75);
+  transition: 1s;
+}
+#ctaSection div:nth-child(1) {
+  padding: 32px 15px;
+}
+#ctaSection div:nth-child(2) {
+  top: -0.5px;
+}
+#ctaSection div:nth-child(3) {
+  bottom: -0.5px;
+  right: 0px;
+}
+#ctaSection div:nth-child(2),
+#ctaSection div:nth-child(3) {
+  position: absolute;
+  width: 208px;
+  height: 153px;
+  z-index: -1;
+}
+#statsSection{
+  display: flex;
+flex-direction: column;
+background-color: #fefefe;
+
+}
+#statsSection>div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#statsSection>div>p{
+  color: #77838f;
+  line-height: 1.7;
+}
+#statsSection>div>p>span{
+  font-weight: bold;
+  color: black;
+}
+.statsSectionImgWrap img{
+  width: 72px;
+  height: 77.6px;
+}
+
+#divPadd{
+  padding: 64px 32px;
+}
+.blueCircle{
+  /* margin-top: 4px; */
+  margin-right:16px ;
+  position: relative;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color:#377dff;
+  background: rgba(55,125,255,.1);
+    border-color: transparent;
+}
+.blueCircle::before{
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  font-family: 'Font Awesome\ 5 Free';
+  font-weight: 900;
+  content: "\f054";
+}
+
+.liWrapper{
+  display: flex;
+  flex-direction: row;
+}
+.border-top{
+  padding-top: 1rem!important;
+  border-top: 1px solid #e7eaf3;
+}
+#pricingSection h4{
+  background-color: #fff;
+  color: black;
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 300;
+}
+#pricingSection ul{
+  padding: 0;
+}
+#pricingSection p{
+  font-size: 14px;
+ color: #77838f;
+  margin: 0 0 16px;
+}
+#pricingSection p a{
+  text-decoration: none;
+}
+#questions{
+  background-color: #377dff;
+  padding: 64px 32px;
+}
+#pricingSection  #questions h4{
+  font-size: 32px;
+max-width: 175px;
+color: #377dff;
+
+}
+#questions p{
+  color: white;
+  margin:0 0 16px;
+  
+}
+#questions button{
+  padding: 12px 16px;
+  margin:0 0 15px;
+  font-weight: 400;
+  font-size:16px;
+  border: 1px solid #fff;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #377dff;
+}
+#questions div{
+  margin-bottom: 8px;
+}
+
+#questions div a{
+  color: white;
+}
+#questions div span::before{
+  font-family: 'Font Awesome\ 5 Free';
+  font-weight: 900;
+  content:'\f095';
+  color: white;
+margin-right: 5px;
 }
