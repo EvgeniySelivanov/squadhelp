@@ -1,0 +1,108 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.main-header__nav {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .main-header__nav {
+    display: block;
+    box-shadow: 0 10px 40px 10px rgba(140, 152, 164, 0.175) !important;
+  }
+  .main-header__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 0;
+    text-align: center;
+    width: 80%;
+    padding: 15px;
+    margin: auto;
+  }
+  .main-header__item {
+    display: inline-block;
+  }
+  .main-header__item,
+  .main-header__item__subitem {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    color: #4a4a4a;
+    font-size: 1rem;
+  }
+  .main-header__link:hover,
+  .main-header__list__sublist_list:hover {
+    color: #377dff;
+  }
+  .main-header__link_chevronUp {
+    display: none;
+  }
+  .main-header__item:hover .main-header__link_chevronDown {
+    display: none;
+  }
+  .main-header__item:hover .main-header__link_chevronUp {
+    display: inline;
+  }
+  .main-header__link_chevronRight__second-level {
+    display: none;
+  }
+  .main-header__list__sublist_list:hover
+    .main-header__link_chevronRight__second-level {
+    display: inline;
+  }
+  .main-header__list__sublist_list:hover
+    .main-header__link_chevronDown__second-level {
+    display: none;
+  }
+  .main-header__link {
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .main-header__list__sublist,
+  .main-header__list__sublist__second-level {
+    transition: 1s;
+    display: none;
+    background-color: white;
+    padding: 15px !important;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    width: 180px;
+    box-shadow: 0 10px 40px 10px rgba(140, 152, 164, 0.175) !important;
+    position: absolute;
+  }
+  .main-header__list__sublist {
+    left: 0;
+    right: 0;
+  }
+  .main-header__list__sublist__second-level {
+    top: 87px;
+    left: -213px;
+  }
+  .main-header__list__sublist_list {
+    font-size: 13px;
+    color: #4a4a4a;
+    font-family: 'Raleway', sans-serif;
+  }
+  .main-header__item:hover > .main-header__list__sublist,
+  .main-header__item__second-level:hover
+    > .main-header__list__sublist__second-level {
+    transition: 1s;
+    display: block;
+  }
+
+  .main-header__category_children:hover > .main-header__list__sublist,
+  .main-header__category_man:hover > .main-header__list__sublist,
+  .main-header__category_woman:hover > .main-header__list__sublist {
+    display: block;
+    top: -16px;
+  }
+
+  .main-header__item__subitem_2level {
+    width: 250px;
+  }
+}

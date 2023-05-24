@@ -122,10 +122,8 @@ function createNav(dataText) {
     )
     navMenu.append(li);
   }
-
   let btn1 = createElement('button', { classNames: ['btn1'] },document.createTextNode('Login'));
   let btn2 = createElement('button', { classNames: ['btn2'] },document.createTextNode('Sign Up'));
-
   regBtnNav.append(btn1);
   regBtnNav.append(btn2);
 

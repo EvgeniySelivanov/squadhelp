@@ -17,7 +17,9 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Poppins:wght@300;600&family=Raleway:wght@200;300;400;500;600;900&display=swap"
     rel="stylesheet">
   <!--CSS-->
+  <link rel="stylesheet" href="./assets/style/header.css">
   <link rel="stylesheet" href="./assets/style/style.css">
+  <link rel="stylesheet" href="./assets/style/navFullScreen.css">
 
   <title>task4</title>
 </head>
@@ -26,14 +28,27 @@
 
   <header>
     <div><a href="/"><img src="./assets/images/logo_white.svg" alt="" /></a></div>
+    <div class="headerInputWrapper">
+      <input type="text" placeholder="Search over 100,000 names">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="gray" width="20px" heigth="20px"
+          viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <path
+            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+        </svg>
+      </button>
+    </div>
     <div class="icons">
-      <div><a href="/"><img src="./assets/images/icons/account.svg" alt="" /></a></div>
-      <div><a href="/"><img src="./assets/images/icons/phone.svg" alt="" /></a></div>
-      <div><a href="/"><img src="./assets/images/icons/heart.svg" alt="" /></a></div>
+      <div><a href="/"><img src="./assets/images/icons/account.svg" alt="" /><div class="header-icon-name">Account</div></a></div>
+      <div><a href="/"><img src="./assets/images/icons/phone.svg" alt="" /><div class="header-icon-name">Contact</div></a></div>
+      <div><a href="/"><img src="./assets/images/icons/heart.svg" alt="" /><div class="header-icon-name">Favorites</div></a></div>
+      <div><a href="/" class="header-icon-name header-icon-name__border ">Start Contest</a></div>
       <div id="menu"><img src="./assets/images/icons/menu.svg" alt="" /></div>
     </div>
   </header>
-  <nav>
+
+
+  <nav class="mobileMenu">
     <ul id="navUl"></ul>
     <div id="regBtnNav">
       <div class="linkWrapper">
@@ -42,20 +57,120 @@
       </div>
     </div>
   </nav>
+  <nav class="main-header__nav">
+    <ul class="main-header__list">
+      <li class="main-header__item">
+        <a href="/" class="main-header__link">Names For Sale</a>
+        <span class="main-header__link_chevronUp"><i class="fa-solid fa-chevron-up"></i></span>
+        <span class="main-header__link_chevronDown"><i class="fa-solid fa-chevron-down"></i></span>
+        <ul class="main-header__list__sublist">
+          <li><a href="" class="main-header__list__sublist_list">Popular brandable Names</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Premium Domains For Sale</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Sort Domains</a></li>
+          <ul>
+            <li><a href="" class="main-header__list__sublist_list">3 Letter Domains</a></li>
+            <li><a href="" class="main-header__list__sublist_list">4 Letter Domains</a></li>
+            <li><a href="" class="main-header__list__sublist_list">5 Letter Domains</a></li>
+          </ul>
+          <li><a href="" class="main-header__list__sublist_list">One Word Names</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Industry Names</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Location Based Names</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Recommended For You</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Become A Seller</a></li>
+        </ul>
+      </li>
+      <li class="main-header__item">
+        <a href="/" class="main-header__link">Naming Contest</a>
+        <span class="main-header__link_chevronUp"><i class="fa-solid fa-chevron-up"></i></span>
+        <span class="main-header__link_chevronDown"><i class="fa-solid fa-chevron-down"></i></span>
+        <ul class="main-header__list__sublist">
+          <li><a href="" class="main-header__list__sublist_list">Start A Contest</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Hot It Works</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Contest Pricing</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Agency Cervices</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Our Work</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Recent Winners</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Active Contests</a></li>
+          <li><a href="" class="main-header__list__sublist_list">Become A Creative</a></li>
+
+        </ul>
+      </li>
+      <li class="main-header__item">
+        <a href="/" class="main-header__link">Other Services</a>
+        <span class="main-header__link_chevronUp"><i class="fa-solid fa-chevron-up"></i></span>
+        <span class="main-header__link_chevronDown"><i class="fa-solid fa-chevron-down"></i></span>
+        <ul class="main-header__list__sublist">
+          <li class=><a href="" class="main-header__list__sublist_list">Logos</a></li>
+          <li class=><a href="" class="main-header__list__sublist_list">Taglines</a></li>
+          <li class=><a href="" class="main-header__list__sublist_list">Audience Testing</a></li>
+          <li class=><a href="" class="main-header__list__sublist_list">Trademark Research</a></li>
+          <li class=><a href="" class="main-header__list__sublist_list">Trademark Filing</a></li>
+          <li class=><a href="" class="main-header__list__sublist_list">Video Creation</a></li>
+        </ul>
+      </li>
+      <li class="main-header__item">
+        <a href="/" class="main-header__link">Agency Experience</a>
+      </li>
+      <li class="main-header__item">
+        <a href="/" class="main-header__link">Resources</a>
+        <span class="main-header__link_chevronUp"><i class="fa-solid fa-chevron-up"></i></span>
+        <span class="main-header__link_chevronDown"><i class="fa-solid fa-chevron-down"></i></span>
+        <ul class="main-header__list__sublist">
+          <li><a href="" class="main-header__list__sublist_list">Business Name Generator</a></li>
+          <li><a href="" class="main-header__list__sublist_list">How to Naming Your Business</a></li>
+          <li>
+            <a href="" class="main-header__list__sublist_list">FreeTrademarkChecker</a>
+          </li>
+          <li class="main-header__item__second-level" >
+            <a href="" class="main-header__list__sublist_list">
+              <span class="main-header__link">Industry Name Ideas</span>
+              <span class="main-header__link_chevronRight__second-level"><i class="fa-solid fa-chevron-right"></i></span>
+              <span class="main-header__link_chevronDown__second-level"><i class="fa-solid fa-chevron-down"></i></span>
+            </a>
+        
+              <ul class="main-header__list__sublist__second-level">
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Clothing Brand Name Ideas</a></li>
+                <a href="">
+                  <li class="second-level"><a href="" class="main-header__list__sublist_list">Consulting Business Name Ideas</a></li>
+                </a>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Health & Wellness Business Name Ideas</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Food Brand Name Ideas</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Beauty Business Name</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Tech Startup Name Ideas</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Shoping Website Name Ideas</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Real Estate Business Name Ideas</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Insurance Business Name Ideas</a></li>
+                <li class="second-level"><a href="" class="main-header__list__sublist_list">Finance Business Name Ideas</a></li>
+              </ul>
+            
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+
+
+  </nav>
   <main class="main">
     <button onclick="topFunction()" id="myBtn" title="Go to top"></button>
     <div id="microMan"><img src="./assets/images/icons/microMan.svg" alt="oops!"></div>
-    <section id="intro">
-      <span class="spanBeforetitle">World's #1 Naming Platform</span>
-      <h1 class="title">How Does Squadhelp Work?</h1>
-      <p class="paragraphAftertitle">Squadhelp helps you come up with a great name for your business by combining the
-        power of crowdsourcing with sophisticated technology and Agency-level validation services.</p>
-      <a class="videoBtn" data-fancybox href="https://vimeo.com/368584367">
-        <div id="playBtn"><img src="./assets/images/icons/play.svg" alt="" /></div>
-        <div>Play Video</div>
-      </a>
+
+
+    <section id="intro" class="container-space">
+      <div>
+        <span class="spanBeforetitle">World's #1 Naming Platform</span>
+        <h1 class="title">How Does Squadhelp Work?</h1>
+        <p class="paragraphAftertitle">Squadhelp helps you come up with a great name for your business by combining the
+          power of crowdsourcing with sophisticated technology and Agency-level validation services.</p>
+        <a class="videoBtn" data-fancybox href="https://vimeo.com/368584367">
+          <div id="playBtn"><img src="./assets/images/icons/play.svg" alt="" /></div>
+          <div>Play Video</div>
+        </a>
+      </div>
+      <div class="bannerIntroSection"><img src="./assets/images/bannerIntroSection.svg" alt=""></div>
     </section>
-    <section id="servicesSection">
+
+    <section id="servicesSection" class="container-space">
       <span class="ourService">Our Services</span>
       <h2 class="title">3 Ways To Use Squadhelp</h2>
       <p class="paragraphAftertitle">Squadhelp offers 3 ways to get you a perfect name for your business.</p>
@@ -90,14 +205,16 @@
         </div>
       </article>
     </section>
+
     <hr>
-    <section id="featuresSection">
+    <section id="featuresSection" class="container-space">
       <div class="featuresSectionTitle">
         <div><img src="./assets/images/cup.svg" alt="oops!"></div>
         <h2 class="title">How Do Naming Contests Work?</h2>
       </div>
-      <div>
-        <div>
+
+      <div class="featuresSectionBody">
+        <div class="featuresSectionlContainer">
           <ul>
             <li class="featuresSection__li firstLi">
               <div class="featuresSection__li__div">
@@ -134,9 +251,10 @@
         </div>
       </div>
     </section>
+
     <hr>
-    <section id="faqSection">
-      <div>
+    <section id="faqSection" class="container-space">
+      <div class="flexContainer__faqSection">
         <div id="blockStartPoint">
           <nav>
             <ul>
@@ -147,7 +265,7 @@
             </ul>
           </nav>
         </div>
-        <div>
+        <div id="blockFaqAccordion">
           <div id="contest">
             <div class="titleInContest">
               <h3>Launching A Contest</h3>
@@ -535,6 +653,7 @@
         </div>
       </div>
     </section>
+
     <section id="ctaSection">
       <div>
         <h3>Ready to get started?</h3>
@@ -547,7 +666,8 @@
       <div><img src="./assets/images/ctaSection2.svg" alt="opps!"></div>
 
     </section>
-    <section id="statsSection">
+
+    <section id="statsSection" class="container-space">
       <div>
         <div class="statsSectionImgWrap"><img src="./assets/images/stars.svg" alt=""></div>
         <p><span>4.9 out of 5 stars</span> from 25,000+ customers.</p>
@@ -562,8 +682,9 @@
           – and counting.</p>
       </div>
     </section>
-    <section id="pricingSection">
-      <div>
+
+    <section id="pricingSection" class="container-space">
+      <div class="flexContainer__faqSection">
         <div id="divPadd">
           <ul>
             <li class="liWrapper">
@@ -597,13 +718,15 @@
         </div>
       </div>
     </section>
-    <section id="clientSection">
+
+    <section id="clientSection" class="container-space">
       <div class="container">
         <div>
           <h6>Featured In</h6>
         </div>
-        <hr>
+
         <div id="brands">
+          <hr>
           <div class="brandsImg">
             <a href=""><img src="./assets/images/clients/forbes.svg" alt=""></a>
           </div>
@@ -613,129 +736,137 @@
         </div>
       </div>
     </section>
+
   </main>
   <footer>
-    <div class="footer-container">
-      <div>
-
-        <h2>Services</h2>
-        <ul>
-          <li class="list"><a href="">Premium Domains For Sale</a></li>
-          <li class="list"><a href="">Crowdsource Naming</a></li>
-          <li class="list"><a href="">Naming Agency</a></li>
-          <li class="list"><a href="">Brandable Domains</a></li>
-          <li class="list"><a href="">Sort Domains</a></li>
+    <div class="footer-wrapper">
+      <div class="footer-container">
+        <div>
+          <h2>Services</h2>
           <ul>
-            <li class="subList"><a href="">3 Letter Domains</a></li>
-            <li class="subList"><a href="">4 Letter Domains</a></li>
-            <li class="subList"><a href="">5 Letter Domains</a></li>
+            <li class="list"><a href="">Premium Domains For Sale</a></li>
+            <li class="list"><a href="">Crowdsource Naming</a></li>
+            <li class="list"><a href="">Naming Agency</a></li>
+            <li class="list"><a href="">Brandable Domains</a></li>
+            <li class="list"><a href="">Sort Domains</a></li>
+            <ul>
+              <li class="subList"><a href="">3 Letter Domains</a></li>
+              <li class="subList"><a href="">4 Letter Domains</a></li>
+              <li class="subList"><a href="">5 Letter Domains</a></li>
+            </ul>
+            <li class="list"><a href="">One Word Domains</a></li>
+            <li class="list"><a href="">Industry Domains</a></li>
+            <li class="list"><a href="">Agency Services</a></li>
+            <li class="list"><a href="">Logo Contests</a></li>
+            <li class="list"><a href="">Tagline Contests</a></li>
+            <li class="list"><a href="">Trademark Filing Service</a></li>
+            <li class="list"><a href="">Audience Test</a></li>
           </ul>
-          <li class="list"><a href="">One Word Domains</a></li>
-          <li class="list"><a href="">Industry Domains</a></li>
-          <li class="list"><a href="">Agency Services</a></li>
-          <li class="list"><a href="">Logo Contests</a></li>
-          <li class="list"><a href="">Tagline Contests</a></li>
-          <li class="list"><a href="">Trademark Filing Service</a></li>
-          <li class="list"><a href="">Audience Test</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Tools</h2>
-        <ul>
-          <li class="list"><a href="">Business Name Generator</a></li>
-          <li class="list"><a href="">How to Name Your Business</a></li>
-          <li class="list"><a href="">Free Trademark Checker</a></li>
-          <li class="list"><a href="">Branding Blog</a></li>
-          <li class="list"><a href="">Business Naming eBook</a></li>
-          <li class="list"><a href="">Startup Toolkit</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>SquadHelp</h2>
-        <ul>
-          <li class="list"><a href="">About</a></li>
-          <li class="list"><a href="">Contact</a></li>
-          <li class="list"><a href="">How It Works</a></li>
-          <li class="list"><a href="">Testimonials</a></li>
-          <li class="list"><a href="">Our Work</a></li>
-          <li class="list"><a href="">Help & FAQs</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Creatives</h2>
-        <ul>
-          <li class="list"><a href="">Get Started</a></li>
-          <li class="list"><a href="">Help & FAQs</a></li>
-          <li class="list"><a href="">Domin Selling Info</a></li>
-          <li class="list"><a href="">Discussion Forum</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Legal</h2>
-        <ul>
-          <li class="list"><a href="">Terms of Service</a></li>
-          <li class="list"><a href="">Privacy Policy</a></li>
-          <li class="list"><a href="">Cookie Policy</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-trending">
-      <h2>Trending Searches</h2>
-      <div>
-        <!--"form_and_paragraph"-->
+        </div>
         <div>
-          <p>
-            Explore our unique, hand-picked brand & business names for sale
-            along with a matching, premium domain name. Buy instantly for a
-            fixed low price.
-          </p>
-          <form method="get">
-            <input type="text" placeholder="Search over 75.000 Names">
-            <button>
-              <img src="./assets/images/icons/magnifying-glass-solid.svg" alt="oops">
-            </button>
-          </form>
+          <h2>Tools</h2>
+          <ul>
+            <li class="list"><a href="">Business Name Generator</a></li>
+            <li class="list"><a href="">How to Name Your Business</a></li>
+            <li class="list"><a href="">Free Trademark Checker</a></li>
+            <li class="list"><a href="">Branding Blog</a></li>
+            <li class="list"><a href="">Business Naming eBook</a></li>
+            <li class="list"><a href="">Startup Toolkit</a></li>
+          </ul>
         </div>
-
         <div>
-
+          <h2>SquadHelp</h2>
+          <ul>
+            <li class="list"><a href="">About</a></li>
+            <li class="list"><a href="">Contact</a></li>
+            <li class="list"><a href="">How It Works</a></li>
+            <li class="list"><a href="">Testimonials</a></li>
+            <li class="list"><a href="">Our Work</a></li>
+            <li class="list"><a href="">Help & FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <div>
+            <h2>Creatives</h2>
+            <ul>
+              <li class="list"><a href="">Get Started</a></li>
+              <li class="list"><a href="">Help & FAQs</a></li>
+              <li class="list"><a href="">Domin Selling Info</a></li>
+              <li class="list"><a href="">Discussion Forum</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Legal</h2>
+            <ul>
+              <li class="list"><a href="">Terms of Service</a></li>
+              <li class="list"><a href="">Privacy Policy</a></li>
+              <li class="list"><a href="">Cookie Policy</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="flashLinkFooter">
-        <div class="footer-search-terms">
-          <div class="footer-term-box">
-            <a href=""><span class="footer-term-box_span">Short Names</span></a>
+      <h2 class="footer-container__title">Trending Searches</h2>
+      <div class="footer-trending">
+        <div>
+          <!--"form_and_paragraph"-->
+          <div>
+            <p>
+              Explore our unique, hand-picked brand & business names for sale
+              along with a matching, premium domain name. Buy instantly for a
+              fixed low price.
+            </p>
+            <form method="get">
+              <input type="text" placeholder="Search over 75.000 Names">
+              <button>
+                <img src="./assets/images/icons/magnifying-glass-solid.svg" alt="oops">
+              </button>
+            </form>
+          </div>
+          <div>
           </div>
         </div>
-        <div class="footer-search-terms">
-          <div class="footer-term-box">
-            <a href=""><span class="footer-term-box_span">One Word</span></a>
+        <div class="flashLinkFooter">
+          <div class="footer-search-terms">
+            <div class="footer-term-box">
+              <a href=""><span class="footer-term-box_span">Short Names</span></a>
+            </div>
           </div>
-        </div>
-        <div class="footer-search-terms">
-          <div class="footer-term-box">
-            <a href=""><span class="footer-term-box_span">4-letter</span></a>
+          <div class="footer-search-terms">
+            <div class="footer-term-box">
+              <a href=""><span class="footer-term-box_span">One Word</span></a>
+            </div>
           </div>
-        </div>
-        <div class="footer-search-terms">
-          <div class="footer-term-box">
-            <a href=""><span class="footer-term-box_span">5-letter</span></a>
+          <div class="footer-search-terms">
+            <div class="footer-term-box">
+              <a href=""><span class="footer-term-box_span">4-letter</span></a>
+            </div>
+          </div>
+          <div class="footer-search-terms">
+            <div class="footer-term-box">
+              <a href=""><span class="footer-term-box_span">5-letter</span></a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="footer-info">
-      <div><span>
-        Copyright © 2022 Squadhelp Inc
-    </span></div>
-      <div>
-        <a href="">Squadhelp.com has a Shopper Approved rating of 4.9/5 based on 2782 and reviews</a>
-      </div>
-      <div class="footer-social-contact">
-        <a href="https://linkedin.com" target="_blank"><img src="./assets/images/socialIcon/image.svg" alt="linkedIn"></a>
-        <a href="https://instagram.com" target="_blank"><img src="./assets/images/socialIcon/instagram.svg" alt="instagram"></a>
-        <a href="https://twitter.com" target="_blank"><img src="./assets/images/socialIcon/twitter.svg" alt="twitter"></a>
-        <a href="https://facebook.com" target="_blank"><img src="./assets/images/socialIcon/facebook.svg" alt="facebook"></a>
+      <div class="footer-info">
+        <div>
+          <span>
+            Copyright © 2022 Squadhelp Inc
+          </span>
+        </div>
+        <div>
+          <a href="">Squadhelp.com has a Shopper Approved rating of 4.9/5 based on 2782 and reviews</a>
+        </div>
+        <div class="footer-social-contact">
+          <a href="https://linkedin.com" target="_blank"><img src="./assets/images/socialIcon/image.svg"
+              alt="linkedIn"></a>
+          <a href="https://instagram.com" target="_blank"><img src="./assets/images/socialIcon/instagram.svg"
+              alt="instagram"></a>
+          <a href="https://twitter.com" target="_blank"><img src="./assets/images/socialIcon/twitter.svg"
+              alt="twitter"></a>
+          <a href="https://facebook.com" target="_blank"><img src="./assets/images/socialIcon/facebook.svg"
+              alt="facebook"></a>
+        </div>
       </div>
     </div>
   </footer>
