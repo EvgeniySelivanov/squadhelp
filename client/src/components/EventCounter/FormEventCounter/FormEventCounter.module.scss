@@ -1,0 +1,19 @@
+.formWrapper {
+  font-size: 26px;
+  background-color: rgb(121, 107, 91);
+  padding: 15px;
+  border-radius: 6px;
+  label{
+  font-size: 16px;
+    color: aliceblue;
+  }
+  h3 {
+    color: rgb(231, 153, 8);
+    margin-bottom: 10px;
+  }
+  .inputContainer {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+}

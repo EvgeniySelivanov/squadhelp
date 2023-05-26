@@ -89,7 +89,6 @@ const UpdateUserInfoForm = props => {
 
 const mapStateToProps = state => {
   const { data, error } = state.userStore;
-  console.log(state.userStore);
   return {
     error,
     initialValues: {

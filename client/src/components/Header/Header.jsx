@@ -126,6 +126,9 @@ class Header extends React.Component {
           <div className={styles.leftNav}>
             <div className={styles.nav}>
               <ul>
+                <li><Link to="/events" style={{ textDecoration: 'none' }}>
+                  <span>EVENTS</span>
+                </Link></li>
                 <li>
                   <span>NAME IDEAS</span>
                   <img

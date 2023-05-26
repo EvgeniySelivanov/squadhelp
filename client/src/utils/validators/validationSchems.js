@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import valid from 'card-validator';
+const currentYear = new Date().getFullYear();
 
 
 const validationSchems = {
@@ -17,6 +18,12 @@ const validationSchems = {
       )
       .required('required'),
   }),
+  // FormEventCounterSchems:yup.object().shape({
+    // eventName:yup.string().min(3).required('required'),
+    // eventDate:yup.date().max(new Date(currentYear, 11, 31)).min(new Date()).required('required'),
+    // eventTime:yup.string().required('required'),
+    // reminderDate:yup.date().max(new Date(currentYear, 11, 31)).min(new Date()).required('required'),
+  // }),
   RegistrationSchem: yup.object().shape({
     email: yup
       .string()

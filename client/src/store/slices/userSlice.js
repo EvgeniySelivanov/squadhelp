@@ -72,7 +72,6 @@ const extraReducers = builder => {
   builder.addCase(getUser.rejected, rejectedReducer);
 
   builder.addCase(updateUser.fulfilled, (state, { payload }) => {
-    console.log('extrareducer>>> ',payload);
     state.data = { ...state.data, ...payload };
     state.error = null;
   });
