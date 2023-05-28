@@ -1,0 +1,2 @@
+use('shm-chat');
+db.messages.find({body:'паровоз'}).count();
