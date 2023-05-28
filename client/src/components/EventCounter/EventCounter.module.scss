@@ -1,23 +1,30 @@
-
-h1{
+h1 {
   color: rgb(76, 36, 121);
   font-size: 50px;
   padding: 20px;
 }
-.main{
+.main {
   padding: 20px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
- 
- 
-  .counters{
+  .scroll {
+    border: 3px solid rgb(212, 0, 255);
+    min-width: 300px;
     width: 100%;
+    max-width: 670px;
+    height: 700px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .counters {
+    min-width: 300px;
+    width: 100%;
+    max-width: 600px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    // max-width: 600px;
   }
 }

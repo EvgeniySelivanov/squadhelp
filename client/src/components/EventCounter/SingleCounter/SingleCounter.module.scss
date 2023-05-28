@@ -4,8 +4,28 @@
   border: 1px solid gray;
   background-color: aliceblue;
   border-radius: 12px;
+  min-width: 300px;
+  width: 100%;
+  max-width: 600px;
   p{margin-top: 10px;}
   .scale{
     border-radius: 10px;
   }
+  .eventContent{
+    display: flex;
+    flex-direction: row;
+    img{
+      max-width:60px;
+    }
+  }
 }
+
+@media screen and (max-width: 650px) {
+  .main {
+    max-width: 440px;
+  }}
+  @media screen and (max-width: 440px) {
+    .main {
+      max-width: 340px;
+    }}
+ 
