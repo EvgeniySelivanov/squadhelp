@@ -1,0 +1,20 @@
+{
+  "articles" : [
+  {
+  "title": "Yes",
+  "body":"The Domain should exactly match the name",
+  "isPush": true
+
+},
+{
+  "title": "Yеs",
+  "body":"But minor variations are allowed (Recommended)",
+  "isPush": false
+},
+{
+  "title": "No",
+  "body":"I am only looking for a name,not a Domain",
+  "isPush": false
+}
+]
+}

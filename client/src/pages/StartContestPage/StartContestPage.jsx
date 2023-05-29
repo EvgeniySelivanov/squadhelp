@@ -7,6 +7,7 @@ import styles from './StartContestPage.module.sass';
 import Footer from '../../components/Footer/Footer';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import Header from '../../components/Header/Header';
+import LargestCollection from '../../components/LargestCollection/LargestCollection';
 
 const StartContestPage = props => {
   if (props.userStore.data.role !== CONSTANTS.CUSTOMER) {
@@ -37,8 +38,10 @@ const StartContestPage = props => {
             submissions instantly!
           </span>
         </div>
+        
         <ProgressBar currentStep={1} />
       </div>
+      <LargestCollection/>
       <div className={styles.baseBundleContainer}>
         <div className={styles.infoBaseBundles}>
           <span className={styles.headerInfo}>
