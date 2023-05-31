@@ -1,6 +1,6 @@
 .idea/
 .vscode/
-
+log.json
 ./client/node_modules
 ./server/node_modules
 ./server/uploadFiles

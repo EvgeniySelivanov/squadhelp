@@ -1,5 +1,7 @@
+const handlerLog = require('../../Log');
+
 module.exports = (err, req, res, next) => {
-  console.log(err);
+  handlerLog(err);
   if (err.message ===
     'new row for relation "Banks" violates check constraint "Banks_balance_ck"' ||
     err.message ===
