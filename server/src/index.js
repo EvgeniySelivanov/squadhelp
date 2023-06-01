@@ -5,7 +5,7 @@ require('./dbMongo/mongoose');
 const router = require('./router');
 const controller = require('./socketInit');
 const handlerError = require('./handlerError/handler');
-
+const archiving=require('../Log/archiving');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -14,6 +14,7 @@ app.use(express.json());
 app.use('/public', express.static('public'));
 app.use(router);
 app.use(handlerError);
+archiving();
 
 const server = http.createServer(app);
 server.listen(PORT,
