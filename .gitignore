@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 log.json
+archLog*.json
 ./client/node_modules
 ./server/node_modules
 ./server/uploadFiles
