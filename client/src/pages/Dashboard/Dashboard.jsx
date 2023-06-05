@@ -8,7 +8,8 @@ import Header from '../../components/Header/Header';
 
 const Dashboard = props => {
   const { role, history } = props;
-  if (role) {
+  console.log(role);
+  if (role && role != CONSTANTS.MODERATOR) {
     return (
       <div>
         <Header />
@@ -19,12 +20,17 @@ const Dashboard = props => {
         )}
       </div>)
   }
+  if (role === CONSTANTS.MODERATOR) {
+    return ( 
+  <><Header />
+  <p>Access for moderators denied</p>
+  </> 
+  )
+  }
   else {
     history.push('/login');
     window.document.location.reload();
   }
-
-
 
 };
 

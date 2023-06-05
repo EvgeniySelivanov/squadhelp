@@ -22,7 +22,7 @@ const handlerLog = (error) => {
     });
   }
 
-  if (fs.existsSync('./Log/log.json') === true) {
+  if (fs.existsSync('./Log/log.json') === true && fs.statSync('./Log/log.json') != 0) {
     const readFile = fs.readFileSync('./Log/log.json', function (err) {
       if (err) { console.log(err); }
     });

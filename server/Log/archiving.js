@@ -4,7 +4,7 @@ const archiving = () => {
   setInterval(() => {
     time = new Date;
     // console.log(time);
-    if (time.getHours() === 1 && time.getMinutes() === 0 && time.getSeconds() === 0 && fs.existsSync('./Log/log.json') === true) {
+    if (time.getHours() === 12 && time.getMinutes() === 0 && time.getSeconds() === 0 && fs.existsSync('./Log/log.json') === true) {
       const readFile = fs.readFileSync('./Log/log.json', 'utf-8');
       const errTodayObj = JSON.parse(readFile);
       const archArr = errTodayObj.table;

@@ -35,6 +35,13 @@ module.exports.canGetContest = async (req, res, next) => {
         },
       });
     }
+    else if(req.tokenData.role === CONSTANTS.MODERATOR){
+      result = await db.Contests.findAll({
+        where: {
+          status: CONSTANTS.CONTEST_STATUS_PENDING,
+        },
+      });
+    }
     result ? next() : next(new RightsError());
   } catch (e) {
     next(new ServerError(e));

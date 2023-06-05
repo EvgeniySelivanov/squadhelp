@@ -154,14 +154,24 @@ const rejectOffer = async (offerId, creatorId, contestId) => {
   return rejectedOffer;
 };
 
+
+const approvedOffer = async (offerId, creatorId, contestId) => {
+  const approvedOffer = await contestQueries.updateOffer(
+    { status: CONSTANTS.OFFER_STATUS_APPROVED }, { id: offerId });
+  controller.getNotificationController().emitChangeOfferStatus(creatorId,
+    'Offer approved', contestId);
+  return approvedOffer;
+};
+
+
 const resolveOffer = async (
   contestId, creatorId, orderId, offerId, priority, transaction) => {
   const finishedContest = await contestQueries.updateContestStatus({
     status: db.sequelize.literal(`   CASE
-            WHEN "id"=${ contestId }  AND "orderId"='${ orderId }' THEN '${ CONSTANTS.CONTEST_STATUS_FINISHED }'
-            WHEN "orderId"='${ orderId }' AND "priority"=${ priority +
-    1 }  THEN '${ CONSTANTS.CONTEST_STATUS_ACTIVE }'
-            ELSE '${ CONSTANTS.CONTEST_STATUS_PENDING }'
+            WHEN "id"=${contestId}  AND "orderId"='${orderId}' THEN '${CONSTANTS.CONTEST_STATUS_FINISHED}'
+            WHEN "orderId"='${orderId}' AND "priority"=${priority +
+      1}  THEN '${CONSTANTS.CONTEST_STATUS_ACTIVE}'
+            ELSE '${CONSTANTS.CONTEST_STATUS_PENDING}'
             END
     `),
   }, { orderId }, transaction);
@@ -170,8 +180,8 @@ const resolveOffer = async (
     creatorId, transaction);
   const updatedOffers = await contestQueries.updateOfferStatus({
     status: db.sequelize.literal(` CASE
-            WHEN "id"=${ offerId } THEN '${ CONSTANTS.OFFER_STATUS_WON }'
-            ELSE '${ CONSTANTS.OFFER_STATUS_REJECTED }'
+            WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS_WON}'
+            ELSE '${CONSTANTS.OFFER_STATUS_REJECTED}'
             END
     `),
   }, {
@@ -189,7 +199,7 @@ const resolveOffer = async (
     'Someone of yours offers was rejected', contestId);
   controller.getNotificationController().emitChangeOfferStatus(creatorId,
     'Someone of your offers WIN', contestId);
-  return updatedOffers[ 0 ].dataValues;
+  return updatedOffers[0].dataValues;
 };
 
 module.exports.setOfferStatus = async (req, res, next) => {
@@ -202,7 +212,17 @@ module.exports.setOfferStatus = async (req, res, next) => {
     } catch (err) {
       next(err);
     }
-  } else if (req.body.command === 'resolve') {
+  } else if (req.body.command === 'approved') {
+    try {
+      const offer = await approvedOffer(req.body.offerId, req.body.creatorId,
+        req.body.contestId);
+      res.send(offer);
+    } catch (err) {
+      next(err);
+    }
+
+  }
+  else if (req.body.command === 'resolve') {
     try {
       transaction = await db.sequelize.transaction();
       const winningOffer = await resolveOffer(req.body.contestId,

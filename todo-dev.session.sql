@@ -1,3 +1,3 @@
 
 
-DELETE FROM Banks WHERE cardNumber="5111111111111111";
+DELETE FROM public."Users" WHERE "firstName"='Creative1';

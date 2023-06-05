@@ -42,9 +42,6 @@
     "storybook": "start-storybook",
     "build-storybook": "build-storybook -s public"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -52,8 +49,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint": "^7.26.0",
+    "@babel/eslint-parser": "^7.21.8",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.41.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-react-app": "^7.0.1",
     "sass": "^1.54.9"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }
