@@ -9,6 +9,7 @@ const initialState = {
   isFetching: true,
   error: null,
   contests: [],
+  offers: [],
   customerFilter: CONSTANTS.CONTEST_STATUS_ACTIVE,
   creatorFilter: {
     typeIndex: 1,
@@ -28,8 +29,22 @@ export const getContests = decorateAsyncThunk({
         ? await restController.getCustomersContests(requestData)
         : await restController.getActiveContests(requestData);
     return data;
+  }
+},
+);
+
+
+export const getOffers = decorateAsyncThunk({
+  key: `${CONTESTS_SLICE_NAME}/getOffers`,
+  thunk: async ({ requestData, role }) => {
+    if (role === CONSTANTS.MODERATOR) {
+      const { data } = await restController.getAllOffers(requestData);
+      return data;
+    }
   },
-});
+},
+);
+
 
 const reducers = {
   clearContestsList: state => {
@@ -60,8 +75,21 @@ const extraReducers = builder => {
     state.error = payload;
     state.contests = [];
   });
-};
 
+
+  builder.addCase(getOffers.pending, pendingReducer);
+  builder.addCase(getOffers.fulfilled, (state, { payload }) => {
+    console.log(payload);
+    state.isFetching = false;
+    state.offers = [ ...payload.offers];
+    state.haveMore = payload.haveMore;
+  });
+  builder.addCase(getOffers.rejected, (state, { payload }) => {
+    state.isFetching = false;
+    state.error = payload;
+    state.offers = [];
+  });
+};
 const contestsSlice = createSlice({
   name: CONTESTS_SLICE_NAME,
   initialState,

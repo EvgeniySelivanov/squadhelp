@@ -74,11 +74,15 @@ export const getActiveContests = ({
     ownEntries,
   }
   return http.get(`getAllContests?${qs.stringify(options)}`)
-}
-  ;
+};
+
+export const getAllOffers=({limit,offset})=>{
+const options={limit,offset}
+  return http.get(`getAllOffers?${qs.stringify(options)}`)
+};
+
 
 export const getContestById = data => {
-
   return http.get('getContestById', {
     headers: {
       contestId: data.contestId,

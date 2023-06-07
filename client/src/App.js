@@ -21,6 +21,7 @@ import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatCo
 import EventsPage from './pages/EventsPage/EventsPage';
 import ModeratorPage from './pages/ModeratorPage/ModeratorPage';
 
+
 class App extends Component {
   render () {
     return (
@@ -38,9 +39,9 @@ class App extends Component {
         />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/moderation' component={ModeratorPage} />
+          <Route exact path='/moderation' component={PrivateHoc(ModeratorPage)} />
 
-          <Route exact path='/events' component={EventsPage} />
+          <Route exact path='/events' component={PrivateHoc(EventsPage)} />
           <Route
             exact
             path='/login'

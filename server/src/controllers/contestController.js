@@ -262,6 +262,7 @@ module.exports.getCustomersContests = (req, res, next) => {
     .catch(err => next(new ServerError(err)));
 };
 
+
 module.exports.getContests = (req, res, next) => {
   const required = () => {
     if (req.query.ownEntries == 'false') {
@@ -297,6 +298,39 @@ module.exports.getContests = (req, res, next) => {
         haveMore = false;
       }
       res.send({ contests, haveMore });
+    })
+    .catch(err => {
+      next(new ServerError(err));
+    });
+};
+//////////////
+
+module.exports.getAllOffers = (req, res, next) => {
+  db.Offers.findAll(
+    {
+      where: {
+        status:'pending',
+      },
+      limit: req.query.limit,
+      offset: req.query.offset ? req.query.offset : 0,
+      include: [
+        {
+          model: db.Contests,
+          required: true,
+        },
+        {
+          model: db.Users,
+          required: true,
+        },
+      ],
+    },
+  )
+    .then(offers => {
+      let haveMore = true;
+      if (offers.length === 0) {
+        haveMore = false;
+      }
+      res.send({ offers, haveMore });
     })
     .catch(err => {
       next(new ServerError(err));

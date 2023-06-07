@@ -8,7 +8,6 @@ import Header from '../../components/Header/Header';
 
 const Dashboard = props => {
   const { role, history } = props;
-  console.log(role);
   if (role && role != CONSTANTS.MODERATOR) {
     return (
       <div>

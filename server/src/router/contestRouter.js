@@ -52,6 +52,13 @@ contestRouter.get(
 );
 
 contestRouter.get(
+  '/getAllOffers',
+  checkToken.checkToken,
+  basicMiddlewares.onlyForModerator,
+  contestController.getAllOffers,
+);
+
+contestRouter.get(
   '/getContestById',
   checkToken.checkToken,
   basicMiddlewares.canGetContest,
