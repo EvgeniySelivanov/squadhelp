@@ -66,7 +66,7 @@ console.log(props);
         </div>
        
       </div>
-     
+     <div className={styles.nameAndEmail}>Offer text: {props.offers.text}</div>
         <div className={styles.btnsContainer}>
           <div onClick={approvedOffer} className={styles.resolveBtn}>
             Approved

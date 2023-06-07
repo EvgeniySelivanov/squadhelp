@@ -4,7 +4,7 @@ import CONSTANTS from '../../constants';
 import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
 import Header from '../../components/Header/Header';
-
+import styles from '../ModeratorPage/ModeratorPage.module.scss';
 
 const Dashboard = props => {
   const { role, history } = props;
@@ -21,8 +21,9 @@ const Dashboard = props => {
   }
   if (role === CONSTANTS.MODERATOR) {
     return ( 
-  <><Header />
-  <p>Access for moderators denied</p>
+  <>
+  <Header />
+  <p className={styles.warningMessage}>Access for moderators denied</p>
   </> 
   )
   }

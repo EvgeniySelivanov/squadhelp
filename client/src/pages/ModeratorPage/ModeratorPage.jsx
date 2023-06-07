@@ -17,22 +17,19 @@ import {
   setNewCreatorFilter,
 } from '../../store/slices/contestsSlice';
 import OfferBoxModerator from '../../components/OfferBoxModerator/OfferBoxModerator';
+import styles from './ModeratorPage.module.scss';
 
 
 const ModeratorPage = (props) => {
-  // console.log(props);
+
   useEffect(() => {
     props.getOffers({
       limit: 8,
       offset: 0
     });
   }, []);
- 
   const { offers } = props.contestsList;
   const { role } = props.userStore.data;
-  console.log(offers);
-
-
    const setOfferList = () => {
       const array = [];
       for (let i = 0; i < offers.length; i++) {
@@ -47,25 +44,11 @@ const ModeratorPage = (props) => {
      return array.length !== 0 ? (
       array
     ) : (
-      <div >
+      <div className={styles.warningMessage}>
         There is no suggestion at this moment
       </div>
     );
   };
-
-
-  // const needButtons = (offerStatus) => {
-  //   // const contestCreatorId = offers.User.id;
-  //   // const userId = offers.Contest.userId;
-  //   const contestStatus = offers.Contest.status;
-  //   return (
-  //     // contestCreatorId === userId &&
-  //     contestStatus === CONSTANTS.CONTEST_STATUS_ACTIVE &&
-  //     offerStatus === CONSTANTS.OFFER_STATUS_APPROVED
-  //   );
-  // };
-
-
   const setOfferStatus = (creatorId, offerId, command,Contest) => {
     props.clearSetOfferStatusError();
     const { id, orderId, priority } =Contest;
@@ -80,7 +63,6 @@ const ModeratorPage = (props) => {
     props.setOfferStatus(obj);
   };
 
-
   changeEditContest(false)
 
   if (role === CONSTANTS.MODERATOR) {
@@ -94,7 +76,7 @@ const ModeratorPage = (props) => {
     );
   } else return (
     <><Header />
-      <div>You are not a moderator</div>
+      <div className={styles.warningMessage}>You are not a moderator!</div>
       <Footer /></>
 
   )

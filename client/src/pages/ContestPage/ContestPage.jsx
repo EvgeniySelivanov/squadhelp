@@ -25,12 +25,13 @@ import 'react-image-lightbox/style.css';
 import Error from '../../components/Error/Error';
 
 class ContestPage extends React.Component {
-  
+
   componentWillUnmount() {
     this.props.changeEditContest(false);
   }
 
   componentDidMount() {
+    console.log(this.props.userStore.data.role);
     this.getData();
   }
 
@@ -42,16 +43,30 @@ class ContestPage extends React.Component {
   setOffersList = () => {
     const array = [];
     for (let i = 0; i < this.props.contestByIdStore.offers.length; i++) {
-      array.push(
-        <OfferBox
-          data={this.props.contestByIdStore.offers[i]}
-          key={this.props.contestByIdStore.offers[i].id}
-          needButtons={this.needButtons}
-          setOfferStatus={this.setOfferStatus}
-          contestType={this.props.contestByIdStore.contestData.contestType}
-          date={new Date()}
-        />
-      );
+if(this.props.userStore.data.role===CONSTANTS.CREATOR){ 
+  array.push(
+  <OfferBox
+    data={this.props.contestByIdStore.offers[i]}
+    key={this.props.contestByIdStore.offers[i].id}
+    needButtons={this.needButtons}
+    setOfferStatus={this.setOfferStatus}
+    contestType={this.props.contestByIdStore.contestData.contestType}
+    date={new Date()}
+  />
+);}
+   else if (this.props.contestByIdStore.offers[i].status != CONSTANTS.OFFER_STATUS_REJECTED&&this.props.contestByIdStore.offers[i].status != CONSTANTS.OFFER_STATUS_PENDING) {
+        array.push(
+          <OfferBox
+            data={this.props.contestByIdStore.offers[i]}
+            key={this.props.contestByIdStore.offers[i].id}
+            needButtons={this.needButtons}
+            setOfferStatus={this.setOfferStatus}
+            contestType={this.props.contestByIdStore.contestData.contestType}
+            date={new Date()}
+          />
+        );
+      }
+
     }
     return array.length !== 0 ? (
       array
@@ -69,7 +84,7 @@ class ContestPage extends React.Component {
     return (
       contestCreatorId === userId &&
       contestStatus === CONSTANTS.CONTEST_STATUS_ACTIVE &&
-      offerStatus === CONSTANTS.OFFER_STATUS_PENDING
+      offerStatus === CONSTANTS.OFFER_STATUS_APPROVED
     );
   };
 
@@ -117,7 +132,7 @@ class ContestPage extends React.Component {
 
   render() {
     const { role } = this.props.userStore.data;
-    
+
     const {
       contestByIdStore,
       changeShowImage,
