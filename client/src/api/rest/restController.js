@@ -1,7 +1,34 @@
 import http from '../interceptor';
 import qs from 'query-string';
+import CONSTANTS from '../../constants';
 
-
+export const sendEmail = (offers) => {
+  const data = {
+    service_id: 'service_yh3v0od',
+    template_id: 'template_lrq75oa',
+    user_id: 'r1zWHSdotvIrvBJzL',
+    template_params: {
+      // to_mail: 'genyaselivanovzp@gmail.com',
+      to_mail: offers.User.email,
+      message: `You offer "${offers.text}" change status on ${CONSTANTS.OFFER_STATUS_APPROVED}`,
+      to_name: offers.User.firstName,
+      from_name: 'Squadhelp Company',
+    }
+  };
+  fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+    .then((result) => {
+      console.log(result.statusText);
+    }, (error) => {
+      console.log(error.statusText);
+    });
+}
 
 export const registerRequest = data => http.post('registration', data);
 export const loginRequest = data => http.post('login', data);

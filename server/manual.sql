@@ -11,8 +11,14 @@
 -- WHERE "Offers"."status" = 'pending'
 -- LIMIT '8' OFFSET '0';
 
-SELECT *
-FROM public."Offers" AS "Offers"
-  INNER JOIN "Contests" AS "Contest" ON "Offers"."contestId" = "Contest"."id"
-WHERE "Offers"."status" = 'pending'
-LIMIT '8' OFFSET '0';
+-- SELECT *
+-- FROM public."Offers" AS "Offers"
+--   INNER JOIN "Contests" AS "Contest" ON "Offers"."contestId" = "Contest"."id"
+-- WHERE "Offers"."status" = 'pending'
+-- LIMIT '8' OFFSET '0';
+
+
+UPDATE public."Offers"
+SET "status"='pending'
+WHERE "status"='approved'
+RETURNING *;

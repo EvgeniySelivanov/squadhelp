@@ -7,7 +7,9 @@ const ContestBox = props => {
   const getTimeStr = () => {
     const diff = moment.duration(moment().diff(moment(props.data.createdAt)));
     let str = '';
+    // eslint-disable-next-line no-underscore-dangle
     if (diff._data.days !== 0) str = `${diff._data.days}d `;
+    // eslint-disable-next-line no-underscore-dangle
     if (diff._data.hours !== 0) str += `${diff._data.hours}h`;
     if (str.length === 0) str = 'less than one hour';
     return str;
