@@ -3,6 +3,8 @@ const serverIP = 'localhost';
 const serverPort = 3000;
 
 const CONSTANTS = {
+  MIN_LIMIT: 5,
+  AMOUNTS: [5, 7, 10],
   CUSTOMER: 'customer',
   CREATOR: 'creator',
   MODERATOR: 'moderator',

@@ -1,6 +1,24 @@
-.warningMessage{
+.warningMessage {
   text-align: center;
   color: #6b89af;
   margin: 20px 0 20px 0;
   font-size: 30px;
+}
+.btn {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 15px 0;
+  button {
+    background-color: bisque;
+    border-radius: 5px;
+    border-color: bisque;
+    padding: 10px;
+    font-size: large;
+    transition: 0.5s;
+    margin: 0 5px 0px 5px ;
+  }
+  button:hover {
+    background-color: rgb(233, 230, 64);
+    transition: 0.5s;
+  }
 }

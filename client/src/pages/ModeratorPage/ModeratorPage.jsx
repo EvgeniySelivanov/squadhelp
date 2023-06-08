@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -7,23 +7,37 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import CONSTANTS from '../../constants';
 import { setOfferStatus } from '../../store/slices/contestByIdSlice';
-import { getOffers } from '../../store/slices/contestsSlice';
+import { getOffers, getAllOffersMore } from '../../store/slices/contestsSlice';
 import OfferBoxModerator from '../../components/OfferBoxModerator/OfferBoxModerator';
 import styles from './ModeratorPage.module.scss';
+import AmountBtns from '../../components/AmountBtns/index';
 
 
 const ModeratorPage = (props) => {
+  const [amount, setAmount] = useState(CONSTANTS.MIN_LIMIT);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     props.getOffers({
-      limit: 8,
-      offset: 0
+      limit: amount,
+      offset: offset
     });
-  }, []);
+    setOffset(offset + amount);
+
+  }, [amount]);
 
   const { offers } = props.contestsList;
   const { role } = props.userStore.data;
 
+  const handlerBtn = () => {
+    props.getAllOffersMore({ offset: offset, limit: amount });
+    setOffset(offset + amount);
+  };
+  const startBtn = () => {
+    props.getAllOffersMore({ offset: 0, limit: 5 });
+    setAmount(CONSTANTS.MIN_LIMIT)
+    setOffset(0);
+  };
   const setOfferList = () => {
     const array = [];
     for (let i = 0; i < offers.length; i++) {
@@ -56,7 +70,7 @@ const ModeratorPage = (props) => {
     };
     props.setOfferStatus(obj);
     props.getOffers({
-      limit: 8,
+      limit: 2,
       offset: 0
     });
     sendEmail(offers);
@@ -66,7 +80,14 @@ const ModeratorPage = (props) => {
     return (
       <>
         <Header />
+        <div className={styles.btn}>
+          <AmountBtns setAmount={setAmount} />
+        </div>
         <div>{setOfferList()}</div>
+        <div className={styles.btn}>
+          <button onClick={startBtn}>start over</button>
+          <button onClick={handlerBtn}>load more...</button>
+        </div>
         <Footer />
       </>
 
@@ -85,8 +106,8 @@ const mapStateToProps = state => {
   return { contestsList, userStore, chatStore };
 };
 const mapDispatchToProps = (dispatch) => ({
-  getOffers: (data) =>
-    dispatch(getOffers({ requestData: data, role: CONSTANTS.MODERATOR })),
+  getAllOffersMore: (data) => dispatch(getAllOffersMore({ requestData: data, role: CONSTANTS.MODERATOR })),
+  getOffers: (data) => dispatch(getOffers({ requestData: data, role: CONSTANTS.MODERATOR })),
   setOfferStatus: (data) => dispatch(setOfferStatus(data)),
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ModeratorPage));

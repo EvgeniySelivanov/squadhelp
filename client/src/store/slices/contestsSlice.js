@@ -46,6 +46,18 @@ export const getOffers = decorateAsyncThunk({
 );
 
 
+export const getAllOffersMore = decorateAsyncThunk({
+  key: `${CONTESTS_SLICE_NAME}/getAllOffersMore`,
+  thunk: async ({ requestData, role }) => {
+    console.log('getAllOffersMore');
+    if (role === CONSTANTS.MODERATOR) {
+      const { data } = await restController.getAllOffers(requestData);
+      return data;
+    }
+  },
+},
+);
+
 const reducers = {
   clearContestsList: state => {
     state.error = null;
@@ -89,6 +101,22 @@ const extraReducers = builder => {
     state.error = payload;
     state.offers = [];
   });
+
+  builder.addCase(getAllOffersMore.pending, pendingReducer);
+  builder.addCase(getAllOffersMore.fulfilled, (state, { payload }) => {
+    console.log(payload);
+    state.isFetching = false;
+    state.offers = [ ...payload.offers];
+    state.haveMore = payload.haveMore;
+  });
+  builder.addCase(getAllOffersMore.rejected, (state, { payload }) => {
+    state.isFetching = false;
+    state.error = payload;
+    state.offers = [];
+  });
+
+
+
 };
 const contestsSlice = createSlice({
   name: CONTESTS_SLICE_NAME,
