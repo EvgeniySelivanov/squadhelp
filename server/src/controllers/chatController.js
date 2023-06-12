@@ -99,7 +99,6 @@ module.exports.getChat = async (req, res, next) => {
     ]);
 
     const interlocutor = await userQueries.findUser({ id });
-    // console.log('>>>>>>>>>>>>> interlocutor', interlocutor);
     res.send({
       messages,
       interlocutor: {
