@@ -8,31 +8,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING(64),
+      title:{
+        type: Sequelize.STRING,
         allowNull: false,
-
-      },
-      ownerId: {
-        field:'owner_id',
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
       },
       createdAt: {
         field:'created_at',
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.fn('NOW'),
+
       },
       updatedAt: {
         field:'updated_at',
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.fn('NOW'),
+
       },
     });
   },

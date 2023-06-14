@@ -1,37 +1,34 @@
 
-const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Conversation extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  };
-  Conversation.init(
-    {
-      name: {
-        type: DataTypes.STRING(64),
-        allowNull: false,
-      },
-      ownerId: {
-        type: DataTypes.INTEGER,
-        field: 'owner_id',
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
+  const Conversation = sequelize.define('conversations', {
+    title:{
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        notNull: true,
       },
     },
-    {
-      sequelize,
-      modelName: 'Conversation',
-      underscored:true,
-      tableName: 'conversations',
-    });
+    createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue:DataTypes.NOW,
+    },
+    updatedAt: {
+      field: 'updated_at',
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue:DataTypes.NOW,
+    },
+    timestamps:true,
+  },
+  );
+
+  Conversation.associate = function (models) {
+    Conversation.belongsToMany(models.User, { foreignKey: 'conversation_id', through: 'users_to_conversations' });
+  };
+
+
   return Conversation;
 };

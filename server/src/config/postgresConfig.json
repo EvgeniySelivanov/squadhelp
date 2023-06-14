@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "password",
     "database": "todo-dev",
-    "host": "localhost",
+    "host": "172.20.0.1",
     "dialect": "postgres",
     "operatorsAliases": "Op",
     "seederStorage": "sequelize"

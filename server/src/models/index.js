@@ -7,7 +7,7 @@ const env = process.env.NODE_ENV || 'development';
 const configPath = env === 'production' ? path.join(__dirname, '..', '..', '..',
   'src/server/config/postgresConfig.json') : path.join(__dirname, '..',
   '/config/postgresConfig.json');
-const config = require(configPath)[ env ];
+const config = require(configPath)[env];
 const db = {};
 
 const sequelize = new Sequelize(config.database, config.username,
@@ -21,31 +21,51 @@ fs
   })
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[ model.name ] = model;
+    db[model.name] = model;
   });
 
-db[ 'Contests' ].belongsTo(db[ 'Users' ],
+db['Contests'].belongsTo(db['Users'],
   { foreignKey: 'userId', sourceKey: 'id' });
-db[ 'Contests' ].hasMany(db[ 'Offers' ],
+db['Contests'].hasMany(db['Offers'],
   { foreignKey: 'contestId', targetKey: 'id' });
 
-db[ 'Users' ].hasMany(db[ 'Offers' ],
+/** */
+db['Users'].belongsToMany(db['conversations'],
+  { foreignKey: 'user_id', through: 'users_to_conversations' });
+
+db['conversations'].belongsToMany(db['Users'],
+  { foreignKey: 'conversation_id', through: 'users_to_conversations' });
+
+db['Users'].hasMany(db['Messages'],
+  { foreignKey: 'user_id' });
+
+db['Users'].hasMany(db['Catalogs'],
+  { foreignKey: 'user_id' });
+
+db['Catalogs'].belongsTo(db['Users'],
+  { foreignKey: 'user_id', sourceKey: 'id' });
+
+
+/** */
+
+
+db['Users'].hasMany(db['Offers'],
   { foreignKey: 'userId', targetKey: 'id' });
-db[ 'Users' ].hasMany(db[ 'Contests' ],
+db['Users'].hasMany(db['Contests'],
   { foreignKey: 'userId', targetKey: 'id' });
-db[ 'Users' ].hasMany(db[ 'Ratings' ],
+db['Users'].hasMany(db['Ratings'],
   { foreignKey: 'userId', targetKey: 'id' });
 
-db[ 'Offers' ].belongsTo(db[ 'Users' ],
+db['Offers'].belongsTo(db['Users'],
   { foreignKey: 'userId', sourceKey: 'id' });
-db[ 'Offers' ].belongsTo(db[ 'Contests' ],
+db['Offers'].belongsTo(db['Contests'],
   { foreignKey: 'contestId', sourceKey: 'id' });
-db[ 'Offers' ].hasOne(db[ 'Ratings' ],
+db['Offers'].hasOne(db['Ratings'],
   { foreignKey: 'offerId', targetKey: 'id' });
 
-db[ 'Ratings' ].belongsTo(db[ 'Users' ],
+db['Ratings'].belongsTo(db['Users'],
   { foreignKey: 'userId', targetKey: 'id' });
-db[ 'Ratings' ].belongsTo(db[ 'Offers' ],
+db['Ratings'].belongsTo(db['Offers'],
   { foreignKey: 'offerId', targetKey: 'id' });
 
 db.sequelize = sequelize;
