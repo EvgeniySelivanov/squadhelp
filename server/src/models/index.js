@@ -39,11 +39,14 @@ db['conversations'].belongsToMany(db['Users'],
 db['Users'].hasMany(db['Messages'],
   { foreignKey: 'user_id' });
 
-db['Users'].hasMany(db['Catalogs'],
-  { foreignKey: 'user_id' });
+db['Messages'].belongsTo(db['Users'],
+  { foreignKey: 'user_id', through: 'users_to_conversations' });
+
+db['Users'].belongsToMany(db['Catalogs'],
+  { foreignKey: 'user_id', through:'users_conversation_catalogs' });
 
 db['Catalogs'].belongsTo(db['Users'],
-  { foreignKey: 'user_id', sourceKey: 'id' });
+  { foreignKey: 'user_id', through:'users_conversation_catalogs' });
 
 
 /** */

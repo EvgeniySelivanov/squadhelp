@@ -1,7 +1,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users_to_conversations', {
+    await queryInterface.createTable('users_conversation_catalogs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +15,7 @@ module.exports = {
         onUpdate: 'restrict',
         allowNull: false,
         references: {
-          model:  'Users',
+          model:'Users',
           key: 'id',
         },
       },
@@ -30,16 +30,16 @@ module.exports = {
           key: 'id',
         },
       },
-      blackList: {
-        type: Sequelize.BOOLEAN,
-        field: 'black_list',
-        defaultValue: false,
-      },
-      favoriteList: {
-        type: Sequelize.BOOLEAN,
-        field: 'favorite_list',
-        defaultValue: false,
-
+      catalogId: {
+        type: Sequelize.INTEGER,
+        field: 'catalog_id',
+        onDelete: 'cascade',
+        onUpdate: 'restrict',
+        allowNull: false,
+        references: {
+          model:  'Catalogs',
+          key: 'id',
+        },
       },
       createdAt: {
         field: 'created_at',
@@ -56,8 +56,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users_to_conversations');
-  // eslint-disable-next-line comma-dangle
-  }
-// eslint-disable-next-line eol-last
+    await queryInterface.dropTable('users_conversation_catalogs');
+  },
 };

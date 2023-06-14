@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   );
   MessageSql.associate = function (models) {
-    MessageSql.belongsTo(models.User, { foreignKey: 'user_id' });
+    MessageSql.belongsTo(models.User, { foreignKey: 'user_id', through: 'users_to_conversations' });
   };
 
   return MessageSql;

@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
   },
   );
   Catalog.associate = function (models) {
-    Catalog.belongsTo(models.User, { foreignKey: 'user_id' });
+    Catalog.belongsTo(models.User, { foreignKey: 'catalog_id', through: 'users_conversation_catalogs' });
+  };
+  Catalog.associate = function (models) {
+    Catalog.belongsToMany(models.Conversation, { foreignKey: 'catalog_id', through: 'users_conversation_catalogs' });
   };
   return Catalog;
 };
