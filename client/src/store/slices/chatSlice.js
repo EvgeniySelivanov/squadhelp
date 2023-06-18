@@ -11,6 +11,7 @@ import {
 const CHAT_SLICE_NAME = 'chat';
 
 const initialState = {
+  isNew:true,
   isFetching: true,
   addChatId: null,
   isShowCatalogCreation: false,
@@ -78,6 +79,7 @@ export const sendMessage = decorateAsyncThunk({
   key: `${CHAT_SLICE_NAME}/sendMessage`,
   thunk: async payload => {
     const { data } = await restController.newMessage(payload);
+    console.log('sendMessage>>>', data);
     return data;
   },
 });
@@ -85,7 +87,8 @@ export const sendMessage = decorateAsyncThunk({
 const sendMessageExtraReducers = createExtraReducers({
   thunk: sendMessage,
   fulfilledReducer: (state, { payload }) => {
-    const { messagesPreview } = state;
+    const { messagesPreview,  } = state;
+
     let isNew = true;
     messagesPreview.forEach(preview => {
       if (isEqual(preview.participants, payload.message.participants)) {

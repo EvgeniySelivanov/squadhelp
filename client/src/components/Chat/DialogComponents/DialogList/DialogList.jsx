@@ -27,11 +27,14 @@ const DialogList = (props) => {
     event.stopPropagation();
   };
 
+  // const onlyFavoriteDialogs = (chatPreview, userId) =>
+  //   chatPreview.favoriteList[chatPreview.participants.indexOf(userId)];
   const onlyFavoriteDialogs = (chatPreview, userId) =>
-    chatPreview.favoriteList[chatPreview.participants.indexOf(userId)];
-
-  const onlyBlockDialogs = (chatPreview, userId) =>
-    chatPreview.blackList[chatPreview.participants.indexOf(userId)];
+  chatPreview.favorite_list;
+  // const onlyBlockDialogs = (chatPreview, userId) =>
+  //   chatPreview.blackList[chatPreview.participants.indexOf(userId)];
+    const onlyBlockDialogs = (chatPreview, userId) =>
+    chatPreview.black_list;
 
   const getTimeStr = (time) => {
     const currentTime = moment();

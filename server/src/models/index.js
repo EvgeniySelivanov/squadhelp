@@ -31,10 +31,14 @@ db['Contests'].hasMany(db['Offers'],
 
 /** */
 db['Users'].belongsToMany(db['conversations'],
-  { foreignKey: 'user_id', through: 'users_to_conversations' });
+  { foreignKey: 'user_id',   through: 'users_to_conversations' });
 
 db['conversations'].belongsToMany(db['Users'],
   { foreignKey: 'conversation_id', through: 'users_to_conversations' });
+
+// db['users_to_conversations'].hasMany(db['Users'], { foreignKey: 'id' });
+// db['users_to_conversations'].hasMany(db['conversations'], { foreignKey: 'id' });
+
 
 db['Users'].hasMany(db['Messages'],
   { foreignKey: 'user_id' });
@@ -43,10 +47,10 @@ db['Messages'].belongsTo(db['Users'],
   { foreignKey: 'user_id', through: 'users_to_conversations' });
 
 db['Users'].belongsToMany(db['Catalogs'],
-  { foreignKey: 'user_id', through:'users_conversation_catalogs' });
+  { foreignKey: 'user_id', through: 'users_conversation_catalogs' });
 
 db['Catalogs'].belongsTo(db['Users'],
-  { foreignKey: 'user_id', through:'users_conversation_catalogs' });
+  { foreignKey: 'user_id', through: 'users_conversation_catalogs' });
 
 
 /** */

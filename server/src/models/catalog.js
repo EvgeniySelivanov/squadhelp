@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
       field: 'created_at',
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue:DataTypes.NOW,
+      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       field: 'updated_at',
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue:DataTypes.NOW,
+      defaultValue: DataTypes.NOW,
     },
     name: {
       type: DataTypes.STRING,
@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true,
       },
     },
-    timestamps: true,
   },
+  { timestamps: true },
   );
   Catalog.associate = function (models) {
     Catalog.belongsTo(models.User, { foreignKey: 'catalog_id', through: 'users_conversation_catalogs' });

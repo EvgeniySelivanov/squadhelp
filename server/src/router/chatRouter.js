@@ -1,24 +1,42 @@
 const { Router } = require('express');
 const checkToken = require('../middlewares/checkToken');
 const chatController = require('../controllers/chatController');
+const chatController2 = require('../controllers/chatController2');
 
 const chatRouter = Router();
 
+// chatRouter.get(
+//   '/getPreview',
+//   checkToken.checkToken,
+//   chatController2.getPreview,
+// );
+chatRouter.get(
+  '/getChat',
+  checkToken.checkToken,
+  chatController2.getChat,
+);
+chatRouter.post(
+  '/newMessage',
+  checkToken.checkToken,
+  chatController2.addMessage,
+);
 chatRouter.get(
   '/getPreview',
   checkToken.checkToken,
   chatController.getPreview,
 );
-chatRouter.get(
-  '/getChat',
-  checkToken.checkToken,
-  chatController.getChat,
-);
-chatRouter.post(
-  '/newMessage',
-  checkToken.checkToken,
-  chatController.addMessage,
-);
+
+// chatRouter.get(
+//   '/getChat',
+//   checkToken.checkToken,
+//   chatController.getChat,
+// );
+// chatRouter.post(
+//   '/newMessage',
+//   checkToken.checkToken,
+//   chatController.addMessage,
+// );
+
 chatRouter.patch(
   '/favorite',
   checkToken.checkToken,

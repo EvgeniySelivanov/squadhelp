@@ -1,28 +1,31 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const Conversation = sequelize.define('conversations', {
-    title:{
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true,
+  const Conversation = sequelize.define(
+    'conversations',
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
       },
+      createdAt: {
+        field: 'created_at',
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        field: 'updated_at',
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+
     },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue:DataTypes.NOW,
-    },
-    updatedAt: {
-      field: 'updated_at',
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue:DataTypes.NOW,
-    },
-    timestamps:true,
-  },
+    { timestamps: true },
   );
 
   Conversation.associate = function (models) {

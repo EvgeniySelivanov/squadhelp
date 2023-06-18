@@ -59,7 +59,6 @@ class Dialog extends React.Component {
   };
 
     UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
-    console.log('componentWillReceiveProps');
     if (nextProps.interlocutor.id !== this.props.interlocutor.id){ 
     this.props.getDialog({ interlocutorId: nextProps.interlocutor.id });
   }

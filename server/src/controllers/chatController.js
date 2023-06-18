@@ -150,6 +150,7 @@ module.exports.getPreview = async (req, res, next) => {
         },
       },
     ]);
+    console.log('conversation mongo>>>>>>', conversations);
     const interlocutors = [];
     conversations.forEach(conversation => {
       interlocutors.push(conversation.participants.find(
@@ -174,6 +175,8 @@ module.exports.getPreview = async (req, res, next) => {
         }
       });
     });
+    console.log('conversation send mongo>>>>>>', conversations);
+
     res.send(conversations);
   } catch (err) {
     next(err);
