@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { isEqual, remove } from 'lodash';
+import { remove } from 'lodash';
 import * as restController from '../../api/rest/restController';
 import CONSTANTS from '../../constants';
 import {
@@ -28,6 +28,7 @@ const initialState = {
   isRenameCatalog: false,
   isShowChatsInCatalog: false,
   catalogCreationMode: CONSTANTS.ADD_CHAT_TO_OLD_CATALOG,
+  
 };
 
 //---------- getPreviewChat
@@ -128,11 +129,13 @@ const changeChatFavoriteExtraReducers = createExtraReducers({
   fulfilledReducer: (state, { payload }) => {
     const { messagesPreview } = state;
     messagesPreview.forEach(preview => {
-      if (isEqual(preview.participants, payload.participants))
-        preview.favoriteList = payload.favoriteList;
+      if (payload.conversation_id===preview.conversation_id)
+        preview.favorite_list = payload.favorite_list;
     });
     state.chatData = payload;
     state.messagesPreview = messagesPreview;
+    state.chatPreview=payload;
+    
   },
   rejectedReducer: (state, { payload }) => {
     state.error = payload;
@@ -150,8 +153,6 @@ export const changeChatBlock = decorateAsyncThunk({
 const changeChatBlockExtraReducers = createExtraReducers({
   thunk: changeChatBlock,
   fulfilledReducer: (state, { payload }) => {
-    
-
     const { messagesPreview} = state;
     messagesPreview.forEach(preview => {
       if (payload.conversation_id===preview.conversation_id){

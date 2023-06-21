@@ -17,9 +17,10 @@ const DialogList = (props) => {
     userId,
     preview,
     goToExpandedDialog,
-    chatMode,
     removeChat,
   } = props;
+  const{chatMode}=props.chatStore;
+  const{data:{role}}=props.userStore
   const changeFavorite = (data, event) => {
     props.changeChatFavorite(data);
     event.stopPropagation();
@@ -37,9 +38,14 @@ const DialogList = (props) => {
  ;
   const onlyFavoriteDialogs = (chatPreview) =>
   chatPreview.favorite_list;
+    
+  const onlyBlockDialogs = (chatPreview) =>{
+    if(role===CONSTANTS.CREATOR){
+      return chatPreview.blackList[0];
+    }else{return chatPreview.blackList[1]}
+  } 
 
-    const onlyBlockDialogs = (chatPreview) =>
-    chatPreview.black_list;
+   
 
   const getTimeStr = (time) => {
     const currentTime = moment();
@@ -84,7 +90,6 @@ const DialogList = (props) => {
   };
 
   const renderChatPreview = () => {
-    const { chatMode } = props;
     if (chatMode === CONSTANTS.FAVORITE_PREVIEW_CHAT_MODE)
       return renderPreview(onlyFavoriteDialogs);
     if (chatMode === CONSTANTS.BLOCKED_PREVIEW_CHAT_MODE)
@@ -95,8 +100,10 @@ const DialogList = (props) => {
   return <div className={styles.previewContainer}>{renderChatPreview()}</div>;
 };
 
-const mapStateToProps = (state) => state.chatStore;
-
+const mapStateToProps = (state) => {
+  const{chatStore,userStore}= state;
+  return { chatStore, userStore };
+ }
 const mapDispatchToProps = (dispatch) => ({
   goToExpandedDialog: (data) => dispatch(goToExpandedDialog(data)),
   changeChatFavorite: (data) => dispatch(changeChatFavorite(data)),

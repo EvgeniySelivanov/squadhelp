@@ -21,13 +21,13 @@ const DialogBox = props => {
     getPreviewChat()
   }, []);
 
-  const { conversation_id, createdAt, text ,favoriteList, blackList,interlocutor,user_id,} = chatPreview;
+  const { conversation_id, createdAt, text ,favorite_list, blackList,interlocutor,user_id,} = chatPreview;
 const participants=[user_id,interlocutor.id];
 const id=conversation_id;
 
-  const isFavorite = favoriteList;
+  const isFavorite = favorite_list;
   let isBlocked ;
-  if(userStore.data.role==='creator'){
+  if(userStore.data.role===CONSTANTS.CREATOR){
     isBlocked = blackList[0];
   }else{isBlocked = blackList[1];}
   
@@ -42,7 +42,7 @@ const id=conversation_id;
             participants,
             id,
             blackList,
-            favoriteList,
+            favorite_list,
           },
         })
       }
@@ -70,6 +70,9 @@ const id=conversation_id;
                 {
                   conversation_id,
                   favoriteFlag: !isFavorite,
+                  participants:participants,
+                  interlocutor,
+                  role:userStore.data.role,
                 },
                 event
               )

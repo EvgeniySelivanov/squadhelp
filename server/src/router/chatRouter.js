@@ -25,6 +25,11 @@ chatRouter.patch(
   checkToken.checkToken,
   chatController2.blackList,
 );
+chatRouter.patch(
+  '/favorite',
+  checkToken.checkToken,
+  chatController2.favoriteChat,
+);
 // chatRouter.get(
 //   '/getPreview',
 //   checkToken.checkToken,
@@ -42,11 +47,11 @@ chatRouter.patch(
 //   chatController.addMessage,
 // );
 
-chatRouter.patch(
-  '/favorite',
-  checkToken.checkToken,
-  chatController.favoriteChat,
-);
+// chatRouter.patch(
+//   '/favorite',
+//   checkToken.checkToken,
+//   chatController.favoriteChat,
+// );
 // chatRouter.patch(
 //   '/blackList',
 //   checkToken.checkToken,

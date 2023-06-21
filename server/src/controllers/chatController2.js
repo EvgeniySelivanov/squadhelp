@@ -87,7 +87,7 @@ module.exports.addMessage = async (req, res, next) => {
         createAt: message.createdAt,
         participants,
         blackList: listState.black_list,
-        favoriteList:listState.favorite_list,
+        favoriteList: listState.favorite_list,
       };
       controller.getChatController().emitNewMessage(req.body.interlocutor.id, {
         message,
@@ -211,17 +211,11 @@ module.exports.getPreview = async (req, res, next) => {
             black_list: elem.black_list,
             favorite_list: elem.favorite_list,
           };
-          conversation.participants=[conversation.user_id, elem.user_id]
+          conversation.participants = [conversation.user_id, elem.user_id];
           if (req.tokenData.role === 'creator') {
-            conversation.blackList = [
-              conversation.black_list,
-              elem.black_list,
-            ];
+            conversation.blackList = [conversation.black_list, elem.black_list];
           } else if (req.tokenData.role === 'customer') {
-            conversation.blackList = [
-              elem.black_list,
-              conversation.black_list,
-            ];
+            conversation.blackList = [elem.black_list, conversation.black_list];
           }
         }
       });
@@ -265,14 +259,55 @@ module.exports.blackList = async (req, res, next) => {
     }
     getBlackAndFavoritList.conversation_id = req.body.conversation_id;
     getBlackAndFavoritList.role = req.body.role;
-    getBlackAndFavoritList.interlocutor=req.body.interlocutor;
+    getBlackAndFavoritList.interlocutor = req.body.interlocutor;
+    console.log('getBlackAndFavoritList', getBlackAndFavoritList);
     res.send(getBlackAndFavoritList);
     controller
       .getChatController()
       .emitChangeBlockStatus(
         req.body.interlocutor.id,
-        getBlackAndFavoritList.blackList,
+        getBlackAndFavoritList.blackList
       );
+  } catch (err) {
+    res.send(err);
+  }
+};
+//favoriteChat very long.... because i did response 'chatPreview' such as in blackList
+module.exports.favoriteChat = async (req, res, next) => {
+  try {
+    await sequelize.query(
+      `UPDATE public."users_to_conversations"
+      SET "favorite_list"=${req.body.favoriteFlag}
+       WHERE  user_id=${req.tokenData.userId}
+       AND "conversation_id"=${req.body.conversation_id}`,
+      { type: sequelize.QueryTypes.SELECT }
+    );
+    const [getBlackAndFavoritList] = await chatQueries.getBlackAndFavoritList(
+      req.body.conversation_id,
+      req.tokenData.userId
+    );
+    const [getInterlocutorBlackAndFavoritList] =
+      await chatQueries.getBlackAndFavoritList(
+        req.body.conversation_id,
+        req.body.interlocutor.id
+      );
+    getBlackAndFavoritList.participants = req.body.participants;
+    if (req.body.role === 'creator') {
+      getBlackAndFavoritList.blackList = [
+        getBlackAndFavoritList.black_list,
+        getInterlocutorBlackAndFavoritList.black_list,
+      ];
+    } else {
+      getBlackAndFavoritList.blackList = [
+        getInterlocutorBlackAndFavoritList.black_list,
+        getBlackAndFavoritList.black_list,
+      ];
+    }
+    getBlackAndFavoritList.conversation_id = req.body.conversation_id;
+    getBlackAndFavoritList.role = req.body.role;
+    getBlackAndFavoritList.interlocutor = req.body.interlocutor;
+    console.log('getBlackAndFavoritList>>>>>>>>', getBlackAndFavoritList);
+    res.send(getBlackAndFavoritList);
   } catch (err) {
     res.send(err);
   }

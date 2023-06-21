@@ -28,14 +28,14 @@ const ChatHeader = props => {
     event.stopPropagation();
   };
 
-  const isFavorite = (chatData, userId) => {
-    const { favorite_list } = chatData;
+  const isFavorite = (data) => {
+    const { favorite_list } =data;
     return favorite_list;
   };
 
   const isBlocked = (chatPreview) => {
     const { blackList } = chatPreview;
-    if (data.role === 'creator') {
+    if (data.role === CONSTANTS.CREATOR) {
       return blackList[0];
     } else {
       return blackList[1];
@@ -71,15 +71,19 @@ const ChatHeader = props => {
               onClick={event =>
                 changeFavorite(
                   {
-                    participants: chatData.participants,
-                    favoriteFlag: !isFavorite(chatData, userId),
+                    favoriteFlag: !isFavorite(chatPreview),
+                    participants:chatPreview.participants,
+                    conversation_id:chatPreview.conversation_id,
+                    interlocutor:chatPreview.interlocutor,
+                    role:data.role,
+
                   },
                   event
                 )
               }
               className={classNames({
-                'far fa-heart': !isFavorite(chatData, userId),
-                'fas fa-heart': isFavorite(chatData, userId),
+                'far fa-heart': !isFavorite(chatPreview, userId),
+                'fas fa-heart': isFavorite(chatPreview, userId),
               })}
             />
             <i
