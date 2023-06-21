@@ -1,39 +1,46 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import classNames from 'classnames';
 import styles from './DialogBox.module.sass';
+import { connect } from 'react-redux';
+import { getPreviewChat } from '../../../../store/slices/chatSlice';
 import CONSTANTS from '../../../../constants';
+
 
 const DialogBox = props => {
   const {
     chatPreview,
-    userId,
     getTimeStr,
     changeFavorite,
     changeBlackList,
     catalogOperation,
     goToExpandedDialog,
     chatMode,
-    interlocutor,
+    userStore,
   } = props;
-  const {
-    favoriteList,
-    participants,
-    blackList,
-    _id,
-    text,
-    createAt,
-  } = chatPreview;
-  const isFavorite = favoriteList[participants.indexOf(userId)];
-  const isBlocked = blackList[participants.indexOf(userId)];
+  useEffect(() => {
+    getPreviewChat()
+  }, []);
+
+  const { conversation_id, createdAt, text ,favoriteList, blackList,interlocutor,user_id,} = chatPreview;
+const participants=[user_id,interlocutor.id];
+const id=conversation_id;
+
+  const isFavorite = favoriteList;
+  let isBlocked ;
+  if(userStore.data.role==='creator'){
+    isBlocked = blackList[0];
+  }else{isBlocked = blackList[1];}
+  
   return (
     <div
       className={styles.previewChatBox}
       onClick={() =>
         goToExpandedDialog({
           interlocutor,
+          chatPreview,
           conversationData: {
             participants,
-            _id,
+            id,
             blackList,
             favoriteList,
           },
@@ -46,7 +53,7 @@ const DialogBox = props => {
             ? CONSTANTS.ANONYM_IMAGE_PATH
             : `${CONSTANTS.publicURL}${interlocutor.avatar}`
         }
-        alt='user'
+        alt="user"
       />
       <div className={styles.infoContainer}>
         <div className={styles.interlocutorInfo}>
@@ -56,12 +63,12 @@ const DialogBox = props => {
           <span className={styles.interlocutorMessage}>{text}</span>
         </div>
         <div className={styles.buttonsContainer}>
-          <span className={styles.time}>{getTimeStr(createAt)}</span>
+          <span className={styles.time}>{getTimeStr(createdAt)}</span>
           <i
             onClick={event =>
               changeFavorite(
                 {
-                  participants,
+                  conversation_id,
                   favoriteFlag: !isFavorite,
                 },
                 event
@@ -75,9 +82,11 @@ const DialogBox = props => {
           <i
             onClick={event =>
               changeBlackList(
-                {
-                  participants,
+                { participants:participants,
+                  conversation_id,
                   blackListFlag: !isBlocked,
+                  interlocutor,
+                  role:userStore.data.role,
                 },
                 event
               )
@@ -88,7 +97,7 @@ const DialogBox = props => {
             })}
           />
           <i
-            onClick={event => catalogOperation(event, _id)}
+            onClick={event => catalogOperation(event, id)}
             className={classNames({
               'far fa-plus-square':
                 chatMode !== CONSTANTS.CATALOG_PREVIEW_CHAT_MODE,
@@ -101,5 +110,16 @@ const DialogBox = props => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+ const{chatStore,userStore}= state;
+ return { chatStore, userStore };
+}
 
-export default DialogBox;
+const mapDispatchToProps = (dispatch) => ({
+  getChatPreview: () => dispatch(getPreviewChat()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DialogBox);

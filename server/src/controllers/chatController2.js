@@ -21,26 +21,9 @@ module.exports.addMessage = async (req, res, next) => {
     (participant1, participant2) => participant1 - participant2
   );
 
-  const checkConversation = await db.Messages.findAll({
-    attributes: ['conversation_id'],
-    where: {
-      [Op.or]: [
-        {
-          [Op.and]: [
-            { userId: req.tokenData.userId },
-            { userId: req.body.recipient },
-          ],
-        },
-        {
-          userId: req.tokenData.userId,
-        },
-      ],
-    },
-  });
-  console.log('checkConversation>>>>>', checkConversation);
   try {
-    if (checkConversation.length === 0) {
-      console.log('new chat');
+    const getConversationId = await chatQueries.getConversationId(req);
+    if (getConversationId.length === 0) {
       const newConversation = await chatQueries.createConversation({
         title: `${req.tokenData.firstName}<-->${req.body.interlocutor.firstName}`,
       });
@@ -88,31 +71,34 @@ module.exports.addMessage = async (req, res, next) => {
       });
     } else {
       const [convId] = await chatQueries.getConversationId(req);
-      console.log('old chat');
       const message = await chatQueries.createMessage({
         body: req.body.messageBody,
         userId: req.tokenData.userId,
-        conversationId: convId.dataValues.conversation_id,
+        conversationId: convId.conversation_id,
       });
+      const [listState] = await chatQueries.getBlackAndFavoritList(
+        convId.conversation_id,
+        req.tokenData.userId
+      );
       const preview = {
-        _id: convId.dataValues.conversation_id,
+        _id: convId.conversation_id,
         sender: req.tokenData.userId,
         text: req.body.messageBody,
         createAt: message.createdAt,
         participants,
-        blackList: 'false',
-        favoriteList: 'false',
+        blackList: listState.black_list,
+        favoriteList:listState.favorite_list,
       };
       controller.getChatController().emitNewMessage(req.body.interlocutor.id, {
         message,
         preview: {
-          _id: chatQueries.getConversationId,
+          _id: convId.conversation_id,
           sender: req.tokenData.userId,
           text: req.body.messageBody,
           createAt: message.createdAt,
           participants,
-          blackList: 'false',
-          favoriteList: 'false',
+          blackList: listState.black_list,
+          favoriteList: listState.favorite_list,
           interlocutor: {
             id: req.tokenData.userId,
             firstName: req.tokenData.firstName,
@@ -140,7 +126,6 @@ module.exports.addMessage = async (req, res, next) => {
 };
 
 module.exports.getChat = async (req, res, next) => {
-  // console.log('getChat req>>>>', req.query);
   const {
     query: { interlocutorId },
   } = req;
@@ -152,13 +137,11 @@ module.exports.getChat = async (req, res, next) => {
   );
   try {
     const [convId] = await chatQueries.getConversationId(req);
-    // const [test]=conversationId;
-    // console.log('convId>>>>', convId);
     let messages;
     if (convId) {
       messages = await db.Messages.findAll({
         where: {
-          conversationId: convId.dataValues.conversation_id,
+          conversationId: convId.conversation_id,
         },
       });
     } else {
@@ -183,65 +166,114 @@ module.exports.getChat = async (req, res, next) => {
 
 module.exports.getPreview = async (req, res, next) => {
   try {
-    //messages this user
-    const conversations = await db.Messages.findAll({
-      where: { userId: req.tokenData.userId },
-    });
-    console.log('getPreview messages this user>>>>>>>', conversations);
-    //id conversations this user
-    const arrConversation = [];
-    conversations.forEach((conversation) => {
-      arrConversation.push(conversation.dataValues.conversationId);
-    });
-    await console.log(
-      'getPreview id conversations this user>>>>',
-      arrConversation
-    );
-    const interlocutors = [];
-    //messages  interlocutor
-    const arrConversation2 = await db.Messages.findAll({
-      where: {
-        [Op.and]: [
-          { userId: { [Op.ne]: req.tokenData.userId } },
-          { conversationId: { [Op.in]: arrConversation } },
-        ],
-      },
-    });
-    //id interlocutors
-    arrConversation2.forEach((conversation) => {
-      interlocutors.push(conversation.dataValues.user_id);
-    });
-
-    await console.log('getPreview interlocutors>>>>', interlocutors);
-    const senders = await db.Users.findAll({
-      where: {
-        id: interlocutors,
-      },
-      attributes: ['id', 'firstName', 'lastName', 'displayName', 'avatar'],
-    });
-    console.log('senders in chatPreview>>>>>>>>', senders);
-
+    //get my conversations
     const userToConv = await sequelize.query(
-      `SELECT * FROM  public.users_to_conversations WHERE conversation_id IN (${arrConversation})`,
+      `SELECT * FROM  public.users_to_conversations WHERE  user_id=${req.tokenData.userId}`,
       { type: sequelize.QueryTypes.SELECT }
     );
-
-    console.log('userToConv>>>>>>>', userToConv);
+    const arrIdMyConv = [];
+    if (userToConv.length != 0) {
+      userToConv.forEach((element) => {
+        arrIdMyConv.push(element.conversation_id);
+      });
+    }
+    const interlocutors = [];
+    //get id interlocutor
+    if (arrIdMyConv.length != 0) {
+      const interlocutorId = await sequelize.query(
+        `SELECT user_id 
+      FROM  public.users_to_conversations WHERE conversation_id IN (${arrIdMyConv}) 
+      AND
+       user_id!=${req.tokenData.userId}`,
+        { type: sequelize.QueryTypes.SELECT }
+      );
+      interlocutorId.forEach((element) => {
+        interlocutors.push(element.user_id);
+      });
+    }
+    //converstations interlocutors
+    const interlocutorToConv = await sequelize.query(
+      `SELECT *  
+      FROM public."users_to_conversations" as "UTC"
+      JOIN public."Users" AS "Users" ON "Users"."id"="UTC"."user_id"
+      WHERE "UTC"."user_id" IN (${interlocutors});`,
+      { type: sequelize.QueryTypes.SELECT }
+    );
     userToConv.forEach((conversation) => {
-      senders.forEach((sender) => {
-        if (conversation.user_id == sender.dataValues.id) {
+      interlocutorToConv.forEach((elem) => {
+        if (conversation.conversation_id === elem.conversation_id) {
           conversation.interlocutor = {
-            id: sender.dataValues.id,
-            firstName: sender.dataValues.firstName,
-            lastName: sender.dataValues.lastName,
-            displayName: sender.dataValues.displayName,
-            avatar: sender.dataValues.avatar,
+            id: elem.user_id,
+            firstName: elem.firstName,
+            lastName: elem.lastName,
+            displayName: elem.displayName,
+            avatar: elem.avatar,
+            black_list: elem.black_list,
+            favorite_list: elem.favorite_list,
           };
+          conversation.participants=[conversation.user_id, elem.user_id]
+          if (req.tokenData.role === 'creator') {
+            conversation.blackList = [
+              conversation.black_list,
+              elem.black_list,
+            ];
+          } else if (req.tokenData.role === 'customer') {
+            conversation.blackList = [
+              elem.black_list,
+              conversation.black_list,
+            ];
+          }
         }
       });
     });
     res.send(userToConv);
   } catch (err) {
     next(err);
+  }
+};
+
+module.exports.blackList = async (req, res, next) => {
+  try {
+    await sequelize.query(
+      `UPDATE public."users_to_conversations"
+      SET "black_list"=${req.body.blackListFlag}
+       WHERE  user_id=${req.tokenData.userId}
+       AND "conversation_id"=${req.body.conversation_id}`,
+      { type: sequelize.QueryTypes.SELECT }
+    );
+
+    const [getBlackAndFavoritList] = await chatQueries.getBlackAndFavoritList(
+      req.body.conversation_id,
+      req.tokenData.userId
+    );
+    const [getInterlocutorBlackAndFavoritList] =
+      await chatQueries.getBlackAndFavoritList(
+        req.body.conversation_id,
+        req.body.interlocutor.id
+      );
+    getBlackAndFavoritList.participants = req.body.participants;
+    if (req.body.role === 'creator') {
+      getBlackAndFavoritList.blackList = [
+        getBlackAndFavoritList.black_list,
+        getInterlocutorBlackAndFavoritList.black_list,
+      ];
+    } else {
+      getBlackAndFavoritList.blackList = [
+        getInterlocutorBlackAndFavoritList.black_list,
+        getBlackAndFavoritList.black_list,
+      ];
+    }
+    getBlackAndFavoritList.conversation_id = req.body.conversation_id;
+    getBlackAndFavoritList.role = req.body.role;
+    getBlackAndFavoritList.interlocutor=req.body.interlocutor;
+    res.send(getBlackAndFavoritList);
+    controller
+      .getChatController()
+      .emitChangeBlockStatus(
+        req.body.interlocutor.id,
+        getBlackAndFavoritList.blackList,
+      );
+  } catch (err) {
+    res.send(err);
   }
 };

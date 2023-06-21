@@ -12,27 +12,15 @@ import styles from './Dialog.module.sass';
 import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
 
 class Dialog extends React.Component {
-
+   
   messagesEnd = React.createRef();
   scrollToBottom = () => {
     this.messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
   };
+
   
-  blockMessage = () => {
-    const { userId, chatData } = this.props;
-    const { blackList, participants } = chatData;
-    const userIndex = participants.indexOf(userId);
-    let message;
-    if (chatData && blackList[userIndex]) {
-      message = 'You block him';
-    } else if (chatData && blackList.includes(true)) {
-      message = 'He block you';
-    }
-    return <span className={styles.messageBlock}>{message}</span>;
-  };
-  
-  componentDidMount() {
-    this.props.getDialog({ interlocutorId: this.props.interlocutor.id });
+  componentDidMount() {;
+    this.props.getDialog({ interlocutorId: this.props.interlocutor.id});
     this.scrollToBottom();
   }
 
@@ -74,19 +62,33 @@ class Dialog extends React.Component {
   }
   
   render() {
-    const { chatData, userId } = this.props;
-    return (
+    const {  userId ,chatPreview} = this.props;
+    if(chatPreview
+      &&chatPreview.blackList[0]===true ){
+      return (<>
+       <ChatHeader userId={userId} />
+        {this.renderMainDialog()}
+      <div ref={this.messagesEnd} />
+      <span className={styles.messageBlock}>{'Creator blocked chat'}</span></>)
+    }
+    else if(chatPreview&&
+      chatPreview.blackList[1]===true){
+      return (<>
+       <ChatHeader userId={userId} />
+        {this.renderMainDialog()}
+      <div ref={this.messagesEnd} />
+      <span className={styles.messageBlock}>{'Buyer blocked chat'}</span></>)
+    }
+   
+    else{ return (
       <>
         <ChatHeader userId={userId} />
         {this.renderMainDialog()}
         <div ref={this.messagesEnd} />
-        {chatData && chatData.blackList.includes(true) ? (
-          this.blockMessage()
-        ) : (
-          <ChatInput />
-        )}
+        <ChatInput />
       </>
-    );
+    );}
+   
   }
 }
 

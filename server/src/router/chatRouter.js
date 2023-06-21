@@ -5,11 +5,11 @@ const chatController2 = require('../controllers/chatController2');
 
 const chatRouter = Router();
 
-// chatRouter.get(
-//   '/getPreview',
-//   checkToken.checkToken,
-//   chatController2.getPreview,
-// );
+chatRouter.get(
+  '/getPreview',
+  checkToken.checkToken,
+  chatController2.getPreview,
+);
 chatRouter.get(
   '/getChat',
   checkToken.checkToken,
@@ -20,11 +20,16 @@ chatRouter.post(
   checkToken.checkToken,
   chatController2.addMessage,
 );
-chatRouter.get(
-  '/getPreview',
+chatRouter.patch(
+  '/blackList',
   checkToken.checkToken,
-  chatController.getPreview,
+  chatController2.blackList,
 );
+// chatRouter.get(
+//   '/getPreview',
+//   checkToken.checkToken,
+//   chatController.getPreview,
+// );
 
 // chatRouter.get(
 //   '/getChat',
@@ -42,11 +47,11 @@ chatRouter.patch(
   checkToken.checkToken,
   chatController.favoriteChat,
 );
-chatRouter.patch(
-  '/blackList',
-  checkToken.checkToken,
-  chatController.blackList,
-);
+// chatRouter.patch(
+//   '/blackList',
+//   checkToken.checkToken,
+//   chatController.blackList,
+// );
 chatRouter.get(
   '/getCatalogs',
   checkToken.checkToken,

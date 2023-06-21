@@ -63,7 +63,6 @@ export const getDialogMessages = decorateAsyncThunk({
 const getDialogMessagesExtraReducers = createExtraReducers({
   thunk: getDialogMessages,
   fulfilledReducer: (state, { payload }) => {
-    console.log('get dialog', payload);
     state.messages = payload.messages;
     state.interlocutor = payload.interlocutor;
   },
@@ -79,7 +78,6 @@ export const sendMessage = decorateAsyncThunk({
   key: `${CHAT_SLICE_NAME}/sendMessage`,
   thunk: async payload => {
     const { data } = await restController.newMessage(payload);
-    console.log('sendMessage>>>', data);
     return data;
   },
 });
@@ -87,11 +85,11 @@ export const sendMessage = decorateAsyncThunk({
 const sendMessageExtraReducers = createExtraReducers({
   thunk: sendMessage,
   fulfilledReducer: (state, { payload }) => {
-    const { messagesPreview,  } = state;
+    const { messagesPreview  } = state;
 
     let isNew = true;
     messagesPreview.forEach(preview => {
-      if (isEqual(preview.participants, payload.message.participants)) {
+      if (preview.conversation_id=== payload.preview._id) {
         preview.text = payload.preview.text;
         preview.sender = payload.preview.sender;
         preview.createAt = payload.preview.createAt;
@@ -99,7 +97,6 @@ const sendMessageExtraReducers = createExtraReducers({
       }
     });
     if (isNew) {
-      console.log(payload.preview);
       messagesPreview.push(payload.preview);
     }
     const chatData = {
@@ -150,17 +147,21 @@ export const changeChatBlock = decorateAsyncThunk({
     return data;
   },
 });
-
 const changeChatBlockExtraReducers = createExtraReducers({
   thunk: changeChatBlock,
   fulfilledReducer: (state, { payload }) => {
-    const { messagesPreview } = state;
+    
+
+    const { messagesPreview} = state;
     messagesPreview.forEach(preview => {
-      if (isEqual(preview.participants, payload.participants))
+      if (payload.conversation_id===preview.conversation_id){
         preview.blackList = payload.blackList;
+      }
     });
-    state.chatData = payload;
     state.messagesPreview = messagesPreview;
+    state.chatData = payload;
+    state.chatPreview=payload;
+   
   },
   rejectedReducer: (state, { payload }) => {
     state.error = payload;
@@ -318,8 +319,9 @@ const reducers = {
   changeBlockStatusInStore: (state, { payload }) => {
     const { messagesPreview } = state;
     messagesPreview.forEach(preview => {
-      if (isEqual(preview.participants, payload.participants))
+      if (payload.conversation_id===preview.conversation_id)
         preview.blackList = payload.blackList;
+        preview.participants=payload.participants;
     });
     state.chatData = payload;
     state.messagesPreview = messagesPreview;
@@ -330,10 +332,10 @@ const reducers = {
     const { messagesPreview } = state;
     let isNew = true;
     messagesPreview.forEach(preview => {
-      if (isEqual(preview.participants, message.participants)) {
-        preview.text = message.body;
-        preview.sender = message.sender;
-        preview.createAt = message.createdAt;
+      if (preview.conversation_id === message.conversation_id) {
+        preview.text = payload.preview.text;
+        preview.sender = payload.preview.sender;
+        preview.createAt =payload.preview.createAt;
         isNew = false;
       }
     });
@@ -351,7 +353,8 @@ const reducers = {
 
   goToExpandedDialog: (state, { payload }) => {
     state.interlocutor = { ...state.interlocutor, ...payload.interlocutor };
-    state.chatData = payload.conversationData;
+    state.chatData = payload;
+    state.chatPreview=payload.chatPreview
     state.isShow = true;
     state.isExpanded = true;
     state.messages = [];

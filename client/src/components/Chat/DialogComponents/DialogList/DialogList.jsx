@@ -8,10 +8,18 @@ import {
   changeChatBlock,
   changeShowAddChatToCatalogMenu,
 } from '../../../../store/slices/chatSlice';
+
 import DialogBox from '../DialogBox/DialogBox';
 import styles from './DialogList.module.sass';
 
 const DialogList = (props) => {
+  const {
+    userId,
+    preview,
+    goToExpandedDialog,
+    chatMode,
+    removeChat,
+  } = props;
   const changeFavorite = (data, event) => {
     props.changeChatFavorite(data);
     event.stopPropagation();
@@ -26,14 +34,11 @@ const DialogList = (props) => {
     props.changeShowAddChatToCatalogMenu(chatId);
     event.stopPropagation();
   };
-
-  // const onlyFavoriteDialogs = (chatPreview, userId) =>
-  //   chatPreview.favoriteList[chatPreview.participants.indexOf(userId)];
-  const onlyFavoriteDialogs = (chatPreview, userId) =>
+ ;
+  const onlyFavoriteDialogs = (chatPreview) =>
   chatPreview.favorite_list;
-  // const onlyBlockDialogs = (chatPreview, userId) =>
-  //   chatPreview.blackList[chatPreview.participants.indexOf(userId)];
-    const onlyBlockDialogs = (chatPreview, userId) =>
+
+    const onlyBlockDialogs = (chatPreview) =>
     chatPreview.black_list;
 
   const getTimeStr = (time) => {
@@ -46,14 +51,6 @@ const DialogList = (props) => {
 
   const renderPreview = (filterFunc) => {
     const arrayList = [];
-    const {
-      userId,
-      preview,
-      goToExpandedDialog,
-      chatMode,
-      removeChat,
-     
-    } = props;
     preview.forEach((chatPreview, index) => {
       const dialogNode = (
         <DialogBox
@@ -106,6 +103,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeChatBlock: (data) => dispatch(changeChatBlock(data)),
   changeShowAddChatToCatalogMenu: (data) =>
     dispatch(changeShowAddChatToCatalogMenu(data)),
+    
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogList);
