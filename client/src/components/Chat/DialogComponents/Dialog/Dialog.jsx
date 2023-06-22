@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import className from 'classnames';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import {
   getDialogMessages,
   clearMessageList,

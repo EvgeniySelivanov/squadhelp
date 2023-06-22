@@ -24,7 +24,7 @@ class CatalogListContainer extends React.Component {
     const dialogsInCatalog = [];
     for (let i = 0; i < messagesPreview.length; i++) {
       for (let j = 0; j < chats.length; j++) {
-        if (chats[j] === messagesPreview[i]._id) {
+        if (chats[j] === messagesPreview[i].conversation_id) {
           dialogsInCatalog.push(messagesPreview[i]);
         }
       }

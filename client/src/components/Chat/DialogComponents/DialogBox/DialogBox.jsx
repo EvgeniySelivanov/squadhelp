@@ -28,8 +28,11 @@ const id=conversation_id;
   const isFavorite = favorite_list;
   let isBlocked ;
   if(userStore.data.role===CONSTANTS.CREATOR){
-    isBlocked = blackList[0];
-  }else{isBlocked = blackList[1];}
+    blackList ? isBlocked = blackList[0]:isBlocked=false;
+
+  }else{
+    blackList ? isBlocked = blackList[1]:isBlocked=false;
+    isBlocked = blackList[1];}
   
   return (
     <div

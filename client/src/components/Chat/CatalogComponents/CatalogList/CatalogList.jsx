@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { nanoid } from 'nanoid';
+
 import Catalog from '../Catalog/Catalog';
 import styles from '../CatalogListContainer/CatalogListContainer.module.sass';
 import {
@@ -25,7 +27,7 @@ const CatalogList = (props) => {
       elementList.push(
         <Catalog
           catalog={catalog}
-          key={catalog._id}
+          key={nanoid()}
           deleteCatalog={deleteCatalog}
           goToCatalog={goToCatalog}
         />

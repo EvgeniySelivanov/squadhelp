@@ -29,8 +29,7 @@ const ChatHeader = props => {
   };
 
   const isFavorite = (data) => {
-    const { favorite_list } =data;
-    return favorite_list;
+  return data.favorite_list;
   };
 
   const isBlocked = (chatPreview) => {
@@ -65,7 +64,7 @@ const ChatHeader = props => {
           />
           <span>{firstName}</span>
         </div>
-        {chatData && (
+        {chatPreview && (
           <div>
             <i
               onClick={event =>

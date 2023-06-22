@@ -181,6 +181,7 @@ export const getCatalogList = decorateAsyncThunk({
 const getCatalogListExtraReducers = createExtraReducers({
   thunk: getCatalogList,
   fulfilledReducer: (state, { payload }) => {
+   
     state.isFetching = false;
     state.catalogList = [...payload];
   },
@@ -375,6 +376,7 @@ const reducers = {
   },
 
   changeShowModeCatalog: (state, { payload }) => {
+    console.log('changeShowModeCatalog',payload);
     state.currentCatalog = { ...state.currentCatalog, ...payload };
     state.isShowChatsInCatalog = !state.isShowChatsInCatalog;
     state.isRenameCatalog = false;

@@ -1,14 +1,13 @@
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Catalogs', {
+    await queryInterface.createTable('CatalogSqls', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      catalogName: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
@@ -30,9 +29,9 @@ module.exports = {
         },
       },
       createdAt: {
-        field: 'created_at',
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
         defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
@@ -44,6 +43,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Catalogs');
+    await queryInterface.dropTable('CatalogSqls');
   },
 };

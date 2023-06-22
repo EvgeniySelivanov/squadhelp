@@ -39,8 +39,9 @@ VALUES (1, 2, 'test');
 INSERT INTO public."conversations" ("title")
 VALUES ('test2');
 -- --step4
--- INSERT INTO public."Catalogs" ( name,"user_id")
--- VALUES ( 'first',1),('second' ,1);
+INSERT INTO public."CatalogSqls" ( "nameCatalog","user_id")
+VALUES ( 'first',1),('second' ,1);
 -- --step5
-
+INSERT INTO public."SenderToCatalogs" ( "user_id","catalog_id","conversation_id")
+VALUES ( 1,2,2);
 

@@ -1,7 +1,6 @@
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users_conversation_catalogs', {
+    await queryInterface.createTable('SenderToCatalogs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,18 +14,9 @@ module.exports = {
         onUpdate: 'restrict',
         allowNull: false,
         references: {
-          model:'Users',
-          key: 'id',
-        },
-      },
-      conversationId: {
-        type: Sequelize.INTEGER,
-        field: 'conversation_id',
-        onDelete: 'cascade',
-        onUpdate: 'restrict',
-        allowNull: false,
-        references: {
-          model:  'conversations',
+          model: {
+            tableName: 'Users',
+          },
           key: 'id',
         },
       },
@@ -37,7 +27,23 @@ module.exports = {
         onUpdate: 'restrict',
         allowNull: false,
         references: {
-          model:  'Catalogs',
+          model: {
+            tableName: 'CatalogSqls',
+          },
+          key: 'id',
+        },
+      },
+
+      conversationId: {
+        type: Sequelize.INTEGER,
+        field: 'conversation_id',
+        onDelete: 'cascade',
+        onUpdate: 'restrict',
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'conversations',
+          },
           key: 'id',
         },
       },
@@ -46,16 +52,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW'),
+
       },
       updatedAt: {
         field: 'updated_at',
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW'),
+
+
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users_conversation_catalogs');
+    await queryInterface.dropTable('SenderToCatalogs');
   },
 };

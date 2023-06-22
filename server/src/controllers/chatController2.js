@@ -5,7 +5,7 @@ const config = require('../config/postgresConfig.json');
 const userQueries = require('./queries/userQueries');
 const chatQueries = require('./queries/chatQueries');
 const controller = require('../socketInit');
-// const ServerError = require('../errors/ServerError');
+const ServerError = require('../errors/ServerError');
 const sequelize = new Sequelize(
   config.development.database,
   config.development.username,
@@ -192,35 +192,46 @@ module.exports.getPreview = async (req, res, next) => {
       });
     }
     //converstations interlocutors
-    const interlocutorToConv = await sequelize.query(
-      `SELECT *  
+    if (interlocutors.length) {
+      const interlocutorToConv = await sequelize.query(
+        `SELECT *  
       FROM public."users_to_conversations" as "UTC"
       JOIN public."Users" AS "Users" ON "Users"."id"="UTC"."user_id"
       WHERE "UTC"."user_id" IN (${interlocutors});`,
-      { type: sequelize.QueryTypes.SELECT }
-    );
-    userToConv.forEach((conversation) => {
-      interlocutorToConv.forEach((elem) => {
-        if (conversation.conversation_id === elem.conversation_id) {
-          conversation.interlocutor = {
-            id: elem.user_id,
-            firstName: elem.firstName,
-            lastName: elem.lastName,
-            displayName: elem.displayName,
-            avatar: elem.avatar,
-            black_list: elem.black_list,
-            favorite_list: elem.favorite_list,
-          };
-          conversation.participants = [conversation.user_id, elem.user_id];
-          if (req.tokenData.role === 'creator') {
-            conversation.blackList = [conversation.black_list, elem.black_list];
-          } else if (req.tokenData.role === 'customer') {
-            conversation.blackList = [elem.black_list, conversation.black_list];
+        { type: sequelize.QueryTypes.SELECT }
+      );
+      userToConv.forEach((conversation) => {
+        interlocutorToConv.forEach((elem) => {
+          if (conversation.conversation_id === elem.conversation_id) {
+            conversation.interlocutor = {
+              id: elem.user_id,
+              firstName: elem.firstName,
+              lastName: elem.lastName,
+              displayName: elem.displayName,
+              avatar: elem.avatar,
+              black_list: elem.black_list,
+              favorite_list: elem.favorite_list,
+            };
+            conversation.participants = [conversation.user_id, elem.user_id];
+            if (req.tokenData.role === 'creator') {
+              conversation.blackList = [
+                conversation.black_list,
+                elem.black_list,
+              ];
+            } else if (req.tokenData.role === 'customer') {
+              conversation.blackList = [
+                elem.black_list,
+                conversation.black_list,
+              ];
+            }
           }
-        }
+        });
       });
-    });
-    res.send(userToConv);
+
+      res.send(userToConv);
+    } else {
+      res.send(userToConv);
+    }
   } catch (err) {
     next(err);
   }
@@ -310,5 +321,88 @@ module.exports.favoriteChat = async (req, res, next) => {
     res.send(getBlackAndFavoritList);
   } catch (err) {
     res.send(err);
+  }
+};
+
+module.exports.createCatalog = async (req, res, next) => {
+  try {
+    console.log('inCatalog req.body>>>>', req.body);
+    const catalog = await db.CatalogSqls.create({
+      userId: req.tokenData.userId,
+      catalogName: req.body.catalogName,
+    });
+    catalog.dataValues.chats = [req.body.chatId];
+    console.log('catalog>>>>', catalog);
+
+    const senderToCatalog = await db.SenderToCatalogs.create({
+      userId: req.tokenData.userId,
+      conversationId: req.body.chatId,
+      catalogId: catalog.dataValues.id,
+    });
+    console.log('catalog senderToCatalog>>>>', senderToCatalog);
+
+    res.send(catalog);
+  } catch (err) {
+    next(err);
+  }
+};
+module.exports.getCatalogs = async (req, res, next) => {
+  try {
+    console.log('reqBody getCatalog', req.body);
+    let catalogs = await sequelize.query(
+      `SELECT *
+      FROM public."SenderToCatalogs" as "STC"
+      JOIN public."CatalogSqls" AS "CS" ON "CS"."id"="STC"."catalog_id"
+       WHERE  "STC"."user_id"=${req.tokenData.userId}
+      GROUP BY "STC"."catalog_id","STC"."id","CS"."id"`,
+      { type: sequelize.QueryTypes.SELECT }
+    );
+    //GROUP BY "STC"."user_id"
+    // JOIN public."CatalogSqls" AS "CS" ON "CS"."user_id"="STC"."user_id"
+
+    // const [catalogs] = await db.CatalogSqls.findAll({
+    //   where: { userId: req.tokenData.userId },
+    //   include: [
+    //     {
+    //       model: db.SenderToCatalogs,
+    //       required: true,
+    //     },
+    //   ],
+    // });
+   
+    // catalogs.chats = [];
+    // catalogs.SenderToCatalogs.forEach((element) => {
+    //   chats.push(element.conversationId);
+    // });
+    // console.log('catalogs>>>>>>>', catalogs);
+    // console.log('catalogs getCatalog>>>>>>>', catalogs.SenderToCatalogs);
+    //catalogs.dataValues.chats = chats;
+    // console.log('catalogs getCatalog>>>>>>>', catalogs.dataValues);
+    catalogs.forEach((element) => {
+      element.chats = [];
+      element.chats.push(element.conversation_id);
+    });
+
+    for (let i = 0; i < catalogs.length; i++) {
+      if (i === catalogs.length - 1) {
+        break;
+      }
+      console.log('catalogs[i]>>>>>>>', catalogs[i].chats);
+      for (let j = 0; j < catalogs.length; j++){
+        if (catalogs[i].catalog_id === catalogs[j].catalog_id&&catalogs[j].chats.length>0) {
+          catalogs[i].chats.push(catalogs[j].chats[0]);
+          delete catalogs[j].chats[0];
+        }
+      }
+    }
+    catalogs.forEach((element) => {
+      element.chats = [...new Set(element.chats)];
+      element.chats=element.chats.filter(elem=>elem!==undefined);
+    });
+    catalogs=catalogs.filter(elem=>elem.chats.length!==0);
+    console.log('catalogs send>>>>>>>', catalogs);
+    res.send(catalogs);
+  } catch (err) {
+    next(err);
   }
 };

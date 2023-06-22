@@ -30,6 +30,16 @@ chatRouter.patch(
   checkToken.checkToken,
   chatController2.favoriteChat,
 );
+chatRouter.post(
+  '/createCatalog',
+  checkToken.checkToken,
+  chatController2.createCatalog,
+);
+chatRouter.get(
+  '/getCatalogs',
+  checkToken.checkToken,
+  chatController2.getCatalogs,
+);
 // chatRouter.get(
 //   '/getPreview',
 //   checkToken.checkToken,
@@ -57,21 +67,21 @@ chatRouter.patch(
 //   checkToken.checkToken,
 //   chatController.blackList,
 // );
-chatRouter.get(
-  '/getCatalogs',
-  checkToken.checkToken,
-  chatController.getCatalogs,
-);
+// chatRouter.get(
+//   '/getCatalogs',
+//   checkToken.checkToken,
+//   chatController.getCatalogs,
+// );
 chatRouter.post(
   '/addNewChatToCatalog',
   checkToken.checkToken,
   chatController.addNewChatToCatalog,
 );
-chatRouter.post(
-  '/createCatalog',
-  checkToken.checkToken,
-  chatController.createCatalog,
-);
+// chatRouter.post(
+//   '/createCatalog',
+//   checkToken.checkToken,
+//   chatController.createCatalog,
+// );
 chatRouter.delete(
   '/deleteCatalog',
   checkToken.checkToken,
