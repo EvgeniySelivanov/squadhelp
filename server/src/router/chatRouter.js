@@ -50,6 +50,11 @@ chatRouter.post(
   checkToken.checkToken,
   chatController2.addNewChatToCatalog,
 );
+chatRouter.patch(
+  '/removeChatFromCatalog',
+  checkToken.checkToken,
+  chatController2.removeChatFromCatalog,
+);
 // chatRouter.get(
 //   '/getPreview',
 //   checkToken.checkToken,

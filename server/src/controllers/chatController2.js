@@ -385,7 +385,7 @@ module.exports.updateNameCatalog = async (req, res, next) => {
   try {
     const newName = await db.CatalogSqls.findByPk(req.body.catalogId);
     if (newName) {
-      newName.catalogName = req.body.catalogName;
+      newName.dataValues.catalogName = req.body.catalogName;
       await newName.save();
       newName.dataValues.chats = await chatQueries.findChatInCatalog(
         req.body.catalogId,
@@ -411,14 +411,40 @@ module.exports.addNewChatToCatalog = async (req, res, next) => {
         catalogId: req.body.catalogId,
       });
       newChatToCatalog.dataValues.chats = await chatQueries.findChatInCatalog(
-        req.body.catalogId,
+        req.body.catalogId
       );
       newChatToCatalog.dataValues._id = newChatToCatalog.dataValues.catalogId;
       newChatToCatalog.dataValues.catalogName = catalog.dataValues.catalogName;
       delete newChatToCatalog.dataValues.catalogId;
       delete newChatToCatalog.dataValues.id;
       res.send(newChatToCatalog);
-    }else{console.log('Catalog not found >>>>');}
+    } else {
+      console.log('Catalog not found >>>>');
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+module.exports.removeChatFromCatalog = async (req, res, next) => {
+  try {
+    const chatInCatalog = await db.SenderToCatalogs.destroy({
+      where: {
+        [Op.and]: [
+          { catalogId: req.body.catalogId },
+          { conversationId: req.body.chatId },
+          { userId: req.tokenData.userId },
+        ],
+      },
+    });
+    const catalog = await db.CatalogSqls.findByPk(req.body.catalogId);
+    const sendToClient ={
+      chats: await chatQueries.findChatInCatalog(req.body.catalogId),
+      _id:req.body.catalogId,
+      userId:req.tokenData.userId,
+      catalogName:catalog.dataValues.catalogName,
+    };
+
+    res.send(sendToClient);
   } catch (err) {
     next(err);
   }

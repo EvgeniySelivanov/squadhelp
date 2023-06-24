@@ -281,6 +281,7 @@ const removeChatFromCatalogExtraReducers = createExtraReducers({
       }
     }
     state.currentCatalog = payload;
+    state.currentCatalog.catalog_id = payload._id;
     state.catalogList = [...catalogList];
   },
   rejectedReducer: (state, { payload }) => {

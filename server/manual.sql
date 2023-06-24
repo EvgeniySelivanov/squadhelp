@@ -45,3 +45,8 @@ VALUES ( 'first',1),('second' ,1);
 INSERT INTO public."SenderToCatalogs" ( "user_id","catalog_id","conversation_id")
 VALUES ( 1,2,2);
 
+DELETE FROM public."SenderToCatalogs"
+WHERE "catalog_id"=6;
+
+DELETE FROM public."CatalogSqls"
+WHERE "id"=6;
