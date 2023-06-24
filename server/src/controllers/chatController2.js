@@ -357,39 +357,19 @@ module.exports.getCatalogs = async (req, res, next) => {
       GROUP BY "STC"."catalog_id","STC"."id","CS"."id"`,
       { type: sequelize.QueryTypes.SELECT }
     );
-    //GROUP BY "STC"."user_id"
-    // JOIN public."CatalogSqls" AS "CS" ON "CS"."user_id"="STC"."user_id"
-
-    // const [catalogs] = await db.CatalogSqls.findAll({
-    //   where: { userId: req.tokenData.userId },
-    //   include: [
-    //     {
-    //       model: db.SenderToCatalogs,
-    //       required: true,
-    //     },
-    //   ],
-    // });
-   
-    // catalogs.chats = [];
-    // catalogs.SenderToCatalogs.forEach((element) => {
-    //   chats.push(element.conversationId);
-    // });
-    // console.log('catalogs>>>>>>>', catalogs);
-    // console.log('catalogs getCatalog>>>>>>>', catalogs.SenderToCatalogs);
-    //catalogs.dataValues.chats = chats;
-    // console.log('catalogs getCatalog>>>>>>>', catalogs.dataValues);
     catalogs.forEach((element) => {
       element.chats = [];
       element.chats.push(element.conversation_id);
     });
-
     for (let i = 0; i < catalogs.length; i++) {
       if (i === catalogs.length - 1) {
         break;
       }
-      console.log('catalogs[i]>>>>>>>', catalogs[i].chats);
-      for (let j = 0; j < catalogs.length; j++){
-        if (catalogs[i].catalog_id === catalogs[j].catalog_id&&catalogs[j].chats.length>0) {
+      for (let j = 0; j < catalogs.length; j++) {
+        if (
+          catalogs[i].catalog_id === catalogs[j].catalog_id &&
+          catalogs[j].chats.length > 0
+        ) {
           catalogs[i].chats.push(catalogs[j].chats[0]);
           delete catalogs[j].chats[0];
         }
@@ -397,11 +377,39 @@ module.exports.getCatalogs = async (req, res, next) => {
     }
     catalogs.forEach((element) => {
       element.chats = [...new Set(element.chats)];
-      element.chats=element.chats.filter(elem=>elem!==undefined);
+      element.chats = element.chats.filter((elem) => elem !== undefined);
     });
-    catalogs=catalogs.filter(elem=>elem.chats.length!==0);
-    console.log('catalogs send>>>>>>>', catalogs);
+    catalogs = catalogs.filter((elem) => elem.chats.length !== 0);
     res.send(catalogs);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.updateNameCatalog = async (req, res, next) => {
+  try {
+    const newName = await db.CatalogSqls.findByPk(req.body.catalogId);
+    const chats=await db.SenderToCatalogs.findAll({
+      attributes:['conversation_id'],
+      where:{
+        catalogId:req.body.catalogId,
+      },
+    });
+    const sendChats=[];
+    chats.forEach(element => {
+      sendChats.push(element.dataValues.conversation_id);
+    });
+
+    if (newName) {
+      newName.catalogName = req.body.catalogName;
+      await newName.save();
+      newName.dataValues.chats=sendChats;
+      newName.dataValues._id=newName.dataValues.id;
+      delete newName.dataValues.id;
+      res.send(newName);
+    } else {
+      console.log('Model not found.');
+    }
   } catch (err) {
     next(err);
   }

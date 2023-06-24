@@ -40,6 +40,11 @@ chatRouter.get(
   checkToken.checkToken,
   chatController2.getCatalogs,
 );
+chatRouter.patch(
+  '/updateNameCatalog',
+  checkToken.checkToken,
+  chatController2.updateNameCatalog,
+);
 // chatRouter.get(
 //   '/getPreview',
 //   checkToken.checkToken,
@@ -92,11 +97,11 @@ chatRouter.patch(
   checkToken.checkToken,
   chatController.removeChatFromCatalog,
 );
-chatRouter.patch(
-  '/updateNameCatalog',
-  checkToken.checkToken,
-  chatController.updateNameCatalog,
-);
+// chatRouter.patch(
+//   '/updateNameCatalog',
+//   checkToken.checkToken,
+//   chatController.updateNameCatalog,
+// );
 
 module.exports = chatRouter;
 
