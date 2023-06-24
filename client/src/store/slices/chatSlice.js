@@ -252,7 +252,7 @@ const deleteCatalogExtraReducers = createExtraReducers({
     const { catalogList } = state;
     const newCatalogList = remove(
       catalogList,
-      catalog => payload.catalogId !== catalog._id
+      catalog => payload.catalogId !== catalog.catalog_id
     );
     state.catalogList = [...newCatalogList];
   },

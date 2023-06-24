@@ -1,117 +1,66 @@
 const { Router } = require('express');
 const checkToken = require('../middlewares/checkToken');
 const chatController = require('../controllers/chatController');
-const chatController2 = require('../controllers/chatController2');
+
 
 const chatRouter = Router();
 
 chatRouter.get(
   '/getPreview',
   checkToken.checkToken,
-  chatController2.getPreview,
+  chatController.getPreview,
 );
 chatRouter.get(
   '/getChat',
   checkToken.checkToken,
-  chatController2.getChat,
+  chatController.getChat,
 );
 chatRouter.post(
   '/newMessage',
   checkToken.checkToken,
-  chatController2.addMessage,
+  chatController.addMessage,
 );
 chatRouter.patch(
   '/blackList',
   checkToken.checkToken,
-  chatController2.blackList,
+  chatController.blackList,
 );
 chatRouter.patch(
   '/favorite',
   checkToken.checkToken,
-  chatController2.favoriteChat,
+  chatController.favoriteChat,
 );
 chatRouter.post(
   '/createCatalog',
   checkToken.checkToken,
-  chatController2.createCatalog,
+  chatController.createCatalog,
 );
 chatRouter.get(
   '/getCatalogs',
   checkToken.checkToken,
-  chatController2.getCatalogs,
+  chatController.getCatalogs,
 );
 chatRouter.patch(
   '/updateNameCatalog',
   checkToken.checkToken,
-  chatController2.updateNameCatalog,
+  chatController.updateNameCatalog,
 );
 chatRouter.post(
   '/addNewChatToCatalog',
   checkToken.checkToken,
-  chatController2.addNewChatToCatalog,
-);
-chatRouter.patch(
-  '/removeChatFromCatalog',
-  checkToken.checkToken,
-  chatController2.removeChatFromCatalog,
-);
-// chatRouter.get(
-//   '/getPreview',
-//   checkToken.checkToken,
-//   chatController.getPreview,
-// );
-
-// chatRouter.get(
-//   '/getChat',
-//   checkToken.checkToken,
-//   chatController.getChat,
-// );
-// chatRouter.post(
-//   '/newMessage',
-//   checkToken.checkToken,
-//   chatController.addMessage,
-// );
-
-// chatRouter.patch(
-//   '/favorite',
-//   checkToken.checkToken,
-//   chatController.favoriteChat,
-// );
-// chatRouter.patch(
-//   '/blackList',
-//   checkToken.checkToken,
-//   chatController.blackList,
-// );
-// chatRouter.get(
-//   '/getCatalogs',
-//   checkToken.checkToken,
-//   chatController.getCatalogs,
-// );
-// chatRouter.post(
-//   '/addNewChatToCatalog',
-//   checkToken.checkToken,
-//   chatController.addNewChatToCatalog,
-// );
-// chatRouter.post(
-//   '/createCatalog',
-//   checkToken.checkToken,
-//   chatController.createCatalog,
-// );
-chatRouter.delete(
-  '/deleteCatalog',
-  checkToken.checkToken,
-  chatController.deleteCatalog,
+  chatController.addNewChatToCatalog,
 );
 chatRouter.patch(
   '/removeChatFromCatalog',
   checkToken.checkToken,
   chatController.removeChatFromCatalog,
 );
-// chatRouter.patch(
-//   '/updateNameCatalog',
-//   checkToken.checkToken,
-//   chatController.updateNameCatalog,
-// );
+chatRouter.post(
+  '/deleteCatalog',
+  checkToken.checkToken,
+  chatController.deleteCatalog,
+);
+
 
 module.exports = chatRouter;
 
