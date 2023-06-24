@@ -9,8 +9,11 @@ import Schems from '../../../../utils/validators/validationSchems';
 
 const ChatInput = (props) => {
   const { sendMessage, interlocutor } = props;
+  
+
   const submitHandler = (values, { resetForm }) => {
     sendMessage({
+      // isNew:isNew,
       messageBody: values.message,
       recipient: interlocutor.id,
       interlocutor: interlocutor,
@@ -48,9 +51,9 @@ const ChatInput = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const { interlocutor } = state.chatStore;
+  const { interlocutor, messages,isNew } = state.chatStore;
   const { data } = state.userStore;
-  return { interlocutor, data };
+  return { interlocutor, data ,messages,isNew};
 };
 
 const mapDispatchToProps = (dispatch) => ({
