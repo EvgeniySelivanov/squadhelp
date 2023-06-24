@@ -5,7 +5,7 @@ const config = require('../config/postgresConfig.json');
 const userQueries = require('./queries/userQueries');
 const chatQueries = require('./queries/chatQueries');
 const controller = require('../socketInit');
-const ServerError = require('../errors/ServerError');
+
 const sequelize = new Sequelize(
   config.development.database,
   config.development.username,
@@ -317,7 +317,6 @@ module.exports.favoriteChat = async (req, res, next) => {
     getBlackAndFavoritList.conversation_id = req.body.conversation_id;
     getBlackAndFavoritList.role = req.body.role;
     getBlackAndFavoritList.interlocutor = req.body.interlocutor;
-    console.log('getBlackAndFavoritList>>>>>>>>', getBlackAndFavoritList);
     res.send(getBlackAndFavoritList);
   } catch (err) {
     res.send(err);
