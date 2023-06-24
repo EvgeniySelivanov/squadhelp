@@ -326,21 +326,16 @@ module.exports.favoriteChat = async (req, res, next) => {
 
 module.exports.createCatalog = async (req, res, next) => {
   try {
-    console.log('inCatalog req.body>>>>', req.body);
     const catalog = await db.CatalogSqls.create({
       userId: req.tokenData.userId,
       catalogName: req.body.catalogName,
     });
     catalog.dataValues.chats = [req.body.chatId];
-    console.log('catalog>>>>', catalog);
-
     const senderToCatalog = await db.SenderToCatalogs.create({
       userId: req.tokenData.userId,
       conversationId: req.body.chatId,
       catalogId: catalog.dataValues.id,
     });
-    console.log('catalog senderToCatalog>>>>', senderToCatalog);
-
     res.send(catalog);
   } catch (err) {
     next(err);
@@ -389,27 +384,41 @@ module.exports.getCatalogs = async (req, res, next) => {
 module.exports.updateNameCatalog = async (req, res, next) => {
   try {
     const newName = await db.CatalogSqls.findByPk(req.body.catalogId);
-    const chats=await db.SenderToCatalogs.findAll({
-      attributes:['conversation_id'],
-      where:{
-        catalogId:req.body.catalogId,
-      },
-    });
-    const sendChats=[];
-    chats.forEach(element => {
-      sendChats.push(element.dataValues.conversation_id);
-    });
-
     if (newName) {
       newName.catalogName = req.body.catalogName;
       await newName.save();
-      newName.dataValues.chats=sendChats;
-      newName.dataValues._id=newName.dataValues.id;
+      newName.dataValues.chats = await chatQueries.findChatInCatalog(
+        req.body.catalogId,
+      );
+      newName.dataValues._id = newName.dataValues.id;
       delete newName.dataValues.id;
       res.send(newName);
     } else {
       console.log('Model not found.');
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.addNewChatToCatalog = async (req, res, next) => {
+  try {
+    const catalog = await db.CatalogSqls.findByPk(req.body.catalogId);
+    if (catalog) {
+      const newChatToCatalog = await db.SenderToCatalogs.create({
+        userId: req.tokenData.userId,
+        conversationId: req.body.chatId,
+        catalogId: req.body.catalogId,
+      });
+      newChatToCatalog.dataValues.chats = await chatQueries.findChatInCatalog(
+        req.body.catalogId,
+      );
+      newChatToCatalog.dataValues._id = newChatToCatalog.dataValues.catalogId;
+      newChatToCatalog.dataValues.catalogName = catalog.dataValues.catalogName;
+      delete newChatToCatalog.dataValues.catalogId;
+      delete newChatToCatalog.dataValues.id;
+      res.send(newChatToCatalog);
+    }else{console.log('Catalog not found >>>>');}
   } catch (err) {
     next(err);
   }

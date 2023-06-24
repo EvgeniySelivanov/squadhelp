@@ -45,6 +45,11 @@ chatRouter.patch(
   checkToken.checkToken,
   chatController2.updateNameCatalog,
 );
+chatRouter.post(
+  '/addNewChatToCatalog',
+  checkToken.checkToken,
+  chatController2.addNewChatToCatalog,
+);
 // chatRouter.get(
 //   '/getPreview',
 //   checkToken.checkToken,
@@ -77,11 +82,11 @@ chatRouter.patch(
 //   checkToken.checkToken,
 //   chatController.getCatalogs,
 // );
-chatRouter.post(
-  '/addNewChatToCatalog',
-  checkToken.checkToken,
-  chatController.addNewChatToCatalog,
-);
+// chatRouter.post(
+//   '/addNewChatToCatalog',
+//   checkToken.checkToken,
+//   chatController.addNewChatToCatalog,
+// );
 // chatRouter.post(
 //   '/createCatalog',
 //   checkToken.checkToken,

@@ -309,6 +309,8 @@ const changeCatalogNameExtraReducers = createExtraReducers({
     }
     state.catalogList = [...catalogList];
     state.currentCatalog = payload;
+    state.currentCatalog.catalog_id = payload._id;
+
     state.isRenameCatalog = false;
   },
   rejectedReducer: state => {
@@ -376,7 +378,6 @@ const reducers = {
   },
 
   changeShowModeCatalog: (state, { payload }) => {
-    console.log('changeShowModeCatalog',payload);
     state.currentCatalog = { ...state.currentCatalog, ...payload };
     state.isShowChatsInCatalog = !state.isShowChatsInCatalog;
     state.isRenameCatalog = false;

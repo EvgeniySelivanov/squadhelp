@@ -54,3 +54,17 @@ module.exports.getBlackAndFavoritList = async (conversationId, userId) => {
   );
   return result;
 };
+module.exports.findChatInCatalog = async (id) => {
+  console.log('chat query>>>>>>>>>>>', id);
+  const chats = await db.SenderToCatalogs.findAll({
+    attributes: ['conversation_id'],
+    where: {
+      catalogId:id,
+    },
+  });
+  const sendChats = [];
+  chats.forEach((element) => {
+    sendChats.push(element.dataValues.conversation_id);
+  });
+  return sendChats;
+};

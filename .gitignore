@@ -2,7 +2,7 @@
 .vscode/
 log.json
 archLog*.json
-./server/manual.sql
+*.sql
 ./server/requests
 
 ./client/node_modules
