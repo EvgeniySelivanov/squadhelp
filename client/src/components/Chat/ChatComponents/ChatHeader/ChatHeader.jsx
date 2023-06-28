@@ -13,7 +13,6 @@ const ChatHeader = props => {
   const {
     interlocutor: { avatar, firstName },
     backToDialogList,
-    chatData,
     chatPreview,
     userId,
     data,

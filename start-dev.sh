@@ -8,12 +8,12 @@
 started_at=$(date +"%s")
 
 echo "-----> Provisioning containers"
-docker-compose --file docker-compose-dev.yaml up
+docker compose --file docker-compose-dev.yaml up
 echo ""
 
 # Run Sequalize's migrations.
 echo "-----> Running application migrations"
-docker exec -it squadhelp_server-dev_1 sequelize db:migrate
+docker exec -it squadhelp-server-dev-1 sequelize db:migrate
 echo ""
 
 # Run Sequalize's seeds.

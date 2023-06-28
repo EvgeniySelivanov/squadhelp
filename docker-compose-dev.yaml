@@ -35,7 +35,7 @@ services:
   mongo-dev:
     image: mongo:4.4.6-bionic
     ports:
-      - "27017:27017"
+      - "12345:27017"
 
 
 
@@ -46,7 +46,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=todo-dev
     ports:
-      - "5432:5432"
+      - "12346:5432"
 
 volumes:
   server-dev:

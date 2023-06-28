@@ -54,7 +54,7 @@ if(this.props.userStore.data.role===CONSTANTS.CREATOR){
     date={new Date()}
   />
 );}
-   else if (this.props.contestByIdStore.offers[i].status != CONSTANTS.OFFER_STATUS_REJECTED&&this.props.contestByIdStore.offers[i].status != CONSTANTS.OFFER_STATUS_PENDING) {
+   else if (this.props.contestByIdStore.offers[i].status !== CONSTANTS.OFFER_STATUS_REJECTED&&this.props.contestByIdStore.offers[i].status !== CONSTANTS.OFFER_STATUS_PENDING) {
         array.push(
           <OfferBox
             data={this.props.contestByIdStore.offers[i]}

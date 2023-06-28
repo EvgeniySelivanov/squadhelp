@@ -12,7 +12,7 @@ COPY . .
 
 EXPOSE 5000
 
-RUN npm install
+RUN npm install --legacy-peer-deps install
 
 RUN chown -R node:node /client/node_modules
 

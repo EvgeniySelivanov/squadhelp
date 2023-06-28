@@ -8,7 +8,7 @@ import styles from '../ModeratorPage/ModeratorPage.module.scss';
 
 const Dashboard = props => {
   const { role, history } = props;
-  if (role && role != CONSTANTS.MODERATOR) {
+  if (role && role !== CONSTANTS.MODERATOR) {
     return (
       <div>
         <Header />
