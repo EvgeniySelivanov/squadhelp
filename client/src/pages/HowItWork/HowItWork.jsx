@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React,{useEffect} from 'react';
+import accordion from './Accordion';
 const dataText=[
   'Name For Sale',
   'Naming Contests ',
@@ -8,153 +8,14 @@ const dataText=[
    'Resources',
 ];
 
-const accordion=(coursePanel,courseAccordion,courseAccordionActive)=>{
-  for (let i = 0; i < courseAccordion.length; i++) {
-    //when one of the buttons are clicked run this function
-    courseAccordion[i].onclick = function() {
-    let panel = this.nextElementSibling;
-    /*if pannel is already open - minimize*/
-    if (panel.style.maxHeight){
-      //minifies current pannel if already open
-      panel.style.maxHeight = null;
-      //removes the 'active' class as toggle didnt work on browsers minus chrome
-      this.classList.remove("active");
 
 
-
-    } else { //pannel isnt open...
-      //goes through the buttons and removes the 'active' css (+ and -)
-      for (let j = 0; j < courseAccordionActive.length; j++) {
-        courseAccordionActive[j].classList.remove("active");
-      }
-      //Goes through and removes 'activ' from the css, also minifies any 'panels' that might be open
-      for (let k = 0; k < coursePanel.length; k++) {
-        this.classList.remove("active");
-        coursePanel[k].style.maxHeight = null;
-      }
-      //opens the specified pannel
-      panel.style.maxHeight = panel.scrollHeight + "px";
-      //adds the 'active' addition to the css.
-      courseAccordion[i].classList.add("active");
-    } 
-    }//closing to the acc onclick function
-  }//closing to the for loop.
-}
 
 const HowItWork = () => {
-  
-  const topFunction=()=> {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  const openMenu = () => {
-    if (
-      document.getElementById('navUl').style.display === 'block' &&
-      document.getElementById('regBtnNav').style.display === 'block'
-    ) {
-      document.getElementById('navUl').style.display = 'none';
-      document.getElementById('regBtnNav').style.display = 'none';
-      document.location.reload();
-    } else {
-      document.getElementById('navUl').style.display = 'block';
-      document.getElementById('regBtnNav').style.display = 'block';
-      createNav(dataText);
-    }
-  };
 
-  /**Scroll Back To Top */
-  window.onscroll = function () {
-    scrollFunction();
-  };
-
-   function scrollFunction() {
-    if (
-      document.body.scrollTop > 620 ||
-      document.documentElement.scrollTop > 620
-    ) {
-      document.getElementById('myBtn').style.display = 'block';
-    } else {
-      document.getElementById('myBtn').style.display = 'none';
-    }
-  }
-
-  function createElement(
-    tag = 'div',
-    { classNames, listeners, attrs, styles } = {},
-    ...children
-  ) {
-    const elem = document.createElement(tag);
-    if (classNames) {
-      elem.classList.add(...classNames);
-    }
-    if (listeners) {
-      for (const [typeEvent, handler] of Object.entries(listeners)) {
-        elem.addEventListener(typeEvent, handler);
-      }
-    }
-    if (attrs) {
-      for (const [typeAttr, valueAttr] of Object.entries(attrs)) {
-        elem.setAttribute(typeAttr, valueAttr);
-      }
-    }
-    if (styles) {
-      for (const [nameStyle, valueStyle] of Object.entries(styles)) {
-        elem.style[nameStyle] = valueStyle;
-      }
-    }
-    elem.append(...children);
-    return elem;
-  }
-
-   function createNav(dataText) {
-    for (let i = 0; i <= dataText.length; i++) {
-      let li = createElement(
-        'li',
-        { className: ['liNav'] },
-        createElement('div', {}, document.createTextNode(dataText[i])),
-        createElement(
-          'div',
-          {},
-          createElement('img', {
-            className: ['chevron'],
-            attrs: {
-              src: './images/icons/chevron-down.svg',
-              alt: 'no image',
-            },
-          })
-        )
-      );
-      document.getElementById('navUl').append(li);
-    }
-    let btn1 = createElement(
-      'button',
-      { classNames: ['btn1'] },
-      document.createTextNode('Login')
-    );
-    let btn2 = createElement(
-      'button',
-      { classNames: ['btn2'] },
-      document.createTextNode('Sign Up')
-    );
-    document.getElementById('regBtnNav').append(btn1);
-    document.getElementById('regBtnNav').append(btn2);
-  }
-  accordion(document.getElementsByClassName("course-panel"),
-  document.getElementsByClassName("course-accordion"),
-  document.getElementsByClassName("course-accordion active"));
-  
-  accordion(document.getElementsByClassName("course-panel2"),
-  document.getElementsByClassName("course-accordion2"),
-  document.getElementsByClassName("course-accordion2 active"));
-  
-  accordion(document.getElementsByClassName("course-panel3"),
-  document.getElementsByClassName("course-accordion3"),
-  document.getElementsByClassName("course-accordion3 active"));
-  
-  accordion(document.getElementsByClassName("course-panel4"),
-  document.getElementsByClassName("course-accordion4"),
-  document.getElementsByClassName("course-accordion4 active"));
-  return (
-    <>
+  const pageBody=()=>{
+    return(
+      <>
       <header className="headerLayout">
         <div>
           <a href="/">
@@ -1405,6 +1266,126 @@ const HowItWork = () => {
         </div>
       </footer>
     </>
+    )
+  }
+  const topFunction=()=> {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  const openMenu = () => {
+    if (
+      document.getElementById('navUl').style.display === 'block' &&
+      document.getElementById('regBtnNav').style.display === 'block'
+    ) {
+      document.getElementById('navUl').style.display = 'none';
+      document.getElementById('regBtnNav').style.display = 'none';
+      document.location.reload();
+    } else {
+      document.getElementById('navUl').style.display = 'block';
+      document.getElementById('regBtnNav').style.display = 'block';
+      createNav(dataText);
+    }
+  };
+
+  /**Scroll Back To Top */
+  window.onscroll = function () {
+    scrollFunction();
+  };
+
+   function scrollFunction() {
+    if (
+      document.body.scrollTop > 620 ||
+      document.documentElement.scrollTop > 620
+    ) {
+      document.getElementById('myBtn').style.display = 'block';
+    } else {
+      document.getElementById('myBtn').style.display = 'none';
+    }
+  }
+
+
+  function createElement(
+    tag = 'div',
+    { classNames, listeners, attrs, styles } = {},
+    ...children
+  ) {
+    const elem = document.createElement(tag);
+    if (classNames) {
+      elem.classList.add(...classNames);
+    }
+    if (listeners) {
+      for (const [typeEvent, handler] of Object.entries(listeners)) {
+        elem.addEventListener(typeEvent, handler);
+      }
+    }
+    if (attrs) {
+      for (const [typeAttr, valueAttr] of Object.entries(attrs)) {
+        elem.setAttribute(typeAttr, valueAttr);
+      }
+    }
+    if (styles) {
+      for (const [nameStyle, valueStyle] of Object.entries(styles)) {
+        elem.style[nameStyle] = valueStyle;
+      }
+    }
+    elem.append(...children);
+    return elem;
+  }
+
+   function createNav(dataText) {
+    for (let i = 0; i <= dataText.length; i++) {
+      let li = createElement(
+        'li',
+        { className: ['liNav'] },
+        createElement('div', {}, document.createTextNode(dataText[i])),
+        createElement(
+          'div',
+          {},
+          createElement('img', {
+            className: ['chevron'],
+            attrs: {
+              src: './images/icons/chevron-down.svg',
+              alt: 'no image',
+            },
+          })
+        )
+      );
+      document.getElementById('navUl').append(li);
+    }
+    let btn1 = createElement(
+      'button',
+      { classNames: ['btn1'] },
+      document.createTextNode('Login')
+    );
+    let btn2 = createElement(
+      'button',
+      { classNames: ['btn2'] },
+      document.createTextNode('Sign Up')
+    );
+    document.getElementById('regBtnNav').append(btn1);
+    document.getElementById('regBtnNav').append(btn2);
+  }
+  useEffect(() => {    
+    accordion(document.getElementsByClassName("course-panel"),
+    document.getElementsByClassName("course-accordion"),
+    document.getElementsByClassName("course-accordion active"));
+    
+    accordion(document.getElementsByClassName("course-panel2"),
+    document.getElementsByClassName("course-accordion2"),
+    document.getElementsByClassName("course-accordion2 active"));
+    
+    accordion(document.getElementsByClassName("course-panel3"),
+    document.getElementsByClassName("course-accordion3"),
+    document.getElementsByClassName("course-accordion3 active"));
+    
+    accordion(document.getElementsByClassName("course-panel4"),
+    document.getElementsByClassName("course-accordion4"),
+    document.getElementsByClassName("course-accordion4 active"));
+  },[]);
+
+
+
+  return (
+   <>{pageBody()}</>
   );
 };
 
