@@ -23,6 +23,7 @@
         ]
       }
     ],
+  
     "no-underscore-dangle": [
       "error",
       {
@@ -34,6 +35,9 @@
   },
   "env": {
     "jest": true,
-    "browser": true
+    "browser": true,
+    "node": true,
+    "es2020": true,
+    "es2022": true
   }
 }

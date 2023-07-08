@@ -170,7 +170,9 @@ class Header extends React.Component {
                   />
                   <ul>
                     <li>
-                      <a href="http://www.google.com">HOW IT WORKS</a>
+                      <Link to="/howitwork" style={{ textDecoration: 'none' }}>
+                  <span>HOW IT WORKS</span>
+                </Link>
                     </li>
                     <li>
                       <a href="http://www.google.com">PRICING</a>

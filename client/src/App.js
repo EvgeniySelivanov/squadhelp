@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import PrivateHoc from './components/PrivateHoc/PrivateHoc';
 import NotFound from './components/NotFound/NotFound';
 import Home from './pages/Home/Home';
+import HowItWork from './pages/HowItWork/HowItWork';
 import OnlyNotAuthorizedUserHoc from './components/OnlyNotAuthorizedUserHoc/OnlyNotAuthorizedUserHoc';
 import ContestPage from './pages/ContestPage/ContestPage';
 import UserProfile from './pages/UserProfile/UserProfile';
@@ -20,6 +21,7 @@ import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import EventsPage from './pages/EventsPage/EventsPage';
 import ModeratorPage from './pages/ModeratorPage/ModeratorPage';
+
 
 
 class App extends Component {
@@ -39,6 +41,7 @@ class App extends Component {
         />
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route exact path='/howitwork' component={HowItWork}/>
           <Route exact path='/moderation' component={PrivateHoc(ModeratorPage)} />
 
           <Route exact path='/events' component={PrivateHoc(EventsPage)} />
