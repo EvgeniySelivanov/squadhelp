@@ -1,5 +1,4 @@
 const db = require('../../models');
-const { Op } = require('sequelize');
 const { Sequelize } = require('sequelize');
 const config = require('../../config/postgresConfig.json');
 const ServerError = require('../../errors/ServerError');
@@ -55,7 +54,6 @@ module.exports.getBlackAndFavoritList = async (conversationId, userId) => {
   return result;
 };
 module.exports.findChatInCatalog = async (id) => {
-  console.log('chat query>>>>>>>>>>>', id);
   const chats = await db.SenderToCatalogs.findAll({
     attributes: ['conversation_id'],
     where: {

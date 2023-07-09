@@ -303,7 +303,7 @@ module.exports.getContests = (req, res, next) => {
       next(new ServerError(err));
     });
 };
-//////////////
+
 
 module.exports.getAllOffers = (req, res, next) => {
   db.Offers.findAll(

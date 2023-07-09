@@ -1285,7 +1285,6 @@ const HowItWork = () => {
       createNav(dataText);
     }
   };
-
   /**Scroll Back To Top */
   window.onscroll = function () {
     scrollFunction();
@@ -1301,8 +1300,6 @@ const HowItWork = () => {
       document.getElementById('myBtn').style.display = 'none';
     }
   }
-
-
   function createElement(
     tag = 'div',
     { classNames, listeners, attrs, styles } = {},
@@ -1330,7 +1327,6 @@ const HowItWork = () => {
     elem.append(...children);
     return elem;
   }
-
    function createNav(dataText) {
     for (let i = 0; i <= dataText.length; i++) {
       let li = createElement(
@@ -1381,8 +1377,6 @@ const HowItWork = () => {
     document.getElementsByClassName("course-accordion4"),
     document.getElementsByClassName("course-accordion4 active"));
   },[]);
-
-
 
   return (
    <>{pageBody()}</>
