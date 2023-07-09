@@ -1,7 +1,6 @@
 import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import CONSTANTS from '../../constants';
-
 import styles from './OfferBox.module.sass';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './confirmStyle.css';
@@ -76,6 +75,7 @@ const OfferBoxModerator = (props) => {
             </div>
           </div>
         </div>
+        <div className={styles.nameAndEmail}>Offer Name: {props.offers.id}_{firstName}_{email}</div>
         <div className={styles.nameAndEmail}>Offer text: {props.offers.text}</div>
       </div>
       
