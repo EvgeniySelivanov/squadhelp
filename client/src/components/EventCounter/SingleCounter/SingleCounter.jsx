@@ -9,7 +9,7 @@ const SingleCounter = (props) => {
   }
   const [time, setTime] = useState(initialState);
   const [timePass, setPassTime] = useState(initialStatePass);
-  const { event: { eventName, eventTime, createdAt,reminderDate } } = props;
+  const { event: { eventName, eventTime, createdAt,reminderDate }, keyLocalStorage,deleteTimer} = props;
   useEffect(() => {
     myClock(eventTime);
     myClockPassed(eventTime, createdAt);
@@ -92,6 +92,9 @@ const SingleCounter = (props) => {
     maxWidth: "600px",
     height: "60px"
   }
+const killEvernt=()=>{
+  deleteTimer(keyLocalStorage);
+}
   return (
     <>
       <div className={styles.main}>
@@ -108,6 +111,7 @@ const SingleCounter = (props) => {
             <p>Hours left: {time.hours}</p>
             <p>Minutes left: {time.minutes}</p>
             <p>Seconds left: {time.seconds}</p>
+            <button onClick={killEvernt}>DELETE TIMER</button>
           </div>
           <div>
             {Date.parse(reminderDate)<=Date.parse(new Date())?<div><img src="/staticImages/warning.webp" alt="" /><p>Reminder!</p></div>:<></>}
