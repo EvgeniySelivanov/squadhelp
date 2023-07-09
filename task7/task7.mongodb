@@ -1,2 +1,2 @@
-use('shm-chat');
-db.messages.find({body:'паровоз'}).count();
+use ('shm-chat');
+db.messages.find({body:{$regex:/паровоз/i}}).count();
