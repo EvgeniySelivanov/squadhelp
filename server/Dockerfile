@@ -14,7 +14,7 @@ COPY package*.json ./
 RUN npm install -g nodemon
 RUN npm install -g sequelize-cli
 
-RUN npm install
+RUN npm --legacy-peer-deps install
 
 RUN chown -R node:node /server/node_modules
 
